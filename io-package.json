@@ -1,0 +1,92 @@
+{
+    "common": {
+        "name": "eebus-go",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "uk": "Початкова версія",
+                "zh-cn": "首次出版"
+            }
+        },
+        "titleLang": {
+            "en": "EEBUS HEMS",
+            "de": "EEBUS HEMS",
+            "ru": "ЭЕВУС ХМС",
+            "pt": "EEBUS BAINHAS",
+            "nl": "EEBUS-ZOMEN",
+            "fr": "OURLETS EEBUS",
+            "it": "ORLI EEBUS",
+            "es": "DOBLADILLOS EEBUS",
+            "pl": "EEBUS HEMS",
+            "uk": "EEBUS HEMS",
+            "zh-cn": "EEBUS HEMS"
+        },
+        "desc": {
+            "en": "eebus grpc client for a hems",
+            "de": "eebus GRPC-Client für einen Saum",
+            "ru": "Клиент eebus grpc для рубки",
+            "pt": "cliente eebus grpc para bainhas",
+            "nl": "eebus grpc-client voor zomen",
+            "fr": "client eebus grpc pour un ourlet",
+            "it": "client eebus grpc per un hems",
+            "es": "Cliente eebus grpc para dobladillos",
+            "pl": "Klient eebus grpc dla obszyć",
+            "uk": "eebus grpc клієнт для hems",
+            "zh-cn": "用于下摆的 eebus grpc 客户端"
+        },
+        "authors": [
+            "FernetMenta <fernetmenta@online.de>"
+        ],
+        "keywords": [
+            "eebus",
+            "eebus-go",
+            "iobroker",
+            "hems"
+        ],
+        "licenseInformation": {
+            "type": "free",
+            "license": "GPL-3.0"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "eebus-go.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
+        "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
+        "loglevel": "info",
+        "tier": 3,
+        "mode": "daemon",
+        "type": "iot-systems",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "adminUI": {
+            "config": "materialize",
+            "tab": "materialize"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.0.23"
+            }
+        ]
+    },
+    "native": {
+        "option12": true,
+        "option22": "42"
+    },
+    "objects": [],
+    "instanceObjects": []
+}
