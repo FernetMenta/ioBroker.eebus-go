@@ -27,7 +27,7 @@ function copyAllFiles() {
     );
 
     copyFiles(`${SRC}/build/index.html`, 'admin');
-    fs.rename('admin/index.html', 'admin/index_m.html', () => { });
+    fs.rename('admin/index.html', 'admin/index_m.html', () => {});
 
     copyFiles(`${SRC}/build/static/js/main.*.chunk.js`, 'admin/static/js');
 }
