@@ -1,0 +1,182 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/control_service";
+
+package control_service;
+
+enum SharedType {
+    INVERTER = 0;
+    
+}
+
+message DeviceCategory {
+    enum Enum {
+        UNKNOWN = 0;
+        GRID_CONNECTION_HUB = 1;
+        ENERGY_MANAGEMENT_SYSTEM = 2;
+        E_MOBILITY = 3;
+        HVAC = 4;
+        INVERTER = 5;
+        DOMESTIC_APPLIANCE = 6;
+        METERING = 7;
+    }
+}
+
+
+message EntityType {
+    enum Enum {
+        UNKNOWN = 0;
+        Battery = 1;
+        Compressor = 2;
+        DeviceInformation = 3;
+        DHWCircuit = 4;
+        DHWStorage = 5;
+        Dishwasher = 6;
+        Dryer = 7;
+        ElectricalImmersionHeater = 8;
+        Fan = 9;
+        GasHeatingAppliance = 10;
+        Generic = 11;
+        HeatingBufferStorage = 12;
+        HeatingCircuit = 13;
+        HeatingObject = 14;
+        HeatingZone = 15;
+        HeatPumpAppliance = 16;
+        HeatSinkCircuit = 17;
+        HeatSourceCircuit = 18;
+        HeatSourceUnit = 19;
+        HvacController = 20;
+        HvacRoom = 21;
+        InstantDHWHeater = 22;
+        Inverter = 23;
+        OilHeatingAppliance = 24;
+        Pump = 25;
+        RefrigerantCircuit = 26;
+        SmartEnergyAppliance = 27;
+        SolarDHWStorage = 28;
+        SolarThermalCircuit = 29;
+        SubMeterElectricity = 30;
+        TemperatureSensor = 31;
+        Washer = 32;
+        BatterySystem = 33;
+        ElectricityGenerationSystem = 34;
+        ElectricityStorageSystem = 35;
+        GridConnectionPointOfPremises = 36;
+        Household = 37;
+        PVSystem = 38;
+        EV = 39;
+        EVSE = 40;
+        ChargingOutlet = 41;
+        CEM = 42;
+        PV = 43;
+        PVESHybrid = 44;
+        ElectricalStorage = 45;
+        PVString = 46;
+        GridGuard = 47;
+        ControllableSystem = 48;
+    }
+}
+
+message DeviceType {
+    enum Enum {
+        UNKNOWN = 0;
+        DISHWASHER = 1;
+        DRYER = 2;
+        ENVIRONMENT_SENSOR = 3;
+        GENERIC = 4;
+        HEAT_GENERATION_SYSTEM = 5;
+        HEAT_SINK_SYSTEM = 6;
+        HEAT_STORAGE_SYSTEM = 7;
+        HVAC_CONTROLLER = 8;
+        SUBMETER = 9;
+        WASHER = 10;
+        ELECTRICITY_SUPPLY_SYSTEM = 11;
+        ENERGY_MANAGEMENT_SYSTEM = 12;
+        INVERTER = 13;
+        CHARGING_STATION = 14;
+    }
+}
+
+message UseCase {
+    message ActorType {
+        enum Enum {
+            UNKNOWN = 0;
+            Battery = 1;
+            BatterySystem = 2;
+            CEM = 3;
+            ConfigurationAppliance = 4;
+            Compressor = 5;
+            ControllableSystem = 6;
+            DHWCircuit = 7;
+            EnergyBroker = 8;
+            EnergyConsumer = 9;
+            EnergyGuard = 10;
+            EVSE = 11;
+            EV = 12;
+            GridConnectionPoint = 13;
+            HeatPump = 14;
+            HeatingCircuit = 15;
+            HeatingZone = 16;
+            HVACRoom = 17;
+            Inverter = 18;
+            MonitoredUnit = 19;
+            MonitoringAppliance = 20;
+            OutdoorTemperatureSensor = 21;
+            PVString = 22;
+            PVSystem = 23;
+            SmartAppliance = 24;
+            VisualizationAppliance = 25;
+        }
+    }
+    message NameType {
+        enum Enum {
+            UNKNOWN = 0;
+            configurationOfDhwSystemFunction = 1;
+            configurationOfDhwTemperature = 2;
+            configurationOfRoomCoolingSystemFunction = 3;
+            configurationOfRoomCoolingTemperature = 4;
+            configurationOfRoomHeatingSystemFunction = 5;
+            configurationOfRoomHeatingTemperature = 6;
+            controlOfBattery = 7;
+            coordinatedEvCharging = 8;
+            evChargingSummary = 9;
+            evCommissioningAndConfiguration = 10;
+            evseCommissioningAndConfiguration = 11;
+            evStateOfCharge = 12;
+            flexibleLoad = 13;
+            flexibleStartForWhiteGoods = 14;
+            limitationOfPowerConsumption = 15;
+            limitationOfPowerProduction = 16;
+            incentiveTableBasedPowerConsumptionManagement = 17;
+            measurementOfElectricityDuringEvCharging = 18;
+            monitoringAndControlOfSmartGridReadyConditions = 19;
+            monitoringOfBattery = 20;
+            monitoringOfDhwSystemFunction = 21;
+            monitoringOfDhwTemperature = 22;
+            monitoringOfGridConnectionPoint = 23;
+            monitoringOfInverter = 24;
+            monitoringOfOutdoorTemperature = 25;
+            monitoringOfPowerConsumption = 26;
+            monitoringOfPvString = 27;
+            monitoringOfRoomCoolingSystemFunction = 28;
+            monitoringOfRoomHeatingSystemFunction = 29;
+            monitoringOfRoomTemperature = 30;
+            optimizationOfSelfConsumptionByHeatPumpCompressorFlexibility = 31;
+            optimizationOfSelfConsumptionDuringEvCharging = 32;
+            overloadProtectionByEvChargingCurrentCurtailment = 33;
+            visualizationOfAggregatedBatteryData = 34;
+            visualizationOfAggregatedPhotovoltaicData = 35;
+            visualizationOfHeatingAreaName = 36;
+        }
+    }
+    ActorType.Enum actor = 1;
+    NameType.Enum name = 2;
+}
+
+message UseCaseEvent {
+    UseCase use_case = 1;
+    string event = 2;
+}

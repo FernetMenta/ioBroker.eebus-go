@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/cs/lpc";
+
+package cs_lpc;
+
+import "usecases/cs/lpc/messages.proto";
+
+service ControllableSystemLPCControl {
+    rpc ConsumptionLimit (ConsumptionLimitRequest) returns (ConsumptionLimitResponse) {}
+    rpc SetConsumptionLimit (SetConsumptionLimitRequest) returns (SetConsumptionLimitResponse) {}
+    rpc PendingConsumptionLimit (PendingConsumptionLimitRequest) returns (PendingConsumptionLimitResponse) {}
+    rpc ApproveOrDenyConsumptionLimit (ApproveOrDenyConsumptionLimitRequest) returns (ApproveOrDenyConsumptionLimitResponse) {}
+    rpc FailsafeConsumptionActivePowerLimit (FailsafeConsumptionActivePowerLimitRequest) returns (FailsafeConsumptionActivePowerLimitResponse) {}
+    rpc SetFailsafeConsumptionActivePowerLimit (SetFailsafeConsumptionActivePowerLimitRequest) returns (SetFailsafeConsumptionActivePowerLimitResponse) {}
+    rpc FailsafeDurationMinimum (FailsafeDurationMinimumRequest) returns (FailsafeDurationMinimumResponse) {}
+    rpc SetFailsafeDurationMinimum (SetFailsafeDurationMinimumRequest) returns (SetFailsafeDurationMinimumResponse) {}
+    rpc StartHeartbeat (StartHeartbeatRequest) returns (StartHeartbeatResponse) {}
+    rpc StopHeartbeat (StopHeartbeatRequest) returns (StopHeartbeatResponse) {}
+    rpc IsHeartbeatWithinDuration (IsHeartbeatWithinDurationRequest) returns (IsHeartbeatWithinDurationResponse) {}
+    rpc ConsumptionNominalMax (ConsumptionNominalMaxRequest) returns (ConsumptionNominalMaxResponse) {}
+    rpc SetConsumptionNominalMax (SetConsumptionNominalMaxRequest) returns (SetConsumptionNominalMaxResponse) {}
+}

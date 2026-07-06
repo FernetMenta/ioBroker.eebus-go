@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/common_types";
+
+package common_types;
+
+message LoadLimit {
+    int64 duration_nanoseconds = 1;
+    bool is_changeable = 2;
+    bool is_active = 3;
+    double value = 4;
+    bool delete_duration = 5;
+}
+
+message EntityAddress {
+    repeated uint32 entity_address = 1;
+}

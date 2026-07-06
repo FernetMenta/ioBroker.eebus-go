@@ -1,0 +1,105 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/cs/lpc";
+
+package cs_lpc;
+
+import "common_types/types.proto";
+
+message ConsumptionLimitRequest {
+}
+
+message ConsumptionLimitResponse {
+    common_types.LoadLimit load_limit = 1;
+}
+
+message SetConsumptionLimitRequest {
+    common_types.LoadLimit load_limit = 1;
+}
+
+message SetConsumptionLimitResponse {
+}
+
+message PendingConsumptionLimitRequest {
+}
+
+message PendingConsumptionLimitResponse {
+    map<uint64, common_types.LoadLimit> load_limits = 1;
+}
+
+message ApproveOrDenyConsumptionLimitRequest {
+    uint64 msg_counter = 1;
+    bool approve = 2;
+    string reason = 3;
+}
+
+message ApproveOrDenyConsumptionLimitResponse {
+}
+
+message FailsafeConsumptionActivePowerLimitRequest {
+}
+
+message FailsafeConsumptionActivePowerLimitResponse {
+    double limit = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeConsumptionActivePowerLimitRequest {
+    double value = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeConsumptionActivePowerLimitResponse {
+}
+
+message FailsafeDurationMinimumRequest {
+}
+
+message FailsafeDurationMinimumResponse {
+    int64 duration_nanoseconds = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeDurationMinimumRequest {
+    int64 duration_nanoseconds = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeDurationMinimumResponse {
+}
+
+message StartHeartbeatRequest {
+}
+
+message StartHeartbeatResponse {
+}
+
+message StopHeartbeatRequest {
+}
+
+message StopHeartbeatResponse {
+}
+
+message IsHeartbeatWithinDurationRequest {
+}
+
+message IsHeartbeatWithinDurationResponse {
+    bool is_within_duration = 1;
+}
+
+message ConsumptionNominalMaxRequest {
+}
+
+message ConsumptionNominalMaxResponse {
+    double value = 1;
+}
+
+message SetConsumptionNominalMaxRequest {
+    double value = 1;
+}
+
+message SetConsumptionNominalMaxResponse {
+}

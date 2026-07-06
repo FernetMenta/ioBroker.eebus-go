@@ -1,0 +1,100 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/eg/lpc";
+
+package eg_lpc;
+
+import "common_types/types.proto";
+
+message ConsumptionLimitRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+}
+
+message ConsumptionLimitResponse {
+    common_types.LoadLimit limit = 1;
+}
+
+message WriteConsumptionLimitRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+    common_types.LoadLimit limit = 3;
+}
+
+message WriteConsumptionLimitResponse {
+    optional uint64 error_number = 1;
+    optional string description = 2;
+    uint64 msg_counter = 3;
+}
+
+message FailsafeConsumptionActivePowerLimitRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+}
+
+message FailsafeConsumptionActivePowerLimitResponse {
+    double limit = 1;
+}
+
+message WriteFailsafeConsumptionActivePowerLimitRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+    double limit = 3;
+
+}
+
+message WriteFailsafeConsumptionActivePowerLimitResponse {
+    uint64 msg_counter = 1;
+}
+
+message FailsafeDurationMinimumRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+}
+
+message FailsafeDurationMinimumResponse {
+    uint64 duration_nanoseconds = 1;
+}
+
+message WriteFailsafeDurationMinimumRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+    uint64 duration_nanoseconds = 3;
+}
+
+message WriteFailsafeDurationMinimumResponse {
+    uint64 msg_counter = 1;
+}
+
+message StartHeartbeatRequest {
+}
+
+message StartHeartbeatResponse {
+}
+
+message StopHeartbeatRequest {
+}
+
+message StopHeartbeatResponse {
+}
+
+message IsHeartbeatWithinDurationRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+}
+
+message IsHeartbeatWithinDurationResponse {
+    bool within_duration = 1;
+}
+
+message ConsumptionNominalMaxRequest {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+}
+
+message ConsumptionNominalMaxResponse {
+    double consumption_nominal_max = 1;
+}

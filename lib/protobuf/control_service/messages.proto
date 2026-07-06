@@ -1,0 +1,82 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/control_service";
+
+package control_service;
+
+import "control_service/types.proto";
+import "common_types/types.proto";
+
+message EmptyRequest {
+}
+
+message EmptyResponse {
+}
+
+message SetConfigRequest {
+    uint32 port = 1;
+    string vendor_code = 2;
+    string device_brand = 3;
+    string device_model = 4;
+    string serial_number = 5;
+    repeated DeviceCategory.Enum device_categories = 6;
+    DeviceType.Enum device_type = 7;
+    repeated EntityType.Enum entity_types = 8;
+    uint32 heartbeat_timeout_seconds = 9;
+}
+
+message AddEntityRequest {
+    EntityType.Enum type = 1;
+    common_types.EntityAddress address = 2;
+}
+
+message RemoveEntityRequest {
+    common_types.EntityAddress address = 1;
+}
+
+message AddUseCaseRequest {
+    common_types.EntityAddress entity_address = 1;
+    UseCase use_case = 2;
+}
+
+message AddUseCaseResponse {
+    string endpoint = 1;
+}
+
+message RegisterRemoteSkiRequest {
+    string remote_ski = 1;
+}
+
+message SubscribeUseCaseEventsRequest {
+    common_types.EntityAddress entity_address = 1;
+    UseCase use_case = 2;
+}
+
+message SubscribeUseCaseEventsResponse {
+    string remote_ski = 1;
+    common_types.EntityAddress remote_entity_address = 2;
+    UseCaseEvent use_case_event = 3;
+}
+
+message SubscribeDiscoveryEventsRequest {
+    // Reserved for future filters (e.g., by device_type).
+}
+
+message DiscoveryEvent {
+    enum Type {
+        UNKNOWN = 0;
+        DISCOVERED = 1;
+        REMOVED = 2;
+    }
+    Type type = 1;              // kind of event: a peer appeared or disappeared from mDNS
+    string remote_ski = 2;       // normalized hex, lowercase
+    string ship_identifier = 3;  // mDNS `id=` TXT — maps to RemoteService.Identifier
+    string brand = 4;            // mDNS `brand=` TXT
+    string model = 5;            // mDNS `model=` TXT
+    string device_type = 6;      // mDNS `type=` TXT — maps to RemoteService.Type
+    string serial = 7;           // mDNS `serial=` TXT (optional)
+    bool is_trusted = 8;         // snapshot of sidecar trust state at event time; see RegisterRemoteSki
+}

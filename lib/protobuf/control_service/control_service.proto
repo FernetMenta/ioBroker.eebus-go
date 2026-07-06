@@ -1,0 +1,52 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/control_service";
+
+package control_service;
+
+import "control_service/messages.proto";
+
+service ControlService {
+    // Starts the EEBus service
+    rpc StartService (EmptyRequest) returns (EmptyResponse) {}
+
+    // Stops the EEBus service
+    rpc StopService (EmptyRequest) returns (EmptyResponse) {}
+
+    // Reset the EEBus service
+    rpc ResetService (EmptyRequest) returns (EmptyResponse) {}
+
+    // Set Config for the EEBus service
+    // Each parameter is optional. If a parameter is not set, the current value is used.
+    rpc SetConfig (SetConfigRequest) returns (EmptyResponse) {}
+
+    // Starts Setup() for the EEBus service
+    rpc StartSetup (EmptyRequest) returns (EmptyResponse) {}
+
+    // Adds a new entity to the EEBus service
+    rpc AddEntity (AddEntityRequest) returns (EmptyResponse) {}
+
+    // Removes an entity from the EEBus service
+    rpc RemoveEntity (RemoveEntityRequest) returns (EmptyResponse) {}
+
+    // Register remote SKI to the EEBus service
+    rpc RegisterRemoteSki (RegisterRemoteSkiRequest) returns (EmptyResponse) {}
+
+    // Adds an usecase to the EEBus service
+    rpc AddUseCase (AddUseCaseRequest) returns (AddUseCaseResponse) {}
+
+    // Subscribes to usecase events
+    rpc SubscribeUseCaseEvents (SubscribeUseCaseEventsRequest) returns (stream SubscribeUseCaseEventsResponse) {}
+
+    // Subscribes to discovery events (DISCOVERED / REMOVED) for remote EEBUS
+    // services seen on the local network via mDNS / SHIP.
+    //
+    // Delivery is best-effort: each subscriber has a finite buffer and events
+    // may be dropped if the client is slow to consume. On subscribe, the
+    // current set of visible services is replayed as DISCOVERED events before
+    // any live events are forwarded (atomic — no duplicate replay events).
+    rpc SubscribeDiscoveryEvents (SubscribeDiscoveryEventsRequest) returns (stream DiscoveryEvent) {}
+}

@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/eg/lpc";
+
+package eg_lpc;
+
+import "usecases/eg/lpc/messages.proto";
+
+service EnergyGuardLPCControl {
+    rpc ConsumptionLimit (ConsumptionLimitRequest) returns (ConsumptionLimitResponse) {}
+    rpc WriteConsumptionLimit (WriteConsumptionLimitRequest) returns (WriteConsumptionLimitResponse) {}
+    rpc FailsafeConsumptionActivePowerLimit (FailsafeConsumptionActivePowerLimitRequest) returns (FailsafeConsumptionActivePowerLimitResponse) {}
+    rpc WriteFailsafeConsumptionActivePowerLimit (WriteFailsafeConsumptionActivePowerLimitRequest) returns (WriteFailsafeConsumptionActivePowerLimitResponse) {}
+    rpc FailsafeDurationMinimum (FailsafeDurationMinimumRequest) returns (FailsafeDurationMinimumResponse) {}
+    rpc WriteFailsafeDurationMinimum (WriteFailsafeDurationMinimumRequest) returns (WriteFailsafeDurationMinimumResponse) {}
+    rpc StartHeartbeat (StartHeartbeatRequest) returns (StartHeartbeatResponse) {}
+    rpc StopHeartbeat (StopHeartbeatRequest) returns (StopHeartbeatResponse) {}
+    rpc IsHeartbeatWithinDuration (IsHeartbeatWithinDurationRequest) returns (IsHeartbeatWithinDurationResponse) {}
+    rpc ConsumptionNominalMax (ConsumptionNominalMaxRequest) returns (ConsumptionNominalMaxResponse) {}
+}
