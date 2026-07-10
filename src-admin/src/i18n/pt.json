@@ -1,3 +1,24 @@
 {
-  "(Instance not running)": "(A instância não está em execução)"
+    "(Instance not running)": "(Instance not running)",
+    "Add EEBUS": "Add EEBUS",
+    "Add Manual": "Add Manual",
+    "Base Config": "Base Config",
+    "Brand": "Brand",
+    "Cancel": "Cancel",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Discovered Devices",
+    "Energy Guards": "Energy Guards",
+    "Heartbeat Timeout (seconds)": "Heartbeat Timeout (seconds)",
+    "Min Approval Limit (W)": "Min Approval Limit (W)",
+    "Model": "Model",
+    "Name": "Name",
+    "No discovered devices available": "No discovered devices available",
+    "Remove": "Remove",
+    "Select Discovered Device": "Select Discovered Device",
+    "Serial Number": "Serial Number",
+    "Service Port": "Service Port",
+    "Trusted": "Trusted",
+    "Type": "Typ",
+    "Use selected SKI as ControlBox SKI": "Use selected SKI as ControlBox SKI",
+    "gRPC Endpoint": "gRPC Endpoint"
 }

@@ -9,6 +9,7 @@ import Box from '@mui/material/Box';
 import { GenericApp, Router, Loader, I18n } from '@iobroker/adapter-react-v5';
 
 const TabBaseConfig = React.lazy(() => import('./Tabs/BaseConfig'));
+const TabEnergyGuards = React.lazy(() => import('./Tabs/EnergyGuardsConfig'));
 
 const styles = {
     root: {},
@@ -71,10 +72,12 @@ class App extends GenericApp {
         const tab = this.state.selectedTab;
         if (!tab || tab === 'config') {
             return 0;
-        } else if (tab === 'processdata') {
+        } else if (tab === 'energyguards') {
             return 1;
-        } else if (tab === 'settings') {
+        } else if (tab === 'processdata') {
             return 2;
+        } else if (tab === 'settings') {
+            return 3;
         }
     }
 
@@ -95,6 +98,10 @@ class App extends GenericApp {
                             label={I18n.t('Base Config')}
                             data-name="config"
                         />
+                        <Tab
+                            label={I18n.t('Energy Guards')}
+                            data-name="energyguards"
+                        />
                     </Tabs>
                 </AppBar>
 
@@ -106,6 +113,25 @@ class App extends GenericApp {
                         {(this.state.selectedTab === 'config' || !this.state.selectedTab) && (
                             <TabBaseConfig
                                 key="config"
+                                common={this.common}
+                                socket={this.socket}
+                                native={this.state.native}
+                                onError={text =>
+                                    this.setState({
+                                        errorText:
+                                            (text || text === 0) && typeof text !== 'string' ? text.toString() : text,
+                                    })
+                                }
+                                onLoad={native => this.onLoadConfig(native)}
+                                instance={this.instance}
+                                adapterName={this.adapterName}
+                                changed={this.state.changed}
+                                onChange={(attr, value, cb) => this.updateNativeValue(attr, value, cb)}
+                            />
+                        )}
+                        {this.state.selectedTab === 'energyguards' && (
+                            <TabEnergyGuards
+                                key="energyguards"
                                 common={this.common}
                                 socket={this.socket}
                                 native={this.state.native}

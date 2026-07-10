@@ -1,7 +1,7 @@
 // ioBroker eslint template configuration file for js and ts files
 // Please note that esm or react based modules need additional modules loaded.
 import config from '@iobroker/eslint-config';
-import globals from "globals";
+import globals from 'globals';
 
 export default [
     ...config,
@@ -21,20 +21,21 @@ export default [
             'admin/admin.d.ts',
             'dist',
             '**/adapter-config.d.ts',
-            'widgets/**/*.js'
+            'widgets/**/*.js',
+            'lib/energy-guard.test.js',
         ],
     },
 
     {
         languageOptions: {
             ecmaVersion: 2022,
-            sourceType: "module",
+            sourceType: 'module',
             globals: {
                 ...globals.browser,
                 ...globals.node,
-                myCustomGlobal: "readonly"
-            }
-        }
+                myCustomGlobal: 'readonly',
+            },
+        },
         // ...other config
     },
 

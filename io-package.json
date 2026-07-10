@@ -43,15 +43,8 @@
             "uk": "eebus grpc клієнт для hems",
             "zh-cn": "用于下摆的 eebus grpc 客户端"
         },
-        "authors": [
-            "FernetMenta <fernetmenta@online.de>"
-        ],
-        "keywords": [
-            "eebus",
-            "eebus-go",
-            "iobroker",
-            "hems"
-        ],
+        "authors": ["FernetMenta <fernetmenta@online.de>"],
+        "keywords": ["eebus", "eebus-go", "iobroker", "hems"],
         "licenseInformation": {
             "type": "free",
             "license": "GPL-3.0"
@@ -84,9 +77,58 @@
         ]
     },
     "native": {
-        "option12": true,
-        "option22": "42"
+        "grpcEndpoint": "localhost:50051",
+        "servicePort": 4715,
+        "serialNumber": "123456",
+        "heartbeatTimeoutSeconds": 30,
+        "controlboxSki": "",
+        "minApprovalLimit": 4200,
+        "discoveredDevices": {},
+        "energyGuards": []
     },
     "objects": [],
-    "instanceObjects": []
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "gRPC connection status",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.state",
+            "type": "state",
+            "common": {
+                "role": "text",
+                "name": "HEMS FSM state",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "init"
+            },
+            "native": {}
+        },
+        {
+            "_id": "EnergyGuards",
+            "type": "folder",
+            "common": {
+                "name": "Energy Guards"
+            },
+            "native": {}
+        }
+    ]
 }

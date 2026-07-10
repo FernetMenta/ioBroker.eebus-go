@@ -1,3 +1,24 @@
 {
-  "(Instance not running)": "(Instance is niet actief)"
+    "(Instance not running)": "(Instantie draait niet)",
+    "Add EEBUS": "EEBUS toevoegen",
+    "Add Manual": "Handleiding toevoegen",
+    "Base Config": "Basisconfiguratie",
+    "Brand": "Merk",
+    "Cancel": "Annuleren",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Gedetecteerde apparaten",
+    "Energy Guards": "Energy Guards",
+    "Heartbeat Timeout (seconds)": "Time-out hartslagtijd (seconden)",
+    "Min Approval Limit (W)": "Minimale goedkeuringslimiet (W)",
+    "Model": "Model",
+    "Name": "Naam",
+    "No discovered devices available": "Er zijn geen ontdekte apparaten beschikbaar",
+    "Remove": "Verwijderen",
+    "Select Discovered Device": "Selecteer het gevonden apparaat",
+    "Serial Number": "Serienummer",
+    "Service Port": "Servicepoort",
+    "Trusted": "Betrouwbaar",
+    "Type": "Type",
+    "Use selected SKI as ControlBox SKI": "Gebruik de geselecteerde SKI als ControlBox-SKI",
+    "gRPC Endpoint": "gRPC-eindpunt"
 }

@@ -1,3 +1,24 @@
 {
-  "(Instance not running)": "(Экземпляр не запущен)"
+    "(Instance not running)": "(Экземпляр не запущен)",
+    "Add EEBUS": "Добавить EEBUS",
+    "Add Manual": "Добавить руководство",
+    "Base Config": "Базовая конфигурация",
+    "Brand": "Бренд",
+    "Cancel": "Отменить",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Обнаруженные устройства",
+    "Energy Guards": "Энергетические стражи",
+    "Heartbeat Timeout (seconds)": "Таймаут проверки работы сервера (секунды)",
+    "Min Approval Limit (W)": "Минимальный предел одобрения (W)",
+    "Model": "Модель",
+    "Name": "Имя",
+    "No discovered devices available": "Нет доступных обнаруженных устройств",
+    "Remove": "Удалить",
+    "Select Discovered Device": "Выбрать обнаруженное устройство",
+    "Serial Number": "Серийный номер",
+    "Service Port": "Сервисный порт",
+    "Trusted": "Надежный",
+    "Type": "Тип",
+    "Use selected SKI as ControlBox SKI": "Использовать выбранный SKI в качестве SKI для ControlBox",
+    "gRPC Endpoint": "Конечная точка gRPC"
 }

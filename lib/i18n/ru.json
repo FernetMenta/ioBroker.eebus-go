@@ -1,0 +1,10 @@
+{
+    "Connected": "Подключено",
+    "Current Limit": "Предел тока",
+    "EEBUS Connected": "EEBUS Connected",
+    "Failsafe Limit": "Предел отказоустойчивости",
+    "Heartbeat": "Сердцебиение",
+    "Last Heartbeat": "«Последний удар сердца»",
+    "Limit Active": "Ограничить активные",
+    "Percentage": "Процент"
+}

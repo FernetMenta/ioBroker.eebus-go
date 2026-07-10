@@ -1,3 +1,9 @@
 {
-  "(Instance not running)": "(L'instance n'est pas en cours d'exécution)"
+    "(Instance not running)": "(L'instance n'est pas en cours d'exécution)",
+    "Add EEBUS": "Ajouter EEBUS",
+    "Add Manual": "Ajouter un manuel",
+    "Base Config": "Configuration de base",
+    "Brand": "Marque",
+    "Cancel": "Annuler",
+    "ControlBox SKI": "ControlBox SKI"
 }

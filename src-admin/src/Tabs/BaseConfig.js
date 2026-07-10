@@ -1,18 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-    TextField,
-    InputLabel,
-    FormControl,
-    IconButton,
-    InputAdornment,
-    Input,
-    FormControlLabel,
-    Checkbox,
-} from '@mui/material';
-
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { TextField, Button, Box } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import { I18n, Logo } from '@iobroker/adapter-react-v5';
 
 const styles = {
@@ -45,24 +35,23 @@ class Options extends Component {
     constructor(props) {
         super(props);
 
-        let expanded = window.localStorage.getItem('plenticore.connection.expanded') || '[]';
-        try {
-            expanded = JSON.parse(expanded);
-        } catch (e) {
-            expanded = [];
-            console.log(e);
-        }
-
         this.state = {
             inAction: false,
-            toast: '',
             isInstanceAlive: false,
-            errorWithPercent: false,
-            expanded,
-            showPassword: false,
+            rowSelectionModel: [],
+            discoveredDevices: props.native.discoveredDevices || {},
         };
 
         this.aliveId = `system.adapter.${this.props.adapterName}.${this.props.instance}.alive`;
+        this.adapterObjectId = `system.adapter.${this.props.adapterName}.${this.props.instance}`;
+
+        this.columns = [
+            { field: 'remoteSki', headerName: 'SKI', minWidth: 350, flex: 2 },
+            { field: 'brand', headerName: I18n.t('Brand'), minWidth: 100, flex: 1 },
+            { field: 'model', headerName: I18n.t('Model'), minWidth: 100, flex: 1 },
+            { field: 'deviceType', headerName: I18n.t('Type'), minWidth: 100, flex: 1 },
+            { field: 'isTrusted', headerName: I18n.t('Trusted'), minWidth: 80, type: 'boolean' },
+        ];
     }
 
     /**
@@ -73,6 +62,8 @@ class Options extends Component {
             this.setState({ isInstanceAlive: state && state.val });
             this.props.socket.subscribeState(this.aliveId, this.onAliveChanged);
         });
+        // Subscribe to adapter object changes to detect discoveredDevices updates
+        this.props.socket.subscribeObject(this.adapterObjectId, this.onObjectChanged);
     }
 
     /**
@@ -80,6 +71,7 @@ class Options extends Component {
      */
     componentWillUnmount() {
         this.props.socket.unsubscribeState(this.aliveId, this.onAliveChanged);
+        this.props.socket.unsubscribeObject(this.adapterObjectId, this.onObjectChanged);
     }
 
     onAliveChanged = (id, state) => {
@@ -88,27 +80,45 @@ class Options extends Component {
         }
     };
 
+    onObjectChanged = (id, obj) => {
+        if (id === this.adapterObjectId && obj && obj.native && obj.native.discoveredDevices) {
+            this.setState({ discoveredDevices: obj.native.discoveredDevices });
+        }
+    };
+
     /**
-     * Toggle show/hide password
+     * Get discovered devices as array for DataGrid rows.
+     *
+     * @returns {Array} rows
      */
-    handleClickShowPassword() {
-        let newState = !this.state.showPassword;
-        this.setState({ showPassword: newState });
+    getDiscoveredDeviceRows() {
+        const devices = this.state.discoveredDevices || {};
+        return Object.values(devices).map(d => ({
+            id: d.remoteSki,
+            remoteSki: d.remoteSki,
+            brand: d.brand || '',
+            model: d.model || '',
+            deviceType: d.deviceType || '',
+            isTrusted: d.isTrusted || false,
+        }));
     }
 
     /**
-     * Toggle show/hide password
+     * Copy the selected device SKI to controlboxSki config.
      */
-    handleMouseDownPassword() {
-        let newState = !this.state.showPassword;
-        this.setState({ showPassword: newState });
-    }
+    handleCopyToControlboxSki = () => {
+        const selected = this.state.rowSelectionModel;
+        if (selected.length > 0) {
+            this.props.onChange('controlboxSki', selected[0]);
+        }
+    };
 
     /**
      * Renders the component
      */
     render() {
-        const narrowWidth = this.props.width === 'xs' || this.props.width === 'sm' || this.props.width === 'md';
+        const rows = this.getDiscoveredDeviceRows();
+
         return (
             <form style={{ ...styles.tab }}>
                 <Logo
@@ -122,126 +132,87 @@ class Options extends Component {
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
-                        label={I18n.t('Hostname or IP')}
-                        value={this.props.native.host}
+                        label={I18n.t('gRPC Endpoint')}
+                        value={this.props.native.grpcEndpoint}
                         type="text"
-                        onChange={e => this.props.onChange('host', e.target.value)}
+                        onChange={e => this.props.onChange('grpcEndpoint', e.target.value)}
                         margin="normal"
                     />
                     <br />
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
-                        label={'Port'}
-                        value={this.props.native.port}
-                        type="text"
-                        onChange={e => this.props.onChange('port', e.target.value)}
+                        label={I18n.t('Service Port')}
+                        value={this.props.native.servicePort}
+                        type="number"
+                        onChange={e => this.props.onChange('servicePort', parseInt(e.target.value, 10) || 0)}
                         margin="normal"
-                    />
-                    {narrowWidth && <br />}
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={this.props.native.https === undefined ? true : this.props.native.https}
-                                onChange={e => {
-                                    this.props.onChange('https', e.target.checked, () => {
-                                        let port = parseInt(this.props.native.port);
-                                        if (port === 80 || port === 443) {
-                                            if (e.target.checked) {
-                                                this.props.onChange('port', 443);
-                                            } else {
-                                                this.props.onChange('port', 80);
-                                            }
-                                        }
-                                    });
-                                }}
-                            />
-                        }
-                        label={I18n.t('Use HTTPS')}
                     />
                     <br />
-                    <FormControl
-                        variant="standard"
+                    <TextField
                         style={{ ...styles.input }}
+                        variant="standard"
+                        label={I18n.t('Serial Number')}
+                        value={this.props.native.serialNumber}
+                        type="text"
+                        onChange={e => this.props.onChange('serialNumber', e.target.value)}
                         margin="normal"
-                    >
-                        <InputLabel htmlFor="standard-adornment-password">{I18n.t('Password')}</InputLabel>
-                        <Input
-                            id="standard-adornment-password"
-                            type={this.state.showPassword ? 'text' : 'password'}
-                            value={this.props.native.password}
-                            onChange={e => this.props.onChange('password', e.target.value)}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label={
-                                            this.state.showPassword ? 'hide the password' : 'display the password'
-                                        }
-                                        onClick={() => this.handleClickShowPassword()}
-                                        onMouseDown={() => this.handleMouseDownPassword()}
-                                    >
-                                        {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
+                    />
+                    <br />
+                    <TextField
+                        style={{ ...styles.input }}
+                        variant="standard"
+                        label={I18n.t('Heartbeat Timeout (seconds)')}
+                        value={this.props.native.heartbeatTimeoutSeconds}
+                        type="number"
+                        onChange={e =>
+                            this.props.onChange('heartbeatTimeoutSeconds', parseInt(e.target.value, 10) || 30)
+                        }
+                        margin="normal"
+                    />
+                    <br />
+                    <TextField
+                        style={{ ...styles.input }}
+                        variant="standard"
+                        label={I18n.t('Min Approval Limit (W)')}
+                        value={this.props.native.minApprovalLimit}
+                        type="number"
+                        onChange={e => this.props.onChange('minApprovalLimit', parseInt(e.target.value, 10) || 0)}
+                        margin="normal"
+                    />
+                    <br />
+                    <TextField
+                        style={{ ...styles.input }}
+                        variant="standard"
+                        label={I18n.t('ControlBox SKI')}
+                        value={this.props.native.controlboxSki}
+                        type="text"
+                        disabled
+                        margin="normal"
+                    />
+                    <br />
+                    <br />
+                    <h3>{I18n.t('Discovered Devices')}</h3>
+                    <Box sx={{ height: 400, width: '100%' }}>
+                        <DataGrid
+                            rows={rows}
+                            columns={this.columns}
+                            rowHeight={36}
+                            rowSelectionModel={this.state.rowSelectionModel}
+                            onRowSelectionModelChange={newSelection =>
+                                this.setState({ rowSelectionModel: newSelection })
                             }
                         />
-                    </FormControl>
-                    <br />
-                    <TextField
-                        style={{ ...styles.input }}
-                        variant="standard"
-                        label={I18n.t('Polling Interval')}
-                        value={this.props.native.pollinginterval}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                max: 60,
-                                min: 5,
-                            },
-                        }}
-                        onBlur={e => {
-                            var value = parseInt(e.target.value, 10);
-                            if (value > 60) {
-                                value = 60;
-                            }
-                            if (value < 5) {
-                                value = 5;
-                            }
-                            this.props.onChange('pollinginterval', value);
-                        }}
-                        onChange={e => {
-                            this.props.onChange('pollinginterval', e.target.value);
-                        }}
-                        margin="normal"
-                    />
-                    <br />
-                    <TextField
-                        style={{ ...styles.input }}
-                        variant="standard"
-                        label={I18n.t('API Timeout')}
-                        value={this.props.native.apitimeout}
-                        type="number"
-                        slotProps={{
-                            htmlInput: {
-                                max: 30,
-                                min: 5,
-                            },
-                        }}
-                        onBlur={e => {
-                            var value = parseInt(e.target.value, 10);
-                            if (value > 30) {
-                                value = 30;
-                            }
-                            if (value < 5) {
-                                value = 5;
-                            }
-                            this.props.onChange('apitimeout', value);
-                        }}
-                        onChange={e => {
-                            this.props.onChange('apitimeout', e.target.value);
-                        }}
-                        margin="normal"
-                    />
+                    </Box>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        disabled={this.state.rowSelectionModel.length === 0}
+                        onClick={this.handleCopyToControlboxSki}
+                        style={{ marginTop: 8 }}
+                    >
+                        {I18n.t('Use selected SKI as ControlBox SKI')}
+                    </Button>
                 </div>
             </form>
         );
