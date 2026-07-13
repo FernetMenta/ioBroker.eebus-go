@@ -121,14 +121,6 @@
                 "def": "init"
             },
             "native": {}
-        },
-        {
-            "_id": "EnergyGuards",
-            "type": "folder",
-            "common": {
-                "name": "Energy Guards"
-            },
-            "native": {}
         }
     ]
 }
