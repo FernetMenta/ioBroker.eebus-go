@@ -20,7 +20,7 @@
     "url": "https://github.com/FernetMenta/ioBroker.eebus-go.git"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.14.4",
