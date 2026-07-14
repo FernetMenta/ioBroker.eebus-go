@@ -193,7 +193,7 @@ class Options extends Component {
                     <br />
                     <br />
                     <h3>{I18n.t('Discovered Devices')}</h3>
-                    <Box sx={{ height: 400, width: '100%' }}>
+                    <Box sx={{ height: 300, width: '100%' }}>
                         <DataGrid
                             rows={rows}
                             columns={this.columns}
