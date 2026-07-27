@@ -121,6 +121,20 @@
                 "def": "init"
             },
             "native": {}
+        },
+        {
+            "_id": "info.limit",
+            "type": "state",
+            "common": {
+                "role": "value.power",
+                "name": "Control Box Limit",
+                "type": "number",
+                "unit": "W",
+                "read": true,
+                "write": false,
+                "def": 0
+            },
+            "native": {}
         }
     ]
 }
