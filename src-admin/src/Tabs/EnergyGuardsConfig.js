@@ -42,12 +42,12 @@ class EnergyGuardsConfig extends Component {
 
         this.state = {
             energyGuards: props.native.energyGuards || [],
-            discoveredDevices: props.native.discoveredDevices || {},
+            discoveredDevices: {},
             rowSelectionModel: [],
             addEebusDialogOpen: false,
         };
 
-        this.adapterObjectId = `system.adapter.${this.props.adapterName}.${this.props.instance}`;
+        this.discoveredDevicesId = `${this.props.adapterName}.${this.props.instance}.info.discoveredDevices`;
 
         this.columns = [
             { field: 'name', headerName: I18n.t('Name'), minWidth: 150, flex: 1, editable: true },
@@ -61,20 +61,33 @@ class EnergyGuardsConfig extends Component {
      * Called by React when component was mounted
      */
     componentDidMount() {
-        // Subscribe to adapter object changes to detect discoveredDevices updates
-        this.props.socket.subscribeObject(this.adapterObjectId, this.onObjectChanged);
+        // Read and subscribe to discoveredDevices state
+        this.props.socket.getState(this.discoveredDevicesId).then(state => {
+            if (state && state.val) {
+                try {
+                    this.setState({ discoveredDevices: JSON.parse(state.val) });
+                } catch {
+                    /* ignore parse errors */
+                }
+            }
+        });
+        this.props.socket.subscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
     }
 
     /**
      * Called by React before component will unmount.
      */
     componentWillUnmount() {
-        this.props.socket.unsubscribeObject(this.adapterObjectId, this.onObjectChanged);
+        this.props.socket.unsubscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
     }
 
-    onObjectChanged = (id, obj) => {
-        if (id === this.adapterObjectId && obj && obj.native && obj.native.discoveredDevices) {
-            this.setState({ discoveredDevices: obj.native.discoveredDevices });
+    onDiscoveredDevicesChanged = (id, state) => {
+        if (id === this.discoveredDevicesId && state && state.val) {
+            try {
+                this.setState({ discoveredDevices: JSON.parse(state.val) });
+            } catch {
+                /* ignore parse errors */
+            }
         }
     };
 

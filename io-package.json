@@ -83,7 +83,6 @@
         "heartbeatTimeoutSeconds": 30,
         "controlboxSki": "",
         "minApprovalLimit": 4200,
-        "discoveredDevices": {},
         "energyGuards": []
     },
     "objects": [],
@@ -133,6 +132,19 @@
                 "read": true,
                 "write": false,
                 "def": 0
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.discoveredDevices",
+            "type": "state",
+            "common": {
+                "role": "json",
+                "name": "Discovered Devices",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": "{}"
             },
             "native": {}
         }

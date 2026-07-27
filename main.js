@@ -45,8 +45,8 @@ class EebusGo extends utils.Adapter {
         await I18n.init(path.join(__dirname, 'lib'), this);
         setI18n(I18n.translate);
 
-        // Subscribe to Energy Guard state changes (percentage, heartbeat, connected)
-        await this.subscribeStatesAsync('EnergyGuards.*');
+        // Subscribe to Energy Guard state changes (percentage, heartbeat, connected, manualLimit)
+        this.subscribeStates('EnergyGuards.*');
 
         this.hems = new Hems(this);
         this.hems.restart();
@@ -97,22 +97,14 @@ class EebusGo extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (state) {
-            // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-
             if (state.ack === false) {
-                // This is a command from the user (e.g., from the UI or other adapter)
-                // and should be processed by the adapter
-                this.log.info(`User command received for ${id}: ${state.val}`);
-
-                // Delegate Energy Guard state changes to the HEMS instance
                 if (id.includes('.EnergyGuards.') && this.hems) {
+                    this.log.info(`User command for ${id}: ${state.val}`);
                     this.hems.handleEnergyGuardStateChange(id, state);
+                } else {
+                    this.log.debug(`Ignoring state change (no handler): ${id} = ${state.val}`);
                 }
             }
-        } else {
-            // The object was deleted or the state value has expired
-            this.log.info(`state ${id} deleted`);
         }
     }
     // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.

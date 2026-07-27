@@ -39,11 +39,11 @@ class Options extends Component {
             inAction: false,
             isInstanceAlive: false,
             rowSelectionModel: [],
-            discoveredDevices: props.native.discoveredDevices || {},
+            discoveredDevices: {},
         };
 
         this.aliveId = `system.adapter.${this.props.adapterName}.${this.props.instance}.alive`;
-        this.adapterObjectId = `system.adapter.${this.props.adapterName}.${this.props.instance}`;
+        this.discoveredDevicesId = `${this.props.adapterName}.${this.props.instance}.info.discoveredDevices`;
 
         this.columns = [
             { field: 'remoteSki', headerName: 'SKI', minWidth: 350, flex: 2 },
@@ -62,8 +62,17 @@ class Options extends Component {
             this.setState({ isInstanceAlive: state && state.val });
             this.props.socket.subscribeState(this.aliveId, this.onAliveChanged);
         });
-        // Subscribe to adapter object changes to detect discoveredDevices updates
-        this.props.socket.subscribeObject(this.adapterObjectId, this.onObjectChanged);
+        // Subscribe to discoveredDevices state
+        this.props.socket.getState(this.discoveredDevicesId).then(state => {
+            if (state && state.val) {
+                try {
+                    this.setState({ discoveredDevices: JSON.parse(state.val) });
+                } catch {
+                    /* ignore parse errors */
+                }
+            }
+        });
+        this.props.socket.subscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
     }
 
     /**
@@ -71,7 +80,7 @@ class Options extends Component {
      */
     componentWillUnmount() {
         this.props.socket.unsubscribeState(this.aliveId, this.onAliveChanged);
-        this.props.socket.unsubscribeObject(this.adapterObjectId, this.onObjectChanged);
+        this.props.socket.unsubscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
     }
 
     onAliveChanged = (id, state) => {
@@ -80,9 +89,13 @@ class Options extends Component {
         }
     };
 
-    onObjectChanged = (id, obj) => {
-        if (id === this.adapterObjectId && obj && obj.native && obj.native.discoveredDevices) {
-            this.setState({ discoveredDevices: obj.native.discoveredDevices });
+    onDiscoveredDevicesChanged = (id, state) => {
+        if (id === this.discoveredDevicesId && state && state.val) {
+            try {
+                this.setState({ discoveredDevices: JSON.parse(state.val) });
+            } catch {
+                /* ignore parse errors */
+            }
         }
     };
 
