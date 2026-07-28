@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { TextField, Button, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { I18n, Logo } from '@iobroker/adapter-react-v5';
+import { QRCodeSVG } from 'qrcode.react';
 
 const styles = {
     tab: {
@@ -40,10 +41,12 @@ class Options extends Component {
             isInstanceAlive: false,
             rowSelectionModel: [],
             discoveredDevices: {},
+            ski: '',
         };
 
         this.aliveId = `system.adapter.${this.props.adapterName}.${this.props.instance}.alive`;
         this.discoveredDevicesId = `${this.props.adapterName}.${this.props.instance}.info.discoveredDevices`;
+        this.skiId = `${this.props.adapterName}.${this.props.instance}.info.ski`;
 
         this.columns = [
             { field: 'remoteSki', headerName: 'SKI', minWidth: 350, flex: 2 },
@@ -73,6 +76,14 @@ class Options extends Component {
             }
         });
         this.props.socket.subscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
+
+        // Subscribe to local SKI state
+        this.props.socket.getState(this.skiId).then(state => {
+            if (state && state.val) {
+                this.setState({ ski: state.val });
+            }
+        });
+        this.props.socket.subscribeState(this.skiId, this.onSkiChanged);
     }
 
     /**
@@ -81,6 +92,7 @@ class Options extends Component {
     componentWillUnmount() {
         this.props.socket.unsubscribeState(this.aliveId, this.onAliveChanged);
         this.props.socket.unsubscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
+        this.props.socket.unsubscribeState(this.skiId, this.onSkiChanged);
     }
 
     onAliveChanged = (id, state) => {
@@ -96,6 +108,12 @@ class Options extends Component {
             } catch {
                 /* ignore parse errors */
             }
+        }
+    };
+
+    onSkiChanged = (id, state) => {
+        if (id === this.skiId && state) {
+            this.setState({ ski: state.val || '' });
         }
     };
 
@@ -127,10 +145,36 @@ class Options extends Component {
     };
 
     /**
+     * Format a hex SKI string into space-separated 4-char groups.
+     *
+     * @param {string} ski - Raw hex SKI (e.g. "2bf3f7efc244f1bdd5a861a2f07c3243ab0468be")
+     * @returns {string} Formatted SKI (e.g. "2bf3 f7ef c244 ...")
+     */
+    formatSki(ski) {
+        const clean = ski.replace(/[\s-]/g, '').toLowerCase();
+        return clean.replace(/(.{4})/g, '$1 ').trim();
+    }
+
+    /**
+     * Build SHIP connection string for QR code.
+     *
+     * @returns {string} The SHIP URI or empty string if SKI not available
+     */
+    getShipConnectionString() {
+        const { ski } = this.state;
+        if (!ski) {
+            return '';
+        }
+        const formattedSki = this.formatSki(ski);
+        return `SHIP;SKI:${formattedSki};ID:i:12345_u:123abc456def;END`;
+    }
+
+    /**
      * Renders the component
      */
     render() {
         const rows = this.getDiscoveredDeviceRows();
+        const shipString = this.getShipConnectionString();
 
         return (
             <form style={{ ...styles.tab }}>
@@ -141,7 +185,7 @@ class Options extends Component {
                     onError={text => this.setState({ errorText: text })}
                     onLoad={this.props.onLoad}
                 />
-                <div style={{ ...styles.column, ...styles.columnSettings }}>
+                <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
@@ -228,6 +272,26 @@ class Options extends Component {
                     >
                         {I18n.t('Use selected SKI as ControlBox SKI')}
                     </Button>
+                    {shipString && (
+                        <div style={{ position: 'absolute', top: 0, right: 0, textAlign: 'center' }}>
+                            <div style={{ fontSize: 13, fontWeight: 'bold', marginBottom: 8 }}>EEBUS SKI</div>
+                            <QRCodeSVG
+                                value={shipString}
+                                size={160}
+                            />
+                            <div
+                                style={{
+                                    fontSize: 11,
+                                    marginTop: 4,
+                                    color: '#666',
+                                    maxWidth: 160,
+                                    wordBreak: 'break-all',
+                                }}
+                            >
+                                {this.state.ski}
+                            </div>
+                        </div>
+                    )}
                 </div>
             </form>
         );

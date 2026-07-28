@@ -49,4 +49,7 @@ service ControlService {
     // current set of visible services is replayed as DISCOVERED events before
     // any live events are forwarded (atomic — no duplicate replay events).
     rpc SubscribeDiscoveryEvents (SubscribeDiscoveryEventsRequest) returns (stream DiscoveryEvent) {}
+
+    // Returns the PEM-encoded certificate and SKI of the local EEBus service.
+    rpc GetCertificate (GetCertificateRequest) returns (GetCertificateResponse) {}
 }

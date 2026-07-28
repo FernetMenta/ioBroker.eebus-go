@@ -43,15 +43,8 @@
             "uk": "eebus grpc клієнт для hems",
             "zh-cn": "用于下摆的 eebus grpc 客户端"
         },
-        "authors": [
-            "FernetMenta <fernetmenta@online.de>"
-        ],
-        "keywords": [
-            "eebus",
-            "eebus-go",
-            "iobroker",
-            "hems"
-        ],
+        "authors": ["FernetMenta <fernetmenta@online.de>"],
+        "keywords": ["eebus", "eebus-go", "iobroker", "hems"],
         "licenseInformation": {
             "type": "free",
             "license": "GPL-3.0"
@@ -166,6 +159,19 @@
                 "read": true,
                 "write": false,
                 "def": 0
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.ski",
+            "type": "state",
+            "common": {
+                "role": "text",
+                "name": "Local SKI",
+                "type": "string",
+                "read": true,
+                "write": false,
+                "def": ""
             },
             "native": {}
         }

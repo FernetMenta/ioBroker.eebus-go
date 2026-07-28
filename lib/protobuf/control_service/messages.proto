@@ -80,3 +80,13 @@ message DiscoveryEvent {
     string serial = 7;           // mDNS `serial=` TXT (optional)
     bool is_trusted = 8;         // snapshot of sidecar trust state at event time; see RegisterRemoteSki
 }
+
+message GetCertificateRequest {
+}
+
+message GetCertificateResponse {
+    // PEM-encoded X.509 certificate of the local EEBus service.
+    string certificate_pem = 1;
+    // Subject Key Identifier (SKI) derived from the certificate, hex-encoded.
+    string ski = 2;
+}
