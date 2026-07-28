@@ -7,5 +7,11 @@
     "EEBUS Connected": "EEBUS Connected",
     "Manual Limit": "Manual Limit",
     "Heartbeat": "Heartbeat",
-    "Connected": "Connected"
+    "Connected": "Connected",
+    "HEMS FSM State": "HEMS FSM State",
+    "Control Box Limit": "Control Box Limit",
+    "Control Box Limit Duration": "Control Box Limit Duration",
+    "Discovered Devices": "Discovered Devices",
+    "Limit Active Minutes Today": "Limit Active Minutes Today",
+    "Local SKI": "Local SKI"
 }

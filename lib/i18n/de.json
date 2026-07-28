@@ -1,11 +1,17 @@
 {
     "Confirmed Limit": "Bestätigtes Limit",
     "Connected": "Verbunden",
+    "Control Box Limit": "Grenzwert der Steuerbox",
+    "Control Box Limit Duration": "Steuerbox – Begrenzung der Dauer",
     "Current Limit": "Strombegrenzung",
+    "Discovered Devices": "Erkannte Geräte",
     "EEBUS Connected": "EEBUS Connected",
     "Failsafe Limit": "Ausfallsichere Grenze",
+    "HEMS FSM State": "HEMS-FSM-Status",
     "Heartbeat": "Herzschlag",
     "Last Heartbeat": "Der letzte Herzschlag",
+    "Limit Active Minutes Today": "Aktive Minuten heute begrenzen",
+    "Local SKI": "Lokaler SKI",
     "Manual Limit": "Manuelle Begrenzung",
     "Percentage": "Prozent"
 }

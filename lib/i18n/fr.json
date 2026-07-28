@@ -1,11 +1,17 @@
 {
     "Confirmed Limit": "Limite confirmée",
     "Connected": "Connecté",
+    "Control Box Limit": "Limite du boîtier de commande",
+    "Control Box Limit Duration": "Limite de durée du boîtier de commande",
     "Current Limit": "Limite de courant",
+    "Discovered Devices": "Périphériques détectés",
     "EEBUS Connected": "EEBUS Connected",
     "Failsafe Limit": "Limite de sécurité",
+    "HEMS FSM State": "État du FSM HEMS",
     "Heartbeat": "Battements de cœur",
     "Last Heartbeat": "Le dernier battement de cœur",
+    "Limit Active Minutes Today": "Limiter le nombre de minutes d'activité aujourd'hui",
+    "Local SKI": "SKI local",
     "Manual Limit": "Limite manuelle",
     "Percentage": "Pourcentage"
 }

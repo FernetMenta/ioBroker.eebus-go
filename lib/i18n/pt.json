@@ -1,11 +1,17 @@
 {
     "Confirmed Limit": "Confirmed Limit",
     "Connected": "Connected",
+    "Control Box Limit": "Control Box Limit",
+    "Control Box Limit Duration": "Control Box Limit Duration",
     "Current Limit": "Current Limit",
+    "Discovered Devices": "Discovered Devices",
     "EEBUS Connected": "EEBUS Connected",
     "Failsafe Limit": "Failsafe Limit",
+    "HEMS FSM State": "HEMS FSM State",
     "Heartbeat": "Heartbeat",
     "Last Heartbeat": "Last Heartbeat",
+    "Limit Active Minutes Today": "Limit Active Minutes Today",
+    "Local SKI": "Local SKI",
     "Manual Limit": "Manual Limit",
     "Percentage": "Percentage"
 }

@@ -1,11 +1,17 @@
 {
     "Confirmed Limit": "Bevestigde limiet",
     "Connected": "Verbonden",
+    "Control Box Limit": "Beperking van de besturingskast",
+    "Control Box Limit Duration": "Beperking van de duur van de besturingskast",
     "Current Limit": "Stroomlimiet",
+    "Discovered Devices": "Gedetecteerde apparaten",
     "EEBUS Connected": "EEBUS Connected",
     "Failsafe Limit": "Veiligheidsgrens",
+    "HEMS FSM State": "HEMS FSM-status",
     "Heartbeat": "Hartslag",
     "Last Heartbeat": "Laatste hartslag",
+    "Limit Active Minutes Today": "Maximaal aantal actieve minuten vandaag",
+    "Local SKI": "Lokale SKI",
     "Manual Limit": "Handmatige limiet",
     "Percentage": "Percentage"
 }

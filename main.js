@@ -10,7 +10,6 @@ const utils = require('@iobroker/adapter-core');
 const path = require('path');
 const { I18n } = require('@iobroker/adapter-core');
 const { Hems } = require('./lib/hems');
-const { setI18n } = require('./lib/energy-guard');
 
 // Load your modules here, e.g.:
 // const fs = require('fs');
@@ -43,12 +42,11 @@ class EebusGo extends utils.Adapter {
 
         // Initialize I18n for translated object names
         await I18n.init(path.join(__dirname, 'lib'), this);
-        setI18n(I18n.translate);
 
         // Subscribe to Energy Guard state changes (percentage, heartbeat, connected, manualLimit)
         this.subscribeStates('EnergyGuards.*');
 
-        this.hems = new Hems(this);
+        this.hems = new Hems(this, I18n.translate);
         this.hems.restart();
     }
 

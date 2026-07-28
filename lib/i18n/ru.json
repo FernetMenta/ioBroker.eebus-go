@@ -1,11 +1,17 @@
 {
     "Confirmed Limit": "Подтвержденный лимит",
     "Connected": "Подключено",
+    "Control Box Limit": "Предельное значение блока управления",
+    "Control Box Limit Duration": "Ограничение продолжительности работы блока управления",
     "Current Limit": "Предел тока",
+    "Discovered Devices": "Обнаруженные устройства",
     "EEBUS Connected": "EEBUS Connected",
-    "Failsafe Limit": "Предел безопасности",
+    "Failsafe Limit": "Предел отказоустойчивости",
+    "HEMS FSM State": "Состояние HEMS FSM",
     "Heartbeat": "Сердцебиение",
     "Last Heartbeat": "«Последний удар сердца»",
+    "Limit Active Minutes Today": "Ограничить количество активных минут на сегодня",
+    "Local SKI": "Местный SKI",
     "Manual Limit": "Ручное ограничение",
     "Percentage": "Процент"
 }
