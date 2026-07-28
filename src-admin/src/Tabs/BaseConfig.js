@@ -187,10 +187,12 @@ class Options extends Component {
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
-                        label={I18n.t('Min Approval Limit (W)')}
-                        value={this.props.native.minApprovalLimit}
+                        label={I18n.t('Contractual Consumption Nominal Max (W)')}
+                        value={this.props.native.contractualConsumptionNominalMax}
                         type="number"
-                        onChange={e => this.props.onChange('minApprovalLimit', parseInt(e.target.value, 10) || 0)}
+                        onChange={e =>
+                            this.props.onChange('contractualConsumptionNominalMax', parseInt(e.target.value, 10) || 0)
+                        }
                         margin="normal"
                     />
                     <br />

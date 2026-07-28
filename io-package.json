@@ -43,8 +43,15 @@
             "uk": "eebus grpc клієнт для hems",
             "zh-cn": "用于下摆的 eebus grpc 客户端"
         },
-        "authors": ["FernetMenta <fernetmenta@online.de>"],
-        "keywords": ["eebus", "eebus-go", "iobroker", "hems"],
+        "authors": [
+            "FernetMenta <fernetmenta@online.de>"
+        ],
+        "keywords": [
+            "eebus",
+            "eebus-go",
+            "iobroker",
+            "hems"
+        ],
         "licenseInformation": {
             "type": "free",
             "license": "GPL-3.0"
@@ -82,7 +89,7 @@
         "serialNumber": "123456",
         "heartbeatTimeoutSeconds": 30,
         "controlboxSki": "",
-        "minApprovalLimit": 4200,
+        "contractualConsumptionNominalMax": 4200,
         "energyGuards": []
     },
     "objects": [],
@@ -145,6 +152,20 @@
                 "read": true,
                 "write": false,
                 "def": "{}"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.limitMinutesToday",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Control Box Limit Active Minutes Today",
+                "type": "number",
+                "unit": "min",
+                "read": true,
+                "write": false,
+                "def": 0
             },
             "native": {}
         }
