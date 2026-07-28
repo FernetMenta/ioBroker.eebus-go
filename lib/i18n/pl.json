@@ -1,10 +1,11 @@
 {
+    "Confirmed Limit": "Potwierdzony limit",
     "Connected": "Połączone",
     "Current Limit": "Ograniczenie prądu",
     "EEBUS Connected": "EEBUS Connected",
     "Failsafe Limit": "Limit zabezpieczający",
     "Heartbeat": "Bicie serca",
     "Last Heartbeat": "Ostatnie uderzenie serca",
-    "Limit Active": "Ogranicz aktywność",
+    "Manual Limit": "Limit ręczny",
     "Percentage": "Procent"
 }

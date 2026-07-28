@@ -1,10 +1,11 @@
 {
+    "Confirmed Limit": "Bevestigde limiet",
     "Connected": "Verbonden",
     "Current Limit": "Stroomlimiet",
     "EEBUS Connected": "EEBUS Connected",
-    "Failsafe Limit": "Veiligheidslimiet",
+    "Failsafe Limit": "Veiligheidsgrens",
     "Heartbeat": "Hartslag",
     "Last Heartbeat": "Laatste hartslag",
-    "Limit Active": "Actief beperken",
+    "Manual Limit": "Handmatige limiet",
     "Percentage": "Percentage"
 }

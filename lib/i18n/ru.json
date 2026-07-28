@@ -1,10 +1,11 @@
 {
+    "Confirmed Limit": "Подтвержденный лимит",
     "Connected": "Подключено",
     "Current Limit": "Предел тока",
     "EEBUS Connected": "EEBUS Connected",
-    "Failsafe Limit": "Предел отказоустойчивости",
+    "Failsafe Limit": "Предел безопасности",
     "Heartbeat": "Сердцебиение",
     "Last Heartbeat": "«Последний удар сердца»",
-    "Limit Active": "Ограничить активные",
+    "Manual Limit": "Ручное ограничение",
     "Percentage": "Процент"
 }
