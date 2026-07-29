@@ -40,7 +40,7 @@
     "@iobroker/eslint-config": "^2.3.4",
     "@iobroker/testing": "^5.3.0",
     "@sinonjs/referee-sinon": "^12.0.1",
-    "@tsconfig/node20": "^20.1.9",
+    "@tsconfig/node22": "^22.0.5",
     "@types/iobroker": "npm:@iobroker/types@^7.2.2",
     "@types/node": "^20.19.43",
     "coffee-script": "^1.12.7",
