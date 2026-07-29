@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eebus-go",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "news": {
+      "0.0.5": {
+        "en": "some fixes",
+        "de": "einige fixes",
+        "ru": "некоторые исправления",
+        "pt": "algumas correções",
+        "nl": "sommige fixes",
+        "fr": "quelques corrections",
+        "it": "alcune correzioni",
+        "es": "algunos arreglos",
+        "pl": "niektóre poprawki",
+        "uk": "деякі виправлення",
+        "zh-cn": "一些修正"
+      },
       "0.0.4": {
         "en": "fixes required by iobroker checker",
         "de": "fixes erforderlich von iobroker checker",
