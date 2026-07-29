@@ -1,0 +1,110 @@
+@startuml architecture-scenario
+skinparam backgroundColor transparent
+skinparam defaultFontColor #EEEEEE
+skinparam defaultFontSize 12
+skinparam arrowThickness 2
+skinparam arrowColor #AAAAAA
+skinparam componentStyle rectangle
+
+skinparam component {
+    FontColor #111111
+    BorderColor #888888
+}
+
+skinparam package {
+    FontColor #EEEEEE
+    BorderColor #888888
+    BackgroundColor #2A2A2A
+}
+
+skinparam note {
+    FontColor #111111
+    BorderColor #888888
+    BackgroundColor #E0E0E0
+}
+
+title EEBUS HEMS Architecture — Controlbox + Energy Guards
+
+' === External Devices ===
+package "Grid / Utility" as grid {
+    component "**Controlbox**\n(Energy Guard)" as controlbox #4A90D9
+}
+
+package "EEBUS Container (eebus-go)" as container #1E3A5F {
+    component "**EEBUS/SHIP Stack**\ngRPC Server" as eebusStack #3B7DD8
+    component "CS-LPC\nUse Case" as csLpc #3B7DD8
+    component "EG-LPC\nUse Case 1" as egLpc1 #3B7DD8
+    component "  ...  " as egLpcMore #3B7DD8
+
+    eebusStack --> csLpc
+    eebusStack --> egLpc1
+}
+
+package "ioBroker HEMS Adapter" as hems {
+    component "**eebus-go\nAdapter**" as adapter #4CAF50
+    component "LPC State Machine\n(Controllable System)" as fsm #F9A825
+    component "Limit Distribution" as dist #F9A825
+
+    adapter --> fsm : manages
+    fsm --> dist : limit active/inactive
+}
+
+package "Energy Guards (1..n)" as guards {
+    component "**Manual Energy Guard 1**\n(type: manual)" as manualGuard1 #FFB74D
+    component "  ...  " as manualMore #FFB74D
+    component "**EEBUS Energy Guard 1**\n(type: eebus)" as eebusGuard1 #E57373
+    component "  ...  " as eebusMore #E57373
+}
+
+package "Consumers" as consumers {
+    component "**Heatpump**" as heatpump #AB47BC
+}
+
+' === Connections ===
+
+' Controlbox to EEBUS container (EEBUS/SHIP protocol)
+controlbox -down-> eebusStack : <<EEBUS/SHIP>>\nmDNS discovery +\nSPINE data model
+
+' Container to adapter (gRPC)
+csLpc -down-> adapter : <<gRPC>>\nheartbeat + limit\nevents (stream)
+
+' Adapter distributes limits to guards
+dist -down-> manualGuard1 : proportional limit\n(percentage-based)
+dist -down-> eebusGuard1 : proportional limit\n(percentage-based)
+
+' EEBUS guard writes limit back through container
+eebusGuard1 -up-> egLpc1 : <<gRPC>>\nWriteConsumptionLimit
+
+' Container forwards EG-LPC to heatpump
+egLpc1 -down-> heatpump : <<EEBUS/SHIP>>\nEG-LPC limit
+
+' Heatpump paired with container
+heatpump -up-> eebusStack : <<EEBUS/SHIP>>\npaired via SKI
+
+' Both guards also accept manual limits via ioBroker state writes (not shown in diagram)
+
+' Notes
+note right of container
+  Docker/Podman container running
+  the eebus-go SHIP stack.
+  Exposes gRPC API to the adapter.
+  Handles all EEBUS/SHIP networking.
+end note
+
+note bottom of eebusGuard1
+  Sends limits to heatpump
+  via the container's EG-LPC
+  gRPC endpoint.
+  Also accepts manual limits
+  via ioBroker state (60 min duration).
+  Each EEBUS guard pairs with
+  one consumer device via SKI.
+end note
+
+note bottom of manualGuard1
+  No EEBUS connection.
+  Limit set manually via
+  ioBroker state object.
+end note
+
+@enduml
