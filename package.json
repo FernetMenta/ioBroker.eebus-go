@@ -13,7 +13,6 @@
     "ioBroker",
     "eebus",
     "eebus-go",
-    "iobroker",
     "hems"
   ],
   "repository": {
