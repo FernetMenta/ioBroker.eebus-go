@@ -8,7 +8,7 @@
   },
   "contributors": [],
   "homepage": "https://github.com/FernetMenta/ioBroker.eebus-go",
-  "license": "GPL-3.0",
+  "license": "GPL-3.0-only",
   "keywords": [
     "eebus",
     "eebus-go",
