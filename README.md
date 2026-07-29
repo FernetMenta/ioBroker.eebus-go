@@ -111,6 +111,8 @@ manual limit before it sets the controlbox one.
 
 ## License
 
+Copyright (c) 2024-2026 Your Name <fernetmenta@online.de>
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
