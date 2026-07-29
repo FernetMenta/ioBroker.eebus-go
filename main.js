@@ -57,11 +57,10 @@ class EebusGo extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
+            if (this.hems) {
+                this.hems.stop();
+                this.hems = null;
+            }
 
             callback();
         } catch (error) {

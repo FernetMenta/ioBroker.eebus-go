@@ -19,7 +19,7 @@ This law is enforced by controlboxes that run on or are connected to smart meter
 - If you have more than a single controllable system, like a wallbox and a heatpump, you can distribute the limited power to the devices regarding your requirements. For two controllable devices the contractual max power during a limitation is Pdim = 4,2 kW + (CS – 1) x SF x 4,2 kW. The simultaneity factor SF for two controllable systems is 0.8. Means that you can load your car with 7.56kW during a dimming time span if you switch off the heatpump for example.
 - Controlboxes communicate via EEBUS protocols. If your controllable device does not support this protocol, this adapter can manage it by other means, like switching a relay via a user script.
 
-You should have at least a basic understanding of the EEBUS use case for Limitation of Power Consumption: EEBus UC TS - Limitation of Power Consumption. The specification is available for download at eebus.org.
+You should have at least a basic understanding of the EEBUS use case for Limitation of Power Consumption: EEBus UC TS - Limitation of Power Consumption. The specification is available for download at [eebus.org](https://www.eebus.org/).
 
 ### Cascading Constellations
 
@@ -104,13 +104,18 @@ manual limit before it sets the controlbox one.
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- fixes for repo checker
+
 ### 0.0.2 (2026-07-29)
 
 - (FernetMenta) initial release
 
 ## License
 
-Copyright (c) 2024-2026 Your Name <fernetmenta@online.de>
+Copyright (c) 2024-2026 FernetMenta <fernetmenta@online.de>
 
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
