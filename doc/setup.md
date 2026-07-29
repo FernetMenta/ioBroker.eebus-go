@@ -50,7 +50,7 @@ services:
       internal:
         ipv4_address: 172.30.0.11
       lan:
-        ipv4_address: 192.168.178.220
+        ipv4_address: 192.168.178.222
     ports:
       - "8081:8081"
     volumes:
@@ -74,7 +74,7 @@ networks:
       config:
         - subnet: 192.168.178.0/24
           gateway: 192.168.178.1
-          ip_range: 192.168.178.216/29
+          ip_range: 192.168.178.220/30
 ```
 
 Note parameter IPV4_ADDR. In this example the result is that the gRPC server only binds to the internal network address. Hence the server is not reachable from outside the docker network.
@@ -85,8 +85,9 @@ If you want to reach containers on the macvlan from the host, you have to set up
 
 ```
 ip link add mac0 link enp3s0 type macvlan mode bridge
-ip addr add 192.168.178.222/32 dev mac0
+ip addr add 192.168.178.219/24 dev mac0
 ip link set mac0 up
+ip route add 192.168.178.220/30 dev mac0 protocol static
 ```
 
 ## Run command for quick test on host network
