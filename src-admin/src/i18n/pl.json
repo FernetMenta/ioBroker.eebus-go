@@ -1,1 +1,24 @@
-{}
+{
+    "(Instance not running)": "(Instancja nie jest uruchomiona)",
+    "Add EEBUS": "Dodaj EEBUS",
+    "Add Manual": "Dodaj ręcznie",
+    "Base Config": "Konfiguracja podstawowa",
+    "Brand": "Marka",
+    "Cancel": "Anuluj",
+    "Contractual Consumption Nominal Max (W)": "Umowne znamionowe maksymalne zużycie (W)",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Wykryte urządzenia",
+    "Energy Guards": "Strażnicy energii",
+    "Heartbeat Timeout (seconds)": "Limit czasu tętna (sekundy)",
+    "Model": "Model",
+    "Name": "Nazwa",
+    "No discovered devices available": "Brak wykrytych urządzeń",
+    "Remove": "Usuń",
+    "Select Discovered Device": "Wybierz wykryte urządzenie",
+    "Serial Number": "Numer seryjny",
+    "Service Port": "Port usługi",
+    "Trusted": "Zaufany",
+    "Type": "Typ",
+    "Use selected SKI as ControlBox SKI": "Użyj wybranego SKI jako SKI ControlBox",
+    "gRPC Endpoint": "Punkt końcowy gRPC"
+}

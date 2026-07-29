@@ -10,6 +10,8 @@
     "HEMS FSM State": "Stato HEMS FSM",
     "Heartbeat": "Battito cardiaco",
     "Last Heartbeat": "L'ultimo battito del cuore",
+    "Limit Active Minutes Today": "Minuti attivi di limitazione oggi",
+    "Local SKI": "SKI locale",
     "Manual Limit": "Limite manuale",
     "Percentage": "Percentuale"
 }

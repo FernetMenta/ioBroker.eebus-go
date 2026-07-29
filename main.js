@@ -7,7 +7,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
-const path = require('path');
+const path = require('node:path');
 const { I18n } = require('@iobroker/adapter-core');
 const { Hems } = require('./lib/hems');
 

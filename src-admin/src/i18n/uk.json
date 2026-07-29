@@ -1,1 +1,24 @@
-{}
+{
+    "(Instance not running)": "(Екземпляр не запущено)",
+    "Add EEBUS": "Додати EEBUS",
+    "Add Manual": "Додати вручну",
+    "Base Config": "Базова конфігурація",
+    "Brand": "Бренд",
+    "Cancel": "Скасувати",
+    "Contractual Consumption Nominal Max (W)": "Договірне номінальне максимальне споживання (Вт)",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Виявлені пристрої",
+    "Energy Guards": "Енергетичні охоронці",
+    "Heartbeat Timeout (seconds)": "Тайм-аут серцебиття (секунди)",
+    "Model": "Модель",
+    "Name": "Назва",
+    "No discovered devices available": "Немає доступних виявлених пристроїв",
+    "Remove": "Видалити",
+    "Select Discovered Device": "Виберіть виявлений пристрій",
+    "Serial Number": "Серійний номер",
+    "Service Port": "Порт служби",
+    "Trusted": "Надійний",
+    "Type": "Тип",
+    "Use selected SKI as ControlBox SKI": "Використати обраний SKI як SKI ControlBox",
+    "gRPC Endpoint": "Кінцева точка gRPC"
+}

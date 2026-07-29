@@ -5,11 +5,11 @@
     "Base Config": "Base Config",
     "Brand": "Brand",
     "Cancel": "Cancel",
+    "Contractual Consumption Nominal Max (W)": "Contractual Consumption Nominal Max (W)",
     "ControlBox SKI": "ControlBox SKI",
     "Discovered Devices": "Discovered Devices",
     "Energy Guards": "Energy Guards",
     "Heartbeat Timeout (seconds)": "Heartbeat Timeout (seconds)",
-    "Contractual Consumption Nominal Max (W)": "Contractual Consumption Nominal Max (W)",
     "Model": "Model",
     "Name": "Name",
     "No discovered devices available": "No discovered devices available",
@@ -18,7 +18,7 @@
     "Serial Number": "Serial Number",
     "Service Port": "Service Port",
     "Trusted": "Trusted",
-    "Type": "Typ",
+    "Type": "Type",
     "Use selected SKI as ControlBox SKI": "Use selected SKI as ControlBox SKI",
     "gRPC Endpoint": "gRPC Endpoint"
 }

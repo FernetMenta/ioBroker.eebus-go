@@ -10,6 +10,7 @@
   "homepage": "https://github.com/FernetMenta/ioBroker.eebus-go",
   "license": "GPL-3.0-only",
   "keywords": [
+    "ioBroker",
     "eebus",
     "eebus-go",
     "iobroker",

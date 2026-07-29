@@ -5,5 +5,20 @@
     "Base Config": "Configuration de base",
     "Brand": "Marque",
     "Cancel": "Annuler",
-    "ControlBox SKI": "ControlBox SKI"
+    "Contractual Consumption Nominal Max (W)": "Consommation contractuelle nominale maximale (W)",
+    "ControlBox SKI": "ControlBox SKI",
+    "Discovered Devices": "Appareils détectés",
+    "Energy Guards": "Gardiens d'énergie",
+    "Heartbeat Timeout (seconds)": "Délai d'expiration du battement (secondes)",
+    "Model": "Modèle",
+    "Name": "Nom",
+    "No discovered devices available": "Aucun appareil détecté disponible",
+    "Remove": "Supprimer",
+    "Select Discovered Device": "Sélectionner l'appareil détecté",
+    "Serial Number": "Numéro de série",
+    "Service Port": "Port de service",
+    "Trusted": "De confiance",
+    "Type": "Type",
+    "Use selected SKI as ControlBox SKI": "Utiliser le SKI sélectionné comme SKI du ControlBox",
+    "gRPC Endpoint": "Point d'accès gRPC"
 }

@@ -1,1 +1,24 @@
-{}
+{
+    "(Instance not running)": "（实例未运行）",
+    "Add EEBUS": "添加EEBUS",
+    "Add Manual": "添加手册",
+    "Base Config": "基本配置",
+    "Brand": "品牌",
+    "Cancel": "取消",
+    "Contractual Consumption Nominal Max (W)": "标称最大合同功耗（W）",
+    "ControlBox SKI": "控制盒滑雪板",
+    "Discovered Devices": "发现的设备",
+    "Energy Guards": "能量卫士",
+    "Heartbeat Timeout (seconds)": "心跳超时（秒）",
+    "Model": "模型",
+    "Name": "姓名",
+    "No discovered devices available": "没有发现可用的设备",
+    "Remove": "消除",
+    "Select Discovered Device": "选择发现的设备",
+    "Serial Number": "序列号",
+    "Service Port": "服务端口",
+    "Trusted": "值得信赖",
+    "Type": "典型值",
+    "Use selected SKI as ControlBox SKI": "使用选定的 SKI 作为 ControlBox SKI",
+    "gRPC Endpoint": "gRPC 端点"
+}
