@@ -98,6 +98,15 @@ have to make sure that the device will respect the limit.
 If manual limits have been set to eebus energy guards and the CEM receives an active limit from the controlbox, the adapter resets the
 manual limit before it sets the controlbox one.
 
+### Testing
+
+Befor you pair with a real controlbox you should test your system with a simulator, for example: https://github.com/FernetMenta/eebus-device-tester
+If you want to use a browser from a different machie from where the device tester runs, you have to specify WEB_ADDR to the public IP of the machine. E.g.
+
+```
+WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
+```
+
 ## Changelog
 
 <!--
@@ -106,6 +115,7 @@ manual limit before it sets the controlbox one.
 -->
 
 ### **WORK IN PROGRESS**
+
 - (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
 
 ### 0.0.5 (2026-07-29)
