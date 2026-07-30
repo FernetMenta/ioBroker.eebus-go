@@ -17,7 +17,7 @@ function copyAllFiles() {
     copyFiles([`${SRC}/build/**`, `!${SRC}/build/index.html`, `!${SRC}/build/i18n/*`, `!${SRC}/build/i18n`], 'admin');
 
     copyFiles(`${SRC}/build/index.html`, 'admin');
-    fs.rename('admin/index.html', 'admin/index_m.html', () => {});
+    fs.renameSync('admin/index.html', 'admin/index_m.html');
 }
 
 function clean() {
@@ -33,14 +33,14 @@ function installNpmLocal() {
 }
 
 function patchFiles() {
-    if (fs.existsSync(`${__dirname}/admin/index.html`)) {
-        let code = fs.readFileSync(`${__dirname}/admin/index.html`).toString('utf8');
+    if (fs.existsSync(`${__dirname}/admin/index_m.html`)) {
+        let code = fs.readFileSync(`${__dirname}/admin/index_m.html`).toString('utf8');
         code = code.replace(
             /<script>var script=document\.createElement\("script"\).+?<\/script>/,
             `<script type="text/javascript" src="./../../lib/js/socket.io.js"></script>`,
         );
 
-        fs.writeFileSync(`${__dirname}/admin/index.html`, code);
+        fs.writeFileSync(`${__dirname}/admin/index_m.html`, code);
     }
     if (fs.existsSync(`${__dirname}/${SRC}/build/index.html`)) {
         let code = fs.readFileSync(`${__dirname}/${SRC}/build/index.html`).toString('utf8');
