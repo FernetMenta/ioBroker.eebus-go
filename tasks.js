@@ -14,22 +14,10 @@ const SRC = 'src-admin';
 function copyAllFiles() {
     deleteFoldersRecursive('admin', ['.png', '.json', 'i18n']);
 
-    copyFiles(
-        [
-            `${SRC}/build/**`,
-            `!${SRC}/build/index.html`,
-            `!${SRC}/build/static/media/*.svg`,
-            `!${SRC}/build/static/media/*.txt`,
-            `!${SRC}/build/i18n/*`,
-            `!${SRC}/build/i18n`,
-        ],
-        'admin',
-    );
+    copyFiles([`${SRC}/build/**`, `!${SRC}/build/index.html`, `!${SRC}/build/i18n/*`, `!${SRC}/build/i18n`], 'admin');
 
     copyFiles(`${SRC}/build/index.html`, 'admin');
     fs.rename('admin/index.html', 'admin/index_m.html', () => {});
-
-    copyFiles(`${SRC}/build/static/js/main.*.chunk.js`, 'admin/static/js');
 }
 
 function clean() {
@@ -73,7 +61,7 @@ if (process.argv.find(arg => arg === '--0-clean')) {
         process.exit(1);
     });
 } else if (process.argv.find(arg => arg === '--2-build')) {
-    buildReact(`${__dirname}/${SRC}`, { rootDir: __dirname }).catch(e => {
+    buildReact(`${__dirname}/${SRC}`, { rootDir: __dirname, vite: true }).catch(e => {
         console.error(`Cannot build: ${e}`);
         process.exit(1);
     });
@@ -85,7 +73,7 @@ if (process.argv.find(arg => arg === '--0-clean')) {
     clean();
 
     installNpmLocal()
-        .then(() => buildReact(`${__dirname}/${SRC}`, { rootDir: __dirname }))
+        .then(() => buildReact(`${__dirname}/${SRC}`, { rootDir: __dirname, vite: true }))
         .then(() => copyAllFiles())
         .then(() => patchFiles());
 }
