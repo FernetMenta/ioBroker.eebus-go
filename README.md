@@ -124,6 +124,8 @@ manual limit before it sets the controlbox one.
 
 - (FernetMenta) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 Copyright (c) 2024-2026 FernetMenta <fernetmenta@online.de>
