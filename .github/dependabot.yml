@@ -18,7 +18,8 @@ updates:
         update-types:
           - 'version-update:semver-major'
     directories:
-      - '**/*'
+      - '/'
+      - '/src-admin'
 
   - package-ecosystem: 'github-actions'
     directory: '/'
