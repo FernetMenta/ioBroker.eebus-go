@@ -13,7 +13,7 @@ import {
     DialogActions,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/gui-components';
 
 const styles = {
     tab: {
@@ -43,7 +43,7 @@ class EnergyGuardsConfig extends Component {
         this.state = {
             energyGuards: props.native.energyGuards || [],
             discoveredDevices: {},
-            rowSelectionModel: [],
+            rowSelectionModel: { type: 'include', ids: new Set() },
             addEebusDialogOpen: false,
         };
 
@@ -128,14 +128,14 @@ class EnergyGuardsConfig extends Component {
      */
     handleRemove = () => {
         const selected = this.state.rowSelectionModel;
-        if (selected.length === 0) {
+        if (selected.ids.size === 0) {
             return;
         }
         const guards = [...(this.props.native.energyGuards || [])];
         // rowSelectionModel contains the row id (index)
-        const indexToRemove = selected[0];
+        const indexToRemove = [...selected.ids][0];
         guards.splice(indexToRemove, 1);
-        this.setState({ rowSelectionModel: [] });
+        this.setState({ rowSelectionModel: { type: 'include', ids: new Set() } });
         this.props.onChange('energyGuards', guards);
     };
 
@@ -215,7 +215,7 @@ class EnergyGuardsConfig extends Component {
                         <Button
                             variant="contained"
                             color="secondary"
-                            disabled={this.state.rowSelectionModel.length === 0}
+                            disabled={this.state.rowSelectionModel.ids.size === 0}
                             onClick={this.handleRemove}
                         >
                             {I18n.t('Remove')}

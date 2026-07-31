@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { TextField, Button, Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { I18n, Logo } from '@iobroker/adapter-react-v5';
+import { I18n, Logo } from '@iobroker/gui-components';
 import { QRCodeSVG } from 'qrcode.react';
 
 const styles = {
@@ -39,7 +39,7 @@ class Options extends Component {
         this.state = {
             inAction: false,
             isInstanceAlive: false,
-            rowSelectionModel: [],
+            rowSelectionModel: { type: 'include', ids: new Set() },
             discoveredDevices: {},
             ski: '',
         };
@@ -139,8 +139,8 @@ class Options extends Component {
      */
     handleCopyToControlboxSki = () => {
         const selected = this.state.rowSelectionModel;
-        if (selected.length > 0) {
-            this.props.onChange('controlboxSki', selected[0]);
+        if (selected.ids.size > 0) {
+            this.props.onChange('controlboxSki', [...selected.ids][0]);
         }
     };
 
@@ -266,7 +266,7 @@ class Options extends Component {
                     <Button
                         variant="contained"
                         color="primary"
-                        disabled={this.state.rowSelectionModel.length === 0}
+                        disabled={this.state.rowSelectionModel.ids.size === 0}
                         onClick={this.handleCopyToControlboxSki}
                         style={{ marginTop: 8 }}
                     >

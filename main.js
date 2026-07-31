@@ -12,7 +12,7 @@ const { I18n } = require('@iobroker/adapter-core');
 const { Hems } = require('./lib/hems');
 
 // Load your modules here, e.g.:
-// const fs = require('fs');
+// const fs = require('node:fs');
 
 class EebusGo extends utils.Adapter {
     /**
