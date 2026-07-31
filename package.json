@@ -43,6 +43,7 @@
     "@types/iobroker": "npm:@iobroker/types@^7.2.2",
     "@types/node": "^22.20.1",
     "coffee-script": "^1.12.7",
+    "fast-check": "^4.9.0",
     "globals": "^17.6.0",
     "jsverify": "^0.8.4",
     "knuth-shuffle": "^1.0.8",

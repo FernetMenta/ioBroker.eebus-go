@@ -1,0 +1,105 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/cs/lpp";
+
+package cs_lpp;
+
+import "common_types/types.proto";
+
+message ProductionLimitRequest {
+}
+
+message ProductionLimitResponse {
+    common_types.LoadLimit load_limit = 1;
+}
+
+message SetProductionLimitRequest {
+    common_types.LoadLimit load_limit = 1;
+}
+
+message SetProductionLimitResponse {
+}
+
+message PendingProductionLimitRequest {
+}
+
+message PendingProductionLimitResponse {
+    map<uint64, common_types.LoadLimit> load_limits = 1;
+}
+
+message ApproveOrDenyProductionLimitRequest {
+    uint64 msg_counter = 1;
+    bool approve = 2;
+    string reason = 3;
+}
+
+message ApproveOrDenyProductionLimitResponse {
+}
+
+message FailsafeProductionActivePowerLimitRequest {
+}
+
+message FailsafeProductionActivePowerLimitResponse {
+    double limit = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeProductionActivePowerLimitRequest {
+    double value = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeProductionActivePowerLimitResponse {
+}
+
+message FailsafeDurationMinimumRequest {
+}
+
+message FailsafeDurationMinimumResponse {
+    int64 duration_nanoseconds = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeDurationMinimumRequest {
+    int64 duration_nanoseconds = 1;
+    bool is_changeable = 2;
+}
+
+message SetFailsafeDurationMinimumResponse {
+}
+
+message StartHeartbeatRequest {
+}
+
+message StartHeartbeatResponse {
+}
+
+message StopHeartbeatRequest {
+}
+
+message StopHeartbeatResponse {
+}
+
+message IsHeartbeatWithinDurationRequest {
+}
+
+message IsHeartbeatWithinDurationResponse {
+    bool is_within_duration = 1;
+}
+
+message ProductionNominalMaxRequest {
+}
+
+message ProductionNominalMaxResponse {
+    double value = 1;
+}
+
+message SetProductionNominalMaxRequest {
+    double value = 1;
+}
+
+message SetProductionNominalMaxResponse {
+}

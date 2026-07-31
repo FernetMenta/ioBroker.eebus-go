@@ -9,6 +9,8 @@
     "ControlBox SKI": "ControlBox SKI",
     "Discovered Devices": "Dispositivos detetados",
     "Energy Guards": "Guardas de energia",
+    "LPC Energy Guards": "LPC Guardas de energia",
+    "LPP Energy Guards": "LPP Guardas de energia",
     "Heartbeat Timeout (seconds)": "Tempo limite do batimento (segundos)",
     "Model": "Modelo",
     "Name": "Nome",

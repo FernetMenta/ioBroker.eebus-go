@@ -22,6 +22,7 @@ import zhCn from './i18n/zh-cn.json';
 
 const TabBaseConfig = React.lazy(() => import('./Tabs/BaseConfig'));
 const TabEnergyGuards = React.lazy(() => import('./Tabs/EnergyGuardsConfig'));
+const TabLppEnergyGuards = React.lazy(() => import('./Tabs/LppEnergyGuardsConfig'));
 
 const styles = {
     root: {},
@@ -78,19 +79,27 @@ class App extends GenericApp {
     }
 
     /**
+     * Returns the list of visible tab names based on current configuration.
+     */
+    getVisibleTabs() {
+        const tabs = ['config'];
+        if (this.state.native && this.state.native.lpcEnabled !== false) {
+            tabs.push('energyguards');
+        }
+        if (this.state.native && this.state.native.lppEnabled) {
+            tabs.push('lppengergyguards');
+        }
+        return tabs;
+    }
+
+    /**
      * returns index of selected tab
      */
     getSelectedTab() {
         const tab = this.state.selectedTab;
-        if (!tab || tab === 'config') {
-            return 0;
-        } else if (tab === 'energyguards') {
-            return 1;
-        } else if (tab === 'processdata') {
-            return 2;
-        } else if (tab === 'settings') {
-            return 3;
-        }
+        const visibleTabs = this.getVisibleTabs();
+        const index = visibleTabs.indexOf(tab);
+        return index >= 0 ? index : 0;
     }
 
     /**
@@ -110,10 +119,18 @@ class App extends GenericApp {
                             label={I18n.t('Base Config')}
                             data-name="config"
                         />
-                        <Tab
-                            label={I18n.t('Energy Guards')}
-                            data-name="energyguards"
-                        />
+                        {this.state.native.lpcEnabled !== false && (
+                            <Tab
+                                label={I18n.t('LPC Energy Guards')}
+                                data-name="energyguards"
+                            />
+                        )}
+                        {this.state.native && this.state.native.lppEnabled && (
+                            <Tab
+                                label={I18n.t('LPP Energy Guards')}
+                                data-name="lppengergyguards"
+                            />
+                        )}
                     </Tabs>
                 </AppBar>
 
@@ -141,7 +158,7 @@ class App extends GenericApp {
                                 onChange={(attr, value, cb) => this.updateNativeValue(attr, value, cb)}
                             />
                         )}
-                        {this.state.selectedTab === 'energyguards' && (
+                        {this.state.selectedTab === 'energyguards' && this.state.native.lpcEnabled !== false && (
                             <TabEnergyGuards
                                 key="energyguards"
                                 common={this.common}
@@ -160,6 +177,29 @@ class App extends GenericApp {
                                 onChange={(attr, value, cb) => this.updateNativeValue(attr, value, cb)}
                             />
                         )}
+                        {this.state.selectedTab === 'lppengergyguards' &&
+                            this.state.native &&
+                            this.state.native.lppEnabled && (
+                                <TabLppEnergyGuards
+                                    key="lppengergyguards"
+                                    common={this.common}
+                                    socket={this.socket}
+                                    native={this.state.native}
+                                    onError={text =>
+                                        this.setState({
+                                            errorText:
+                                                (text || text === 0) && typeof text !== 'string'
+                                                    ? text.toString()
+                                                    : text,
+                                        })
+                                    }
+                                    onLoad={native => this.onLoadConfig(native)}
+                                    instance={this.instance}
+                                    adapterName={this.adapterName}
+                                    changed={this.state.changed}
+                                    onChange={(attr, value, cb) => this.updateNativeValue(attr, value, cb)}
+                                />
+                            )}
                     </Box>
                 </Suspense>
                 {this.renderSaveCloseButtons()}

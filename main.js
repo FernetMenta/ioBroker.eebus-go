@@ -44,7 +44,8 @@ class EebusGo extends utils.Adapter {
         await I18n.init(path.join(__dirname, 'lib'), this);
 
         // Subscribe to Energy Guard state changes (percentage, heartbeat, connected, manualLimit)
-        this.subscribeStates('EnergyGuards.*');
+        this.subscribeStates('LPC.EnergyGuards.*');
+        this.subscribeStates('LPP.EnergyGuards.*');
 
         this.hems = new Hems(this, I18n.translate);
         this.hems.restart();
@@ -95,7 +96,7 @@ class EebusGo extends utils.Adapter {
     onStateChange(id, state) {
         if (state) {
             if (state.ack === false) {
-                if (id.includes('.EnergyGuards.') && this.hems) {
+                if ((id.includes('.EnergyGuards.') || id.includes('.LPC.') || id.includes('.LPP.')) && this.hems) {
                     this.log.info(`User command for ${id}: ${state.val}`);
                     this.hems.handleEnergyGuardStateChange(id, state);
                 } else {

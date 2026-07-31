@@ -10,7 +10,7 @@ export default [
         ignores: [
             '.dev-server/',
             '.vscode/',
-            '*.test.js',
+            '**/*.test.js',
             'test/**/*.js',
             '*.config.mjs',
             'build',
@@ -21,7 +21,6 @@ export default [
             'dist',
             '**/adapter-config.d.ts',
             'widgets/**/*.js',
-            'lib/energy-guard.test.js',
         ],
     },
 
