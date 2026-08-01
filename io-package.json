@@ -121,7 +121,11 @@
         "heartbeatTimeoutSeconds": 30,
         "controlboxSki": "",
         "contractualConsumptionNominalMax": 4200,
-        "energyGuards": []
+        "energyGuards": [],
+        "lpcEnabled": true,
+        "lppEnabled": false,
+        "contractualProductionNominalMax": 4200,
+        "lppEnergyGuards": []
     },
     "objects": [],
     "instanceObjects": [

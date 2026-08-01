@@ -6,11 +6,22 @@ import { native } from '../io-package.json';
 
 type _AdapterConfig = typeof native;
 
+export interface EnergyGuardConfig {
+    name: string;
+    type: 'eebus' | 'manual';
+    ski: string;
+    brand: string;
+}
+
 // Augment the globally declared type ioBroker.AdapterConfig
 declare global {
     namespace ioBroker {
         interface AdapterConfig extends _AdapterConfig {
-            // Do not enter anything here!
+            lpcEnabled: boolean;
+            lppEnabled: boolean;
+            contractualProductionNominalMax: number;
+            energyGuards: EnergyGuardConfig[];
+            lppEnergyGuards: EnergyGuardConfig[];
         }
     }
 }

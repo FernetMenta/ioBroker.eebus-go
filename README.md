@@ -13,31 +13,38 @@
 
 ## eebus-go adapter for ioBroker
 
-This adapter enables iobroker to become a custom energy manager in the context of §14a EnWG, a German law that requires controllable systems like wallboxes or heatpumps to be dimmable if they can consume more than 4.2kW.
-This law is enforced by controlboxes that run on or are connected to smart meter gateways. A controlbox signals a low power consumption event directly to a controllable system or to a custom energy manager. Using iobroker as a custom energy manager has the following advantages:
+This adapter enables iobroker to become a custom energy manager in the context of §14a EnWG and §9 EEG. §14a EnWG is a German law that requires controllable systems like wallboxes or heatpumps to be dimmable if they can consume more than 4.2kW. §9 EEG requires production systems (e.g. PV inverters) to be curtailable by the grid operator.
+These laws are enforced by controlboxes that run on or are connected to smart meter gateways. A controlbox signals a limitation event directly to a controllable system or to a custom energy manager. Using iobroker as a custom energy manager has the following advantages:
 
 - If you have more than a single controllable system, like a wallbox and a heatpump, you can distribute the limited power to the devices regarding your requirements. For two controllable devices the contractual max power during a limitation is Pdim = 4,2 kW + (CS – 1) x SF x 4,2 kW. The simultaneity factor SF for two controllable systems is 0.8. Means that you can load your car with 7.56kW during a dimming time span if you switch off the heatpump for example.
 - Controlboxes communicate via EEBUS protocols. If your controllable device does not support this protocol, this adapter can manage it by other means, like switching a relay via a user script.
 
-You should have at least a basic understanding of the EEBUS use case for Limitation of Power Consumption: EEBus UC TS - Limitation of Power Consumption. The specification is available for download at [eebus.org](https://www.eebus.org/).
+The adapter supports two EEBUS use cases:
+
+- **LPC** (Limitation of Power Consumption) — limits how much power consumption devices may draw (§14a EnWG)
+- **LPP** (Limitation of Power Production) — limits how much power production devices (e.g. PV inverters, battery storage) may feed in (§9 EEG)
+
+Both use cases can be enabled independently on the Base Config tab. Each has its own state machine, energy guard configuration, and ioBroker object tree.
+
+You should have at least a basic understanding of the EEBUS use cases: EEBus UC TS - Limitation of Power Consumption and EEBus UC TS - Limitation of Power Production. The specifications are available for download at [eebus.org](https://www.eebus.org/).
 
 ### Cascading Constellations
 
-The adapter acts as both a Controllable System (CS) toward the grid operator's controlbox, and as an Energy Guard (EG) toward downstream consumer devices. This enables cascading limit distribution as described in LPC §2.4:
+The adapter acts as both a Controllable System (CS) toward the grid operator's controlbox, and as an Energy Guard (EG) toward downstream devices. This enables cascading limit distribution for both consumption (LPC) and production (LPP) as described in the respective EEBUS use case specifications:
 
 <img src="doc/images/cascading-constellations.svg" alt="Cascading Constellations" width="700">
 
 ### Failsafe
 
-The EEBUS specification requires controllable systems to have a failsafe state in which they only consume a defined amount of power, which is less or equal to 4.2kW. Devices will enter this failsafe state if they lose communication to the custom energy manager or the controlbox. Healthy communication is verified by heartbeats in both directions.
+The EEBUS specification requires controllable systems to have a failsafe state in which they only consume (LPC) or produce (LPP) a defined amount of power, which is less or equal to 4.2kW. Devices will enter this failsafe state if they lose communication to the custom energy manager or the controlbox. Healthy communication is verified by heartbeats in both directions.
 
-If you use this adapter to control a non-EEBUS device like a wallbox, you should make sure that this wallbox can only draw failsafe power in situations iobroker can't control it. If you have more than a single controllable system, make sure that the sum of failsafe powers is less or equal to the contractual max power, see above.
+If you use this adapter to control a non-EEBUS device like a wallbox, you should make sure that this wallbox can only draw failsafe power in situations iobroker can't control it. If you have more than a single controllable system, make sure that the sum of failsafe powers is less or equal to the contractual max power, see above. The same applies to production devices managed via LPP.
 
 ### Controllable System State Machine
 
-The adapter implements the LPC (Limitation of Power Consumption) state machine as defined in EEBus UC TS §2.3.2:
+The adapter implements independent state machines for LPC (Limitation of Power Consumption) and LPP (Limitation of Power Production) as defined in EEBus UC TS §2.3.2. Both state machines share the same states and transitions but operate independently:
 
-<img src="doc/images/lpc-state-machine.svg" alt="LPC State Machine" width="700">
+<img src="doc/images/lpc-state-machine.svg" alt="LPC/LPP State Machine" width="700">
 
 | State                   | Description                                                                                      |
 | ----------------------- | ------------------------------------------------------------------------------------------------ |
@@ -45,7 +52,7 @@ The adapter implements the LPC (Limitation of Power Consumption) state machine a
 | **unlimitedControlled** | CS not limited, but controlled by Energy Guard. Heartbeat active.                                |
 | **limited**             | CS in limited state, controlled by Energy Guard. Active power limit applies.                     |
 | **failsafe**            | CS not controlled by Energy Guard. Limited by failsafe limit. Timer running.                     |
-| **unlimitedAutonomous** | CS not limited. Consumes as if no external limitation exists. Control box disconnected.          |
+| **unlimitedAutonomous** | CS not limited. Operates as if no external limitation exists. Control box disconnected.          |
 
 ### Architecture
 
@@ -57,21 +64,44 @@ This adapter uses the open source EEBUS implementation of enbility, see https://
 
 ### Configuration
 
-Configure the connection to the gRPC server on the BaseConfig tab of the admin UI and save the configuration. If the adapter can connect to the gRPC server it will show a list of discovered EEBUS devices in a table on this tab. Serial number can be anything you like, it is the serial number of your custom energy manager, which can be seen by the controlbox. Do not change after you have paired with a control box. Default heartbeat timeout of 30 seconds should be good for most (if not all) cases. Enter the contractual max power you got from your energy provider (see above). If the controlbox is connected to the same subnet, it should appear in the list. Select it and save the configuration. The SKI of this adapter was generated with first start of the gRPC container. It is coded into the QR code shown on the upper right. It might be required for pairing the controlbox with this custom energy manager.
+Configure the connection to the gRPC server on the BaseConfig tab of the admin UI and save the configuration. If the adapter can connect to the gRPC server it will show a list of discovered EEBUS devices in a table on this tab. Serial number can be anything you like, it is the serial number of your custom energy manager, which can be seen by the controlbox. Do not change after you have paired with a control box. Default heartbeat timeout of 30 seconds should be good for most (if not all) cases.
 
-On the Energy Guards tab you can define EEBUS energy guards that control EEBUS controllable systems and manual energy guards which can control anything. For every energy guard the adapter creates objects that can be used to observe and control the energy manager.
+#### Use Case Activation
+
+On the Base Config tab you can enable or disable the LPC and LPP use cases independently:
+
+- **Enable LPC** (default: on) — activates Limitation of Power Consumption. Enter the contractual max consumption power you got from your energy provider.
+- **Enable LPP** (default: off) — activates Limitation of Power Production. Enter the contractual max production power (e.g. your PV system's nominal power).
+
+If the controlbox is connected to the same subnet, it should appear in the discovered devices list. Select it and save the configuration. The SKI of this adapter was generated with first start of the gRPC container. It is coded into the QR code shown on the upper right. It might be required for pairing the controlbox with this custom energy manager.
+
+#### Energy Guards
+
+On the **LPC Energy Guards** tab you can define energy guards that control consumption devices (EEBUS or manual). On the **LPP Energy Guards** tab (visible only when LPP is enabled) you can define energy guards for production devices. For every energy guard the adapter creates objects that can be used to observe and control the energy manager.
 
 ### iobroker Objects
 
-States related to the CEM:
+States related to general adapter info:
 
 - info.connection: connection to gRPC server
-- info.state: the state of the CEM, see EEBUS use case specification mentioned above
-- info.limit: current limit sent by the controlbox, if limit is active
-- info.limitDuration: duration of active limit
-- info.limitMinutesToday: total duration of dimming. By law this must not be greater than 2 hours a day. If this gets greater, contact your energy provider.
+- info.discoveredDevices: list of discovered EEBUS devices
+- info.ski: the SKI of this adapter instance
 
-States related to all energy guards:
+States related to LPC (under `LPC/`):
+
+- LPC.state: the state of the LPC use case, see EEBUS use case specification mentioned above
+- LPC.limit: current consumption limit sent by the controlbox, if limit is active
+- LPC.limitDuration: duration of active consumption limit
+- LPC.limitMinutesToday: total duration of consumption dimming. By law this must not be greater than 2 hours a day. If this gets greater, contact your energy provider.
+
+States related to LPP (under `LPP/`, only when LPP is enabled):
+
+- LPP.state: the state of the LPP use case (same state machine as LPC)
+- LPP.limit: current production limit sent by the controlbox, if limit is active
+- LPP.limitDuration: duration of active production limit
+- LPP.limitMinutesToday: total duration of production curtailment
+
+States related to all energy guards (under `LPC.EnergyGuards.Guard_{name}/` or `LPP.EnergyGuards.Guard_{name}/`):
 
 - percentage: percentage of the controlbox limit that shall be allocated to this device during a limitation
 - currentLimit: if not zero, the currently active limit for this device
@@ -89,14 +119,18 @@ States related to manual energy guards:
 - heartbeat: user script has to write this state regularly to signal that the controllable device is in a state where it can be dimmed
 - connected: if manual heartbeats are received in time, this is true, false otherwise. Can be set directly if desired.
 
+**Note:** When upgrading from a version without LPP support, existing LPC states are automatically migrated from `info.*` to `LPC.*` and energy guard objects from `EnergyGuards.Guard_*` to `LPC.EnergyGuards.Guard_*`. User scripts referencing the old paths need to be updated.
+
 ### Behaviour
 
-If the CEM receives an active limit from the control box, it distributes the limit to the energy guards according to defined percentage.
+If the CEM receives an active limit from the control box, it distributes the limit to the respective energy guards (LPC or LPP) according to defined percentage.
 If the sum of percentages is greater than 100, the adapter scales down the limit sent to every energy guard. For manual energy guards user scripts
-have to make sure that the device will respect the limit.
+have to make sure that the device will respect the limit. If an energy guard is not connected, its share is redistributed proportionally among the connected guards.
 
 If manual limits have been set to eebus energy guards and the CEM receives an active limit from the controlbox, the adapter resets the
-manual limit before it sets the controlbox one.
+manual limit before it sets the controlbox one. Manual limits cannot be set while a controlbox limit is active.
+
+LPC and LPP operate independently — a consumption limit from the controlbox does not affect production devices and vice versa.
 
 ### Testing
 

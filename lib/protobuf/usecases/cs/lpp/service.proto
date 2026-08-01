@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: Apache-2.0
+// Copyright Pionix GmbH and Contributors to EVerest
+
+syntax = "proto3";
+
+option go_package = "github.com/enbility/eebus-grpc/rpc_services/usecases/cs/lpp";
+
+package cs_lpp;
+
+import "usecases/cs/lpp/messages.proto";
+
+service ControllableSystemLPPControl {
+    rpc ProductionLimit (ProductionLimitRequest) returns (ProductionLimitResponse) {}
+    rpc SetProductionLimit (SetProductionLimitRequest) returns (SetProductionLimitResponse) {}
+    rpc PendingProductionLimit (PendingProductionLimitRequest) returns (PendingProductionLimitResponse) {}
+    rpc ApproveOrDenyProductionLimit (ApproveOrDenyProductionLimitRequest) returns (ApproveOrDenyProductionLimitResponse) {}
+    rpc FailsafeProductionActivePowerLimit (FailsafeProductionActivePowerLimitRequest) returns (FailsafeProductionActivePowerLimitResponse) {}
+    rpc SetFailsafeProductionActivePowerLimit (SetFailsafeProductionActivePowerLimitRequest) returns (SetFailsafeProductionActivePowerLimitResponse) {}
+    rpc FailsafeDurationMinimum (FailsafeDurationMinimumRequest) returns (FailsafeDurationMinimumResponse) {}
+    rpc SetFailsafeDurationMinimum (SetFailsafeDurationMinimumRequest) returns (SetFailsafeDurationMinimumResponse) {}
+    rpc StartHeartbeat (StartHeartbeatRequest) returns (StartHeartbeatResponse) {}
+    rpc StopHeartbeat (StopHeartbeatRequest) returns (StopHeartbeatResponse) {}
+    rpc IsHeartbeatWithinDuration (IsHeartbeatWithinDurationRequest) returns (IsHeartbeatWithinDurationResponse) {}
+    rpc ProductionNominalMax (ProductionNominalMaxRequest) returns (ProductionNominalMaxResponse) {}
+    rpc SetProductionNominalMax (SetProductionNominalMaxRequest) returns (SetProductionNominalMaxResponse) {}
+}
