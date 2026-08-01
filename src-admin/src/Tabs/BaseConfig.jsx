@@ -231,18 +231,6 @@ class Options extends Component {
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
-                        label={I18n.t('Contractual Consumption Nominal Max (W)')}
-                        value={this.props.native.contractualConsumptionNominalMax}
-                        type="number"
-                        onChange={e =>
-                            this.props.onChange('contractualConsumptionNominalMax', parseInt(e.target.value, 10) || 0)
-                        }
-                        margin="normal"
-                    />
-                    <br />
-                    <TextField
-                        style={{ ...styles.input }}
-                        variant="standard"
                         label={I18n.t('ControlBox SKI')}
                         value={this.props.native.controlboxSki}
                         type="text"
@@ -251,44 +239,62 @@ class Options extends Component {
                     />
                     <br />
                     <br />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={this.props.native.lpcEnabled !== false}
-                                onChange={e => this.props.onChange('lpcEnabled', e.target.checked)}
-                            />
-                        }
-                        label={I18n.t('Enable LPC (Limitation of Power Consumption)')}
-                    />
-                    <br />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={!!this.props.native.lppEnabled}
-                                onChange={e => this.props.onChange('lppEnabled', e.target.checked)}
-                            />
-                        }
-                        label={I18n.t('Enable LPP (Limitation of Power Production)')}
-                    />
-                    <br />
-                    {!!this.props.native.lppEnabled && (
-                        <TextField
-                            style={{ ...styles.input }}
-                            variant="standard"
-                            label={I18n.t('Contractual Production Nominal Max (watts)')}
-                            value={this.props.native.contractualProductionNominalMax ?? ''}
-                            type="number"
-                            inputProps={{ min: 0, max: 999999 }}
-                            onChange={e => {
-                                const parsed = parseInt(e.target.value, 10);
-                                this.props.onChange(
-                                    'contractualProductionNominalMax',
-                                    Number.isFinite(parsed) ? parsed : 0,
-                                );
-                            }}
-                            margin="normal"
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                        <FormControlLabel
+                            sx={{ minWidth: 420 }}
+                            control={
+                                <Checkbox
+                                    checked={this.props.native.lpcEnabled !== false}
+                                    onChange={e => this.props.onChange('lpcEnabled', e.target.checked)}
+                                />
+                            }
+                            label={I18n.t('Enable LPC (Limitation of Power Consumption)')}
                         />
-                    )}
+                        <TextField
+                            variant="standard"
+                            label={I18n.t('Contractual Consumption Nominal Max (W)')}
+                            value={this.props.native.contractualConsumptionNominalMax}
+                            type="number"
+                            onChange={e =>
+                                this.props.onChange(
+                                    'contractualConsumptionNominalMax',
+                                    parseInt(e.target.value, 10) || 0,
+                                )
+                            }
+                            margin="normal"
+                            sx={{ minWidth: 300 }}
+                        />
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                        <FormControlLabel
+                            sx={{ minWidth: 420 }}
+                            control={
+                                <Checkbox
+                                    checked={!!this.props.native.lppEnabled}
+                                    onChange={e => this.props.onChange('lppEnabled', e.target.checked)}
+                                />
+                            }
+                            label={I18n.t('Enable LPP (Limitation of Power Production)')}
+                        />
+                        {!!this.props.native.lppEnabled && (
+                            <TextField
+                                variant="standard"
+                                label={I18n.t('Contractual Production Nominal Max (W)')}
+                                value={this.props.native.contractualProductionNominalMax ?? ''}
+                                type="number"
+                                inputProps={{ min: 0, max: 999999 }}
+                                onChange={e => {
+                                    const parsed = parseInt(e.target.value, 10);
+                                    this.props.onChange(
+                                        'contractualProductionNominalMax',
+                                        Number.isFinite(parsed) ? parsed : 0,
+                                    );
+                                }}
+                                margin="normal"
+                                sx={{ minWidth: 300 }}
+                            />
+                        )}
+                    </Box>
                     <br />
                     <h3>{I18n.t('Discovered Devices')}</h3>
                     <Box sx={{ height: 300, width: '100%' }}>
