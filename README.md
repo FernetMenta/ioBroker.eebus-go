@@ -123,12 +123,32 @@ States related to manual energy guards:
 
 ### Behaviour
 
-If the CEM receives an active limit from the control box, it distributes the limit to the respective energy guards (LPC or LPP) according to defined percentage.
-If the sum of percentages is greater than 100, the adapter scales down the limit sent to every energy guard. For manual energy guards user scripts
-have to make sure that the device will respect the limit. If an energy guard is not connected, its share is redistributed proportionally among the connected guards.
+When the controlbox sends an active limit, the adapter distributes it to the configured energy guards based on their percentage setting.
 
-If manual limits have been set to eebus energy guards and the CEM receives an active limit from the controlbox, the adapter resets the
-manual limit before it sets the controlbox one. Manual limits cannot be set while a controlbox limit is active.
+**How percentages work:**
+
+Each energy guard has a configured percentage that defines how much of the controlbox limit it receives. If a guard is set to 70%, it gets 70% of the limit — never more. The percentage is a hard cap per guard.
+
+- If the sum of all percentages is less than or equal to 100%, each guard gets exactly its configured share. The remainder stays unused.
+- If the sum exceeds 100%, all percentages are scaled down proportionally so they fit within 100%.
+- Disconnected guards are skipped. Their share is **not** redistributed to connected guards. Since a disconnected device may still draw (or produce) up to its failsafe power, that amount is reserved from the budget before distributing to connected guards.
+
+**Failsafe limits:**
+
+Each energy guard has a failsafe limit (the minimum power it must always be allowed to draw or produce). If a guard's percentage-based share would be lower than its failsafe, the guard is pinned at its failsafe limit. This consumes more of the total budget, so the remaining guards may receive less than their configured percentage.
+
+**Example:** Controlbox limit is 4200W. Guard A has 70% and a failsafe of 4200W. Guard B has 30% and no failsafe.
+- Guard A's percentage share would be 2940W, but its failsafe requires 4200W → pinned at 4200W.
+- The entire budget is consumed by Guard A. Guard B receives 0W.
+
+**Example:** Controlbox limit is 4200W. Guard A has 70% and no failsafe. Guard B has 30% and no failsafe.
+- Guard A gets 2940W (70%), Guard B gets 1260W (30%). Sum = 4200W.
+
+**Manual limits:**
+
+If manual limits have been set on EEBUS energy guards and the controlbox sends an active limit, the adapter resets all manual limits before applying the controlbox limit. Manual limits cannot be set while a controlbox limit is active.
+
+**Independence:**
 
 LPC and LPP operate independently — a consumption limit from the controlbox does not affect production devices and vice versa.
 
