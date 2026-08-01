@@ -167,8 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.1.0 (2026-08-01)
 
 - (FernetMenta) Add LPP (Limitation of Power Production) use case
 - (FernetMenta) Fix race condition in limit distribution (use stored limit value)

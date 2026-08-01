@@ -1,154 +1,173 @@
 {
-    "common": {
-        "name": "eebus-go",
-        "version": "0.0.5",
-        "news": {
-            "0.0.5": {
-                "en": "some fixes",
-                "de": "einige fixes",
-                "ru": "некоторые исправления",
-                "pt": "algumas correções",
-                "nl": "sommige fixes",
-                "fr": "quelques corrections",
-                "it": "alcune correzioni",
-                "es": "algunos arreglos",
-                "pl": "niektóre poprawki",
-                "uk": "деякі виправлення",
-                "zh-cn": "一些修正"
-            },
-            "0.0.4": {
-                "en": "fixes required by iobroker checker",
-                "de": "fixes erforderlich von iobroker checker",
-                "ru": "требуется iobroker checker",
-                "pt": "correções exigidas pelo verificador iobroker",
-                "nl": "fixes vereist door iobroker checker",
-                "fr": "correctifs requis par iobroker checker",
-                "it": "correzioni richieste da iobroker checker",
-                "es": "fijaciones requeridas por iobroker checker",
-                "pl": "poprawki wymagane przez sprawdzacz iobroker",
-                "uk": "фіксатори, необхідні для перевірки iobroker",
-                "zh-cn": "iobrocco 检查器所需的修正"
-            },
-            "0.0.3": {
-                "en": "fixes for repo checker",
-                "de": "fixes für repo checker",
-                "ru": "обсуждение repo checker",
-                "pt": "correções para repo checker",
-                "nl": "correcties voor repo-checker",
-                "fr": "correctifs pour repo checker",
-                "it": "correzioni per repo checker",
-                "es": "fijaciones para el checker de repo",
-                "pl": "poprawki do sprawdzania repo",
-                "uk": "фіксації для репо-реєстратора",
-                "zh-cn": "repo 检查器的修改"
-            },
-            "0.0.2": {
-                "en": "initial release",
-                "de": "erstmalige freigabe",
-                "ru": "первоначальное освобождение",
-                "pt": "libertação inicial",
-                "nl": "eerste release",
-                "fr": "libération initiale",
-                "it": "rilascio iniziale",
-                "es": "liberación inicial",
-                "pl": "początkowe zwolnienie",
-                "uk": "початковий реліз",
-                "zh-cn": "初步释放"
-            }
-        },
-        "titleLang": {
-            "en": "EEBUS HEMS",
-            "de": "EEBUS HEMS",
-            "ru": "ЭЕВУС ХМС",
-            "pt": "EEBUS BAINHAS",
-            "nl": "EEBUS-ZOMEN",
-            "fr": "OURLETS EEBUS",
-            "it": "ORLI EEBUS",
-            "es": "DOBLADILLOS EEBUS",
-            "pl": "EEBUS HEMS",
-            "uk": "EEBUS HEMS",
-            "zh-cn": "EEBUS HEMS"
-        },
-        "desc": {
-            "en": "eebus grpc client for a hems",
-            "de": "eebus GRPC-Client für einen Saum",
-            "ru": "Клиент eebus grpc для рубки",
-            "pt": "cliente eebus grpc para bainhas",
-            "nl": "eebus grpc-client voor zomen",
-            "fr": "client eebus grpc pour un ourlet",
-            "it": "client eebus grpc per un hems",
-            "es": "Cliente eebus grpc para dobladillos",
-            "pl": "Klient eebus grpc dla obszyć",
-            "uk": "eebus grpc клієнт для hems",
-            "zh-cn": "用于下摆的 eebus grpc 客户端"
-        },
-        "authors": ["FernetMenta <fernetmenta@online.de>"],
-        "keywords": ["eebus", "eebus-go", "hems"],
-        "licenseInformation": {
-            "type": "free",
-            "license": "GPL-3.0-only"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "eebus-go.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
-        "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "daemon",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "html"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=7.0.6"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.8.23"
-            }
-        ]
+  "common": {
+    "name": "eebus-go",
+    "version": "0.1.0",
+    "news": {
+      "0.1.0": {
+        "en": "Add LPP (Limitation of Power Production) use case\nFix race condition in limit distribution (use stored limit value)\nFix budget-respecting limit distribution: percentages are hard caps, no redistribution of disconnected shares, failsafe of disconnected guards reserved from budget\nUI: place contractual nominal max fields next to use case checkboxes\nAdapter requires admin >= 7.8.23 now.",
+        "de": "Hinzufügen von LPP (Limitation of Power Production) Use Case\nFixer Rennzustand in Limitverteilung (verwendet gespeicherter Grenzwert)\nFeste Budget-konforme Limit-Verteilung: Prozentsätze sind Hard Caps, keine Umverteilung von getrennten Aktien, Failsafe von getrennten Wachen, die vom Budget reserviert sind\nUI: Platzieren Sie die Felder Contractual Nominal Max neben Use Case Checkboxen\nAdapter erfordert admin >= 7.8.23 jetzt.",
+        "ru": "Добавить LPP (Limitation of Power Production)\nУсловие фиксированной гонки в предельном распределении (использовать сохраненное предельное значение)\nИсправьте распределение лимитов, уважающих бюджет: проценты являются жесткими ограничениями, никакого перераспределения отключенных акций, отказоустойчивости отключенных охранников, зарезервированных из бюджета\nUI: размещайте договорные номинальные поля max рядом с флажками\nАдаптер требует администратора >= 7.8.23.",
+        "pt": "Adicionar caso de uso de LPP (Limitação da Produção de Energia)\nCorrigir a condição de raça na distribuição do limite (utilizar o valor-limite armazenado)\nCorrigir a distribuição do limite que respeita o orçamento: as percentagens são limites rígidos, não há redistribuição de acções desligadas, não há segurança dos guardas desligados reservados do orçamento\nUI: colocar campos nominais máx. contratuais ao lado de caixas de verificação de caixa de uso\nAdaptador requer administrador >= 7.8.23 agora.",
+        "nl": "LPP (Limitation of Power Production) use case toevoegen\nFix race conditie in limit distributie (gebruik opgeslagen grenswaarde)\nFix budget-respecting limit distribution: percentages zijn harde plafonds, geen herverdeling van niet-afgekoppelde aandelen, failsafety of losgekoppelde bewakers gereserveerd van de begroting\nUI: plaats contractuele nominale max-velden naast geval-checkboxen\nVoor adapter is admin < 7.8.23 nodig.",
+        "fr": "Ajouter le cas d'utilisation LPP (Limitation de la production d'électricité)\nFixer l'état de race dans la distribution limite (utiliser la valeur limite stockée)\nFixer la répartition des limites de respect du budget: les pourcentages sont des plafonds rigides, pas de redistribution des actions déconnectées, pas de sécurité des gardes déconnectés réservés au budget\nUI: placez des champs nominaux à côté des cases à cocher\nAdaptateur nécessite admin >= 7.8.23 maintenant.",
+        "it": "Aggiungere LPP (Limitation of Power Production) caso di utilizzo\nFissare la condizione di gara nella distribuzione dei limiti (utilizzare il valore limite memorizzato)\nFissare la distribuzione dei limiti di controllo del bilancio: le percentuali sono capretti duri, nessuna ridistribuzione delle azioni scollegate, failsafe delle guardie scollegate riservate al bilancio\nUI: posizionare campi max contrattuali nominali accanto alle caselle di controllo del caso di utilizzo\nL'adattatore richiede ora admin >= 7.8.23.",
+        "es": "Add LPP (Limitation of Power Production) use case\nFijar la condición de raza en la distribución límite (valor límite de uso almacenado)\nCorrección de la distribución límite de revisión presupuestaria: porcentajes son tapas duras, no redistribución de acciones desconectadas, inseguro de guardias desconectados reservados del presupuesto\nUI: colocar campos máximos nominales contractuales al lado de las casillas de verificación de caso\nEl adaptador requiere admin= 7.8.23 ahora.",
+        "pl": "Dodaj LPP (Ograniczenie produkcji energii elektrycznej)\nPopraw stan wyścigu w dystrybucji granicznej (użyj zapisanej wartości granicznej)\nFix budżet - przestrzeganie limitu dystrybucji: procent są twarde pułapy, nie redystrybucja odłączonych akcji, zabezpieczenie niesprawności odłączonych strażników zarezerwowane z budżetu\nInterfejs: umieść umowne pole maksimum obok pola wyboru przypadku\nAdapter wymaga admin > = 7.8.23 teraz.",
+        "uk": "Додати LPP (Облік виробництва електроенергії)\nФіксувати стан раси в обмеженому розподілі (з використанням збереженого ліміту значення)\nВиправлення розподілу лімітів бюджету: відсотки є твердими ковпачками, не перерозподілу відключених акцій, небезпечних відключених охоронців, що зараховуються від бюджету\nUI: розмістити договірні номінальні максимальні поля поряд з прапорцями справи\nАдаптер вимагає адміністратора >= 7.8.23 тепер.",
+        "zh-cn": "添加LPP(限制电力生产)使用例\n将种族条件固定在限制分布中( 使用存储限制值)\n修正尊重预算的限制分配:百分比是硬上限,不重新分配断开的股票,不保证从预算中保留的断开的警卫的安全\nUI: 将合同标定的最大字段放在使用大小写复选框的旁边\n适配器需要管理员 \\ 7.8.23现在."
+      },
+      "0.0.5": {
+        "en": "some fixes",
+        "de": "einige fixes",
+        "ru": "некоторые исправления",
+        "pt": "algumas correções",
+        "nl": "sommige fixes",
+        "fr": "quelques corrections",
+        "it": "alcune correzioni",
+        "es": "algunos arreglos",
+        "pl": "niektóre poprawki",
+        "uk": "деякі виправлення",
+        "zh-cn": "一些修正"
+      },
+      "0.0.4": {
+        "en": "fixes required by iobroker checker",
+        "de": "fixes erforderlich von iobroker checker",
+        "ru": "требуется iobroker checker",
+        "pt": "correções exigidas pelo verificador iobroker",
+        "nl": "fixes vereist door iobroker checker",
+        "fr": "correctifs requis par iobroker checker",
+        "it": "correzioni richieste da iobroker checker",
+        "es": "fijaciones requeridas por iobroker checker",
+        "pl": "poprawki wymagane przez sprawdzacz iobroker",
+        "uk": "фіксатори, необхідні для перевірки iobroker",
+        "zh-cn": "iobrocco 检查器所需的修正"
+      },
+      "0.0.3": {
+        "en": "fixes for repo checker",
+        "de": "fixes für repo checker",
+        "ru": "обсуждение repo checker",
+        "pt": "correções para repo checker",
+        "nl": "correcties voor repo-checker",
+        "fr": "correctifs pour repo checker",
+        "it": "correzioni per repo checker",
+        "es": "fijaciones para el checker de repo",
+        "pl": "poprawki do sprawdzania repo",
+        "uk": "фіксації для репо-реєстратора",
+        "zh-cn": "repo 检查器的修改"
+      },
+      "0.0.2": {
+        "en": "initial release",
+        "de": "erstmalige freigabe",
+        "ru": "первоначальное освобождение",
+        "pt": "libertação inicial",
+        "nl": "eerste release",
+        "fr": "libération initiale",
+        "it": "rilascio iniziale",
+        "es": "liberación inicial",
+        "pl": "początkowe zwolnienie",
+        "uk": "початковий реліз",
+        "zh-cn": "初步释放"
+      }
     },
-    "native": {
-        "grpcEndpoint": "localhost:50051",
-        "servicePort": 4715,
-        "serialNumber": "123456",
-        "heartbeatTimeoutSeconds": 30,
-        "controlboxSki": "",
-        "contractualConsumptionNominalMax": 4200,
-        "energyGuards": [],
-        "lpcEnabled": true,
-        "lppEnabled": false,
-        "contractualProductionNominalMax": 4200,
-        "lppEnergyGuards": []
+    "titleLang": {
+      "en": "EEBUS HEMS",
+      "de": "EEBUS HEMS",
+      "ru": "ЭЕВУС ХМС",
+      "pt": "EEBUS BAINHAS",
+      "nl": "EEBUS-ZOMEN",
+      "fr": "OURLETS EEBUS",
+      "it": "ORLI EEBUS",
+      "es": "DOBLADILLOS EEBUS",
+      "pl": "EEBUS HEMS",
+      "uk": "EEBUS HEMS",
+      "zh-cn": "EEBUS HEMS"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "gRPC connection status",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "eebus grpc client for a hems",
+      "de": "eebus GRPC-Client für einen Saum",
+      "ru": "Клиент eebus grpc для рубки",
+      "pt": "cliente eebus grpc para bainhas",
+      "nl": "eebus grpc-client voor zomen",
+      "fr": "client eebus grpc pour un ourlet",
+      "it": "client eebus grpc per un hems",
+      "es": "Cliente eebus grpc para dobladillos",
+      "pl": "Klient eebus grpc dla obszyć",
+      "uk": "eebus grpc клієнт для hems",
+      "zh-cn": "用于下摆的 eebus grpc 客户端"
+    },
+    "authors": [
+      "FernetMenta <fernetmenta@online.de>"
+    ],
+    "keywords": [
+      "eebus",
+      "eebus-go",
+      "hems"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "GPL-3.0-only"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "eebus-go.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
+    "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "html"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=7.0.6"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.8.23"
+      }
     ]
+  },
+  "native": {
+    "grpcEndpoint": "localhost:50051",
+    "servicePort": 4715,
+    "serialNumber": "123456",
+    "heartbeatTimeoutSeconds": 30,
+    "controlboxSki": "",
+    "contractualConsumptionNominalMax": 4200,
+    "energyGuards": [],
+    "lpcEnabled": true,
+    "lppEnabled": false,
+    "contractualProductionNominalMax": 4200,
+    "lppEnergyGuards": []
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "gRPC connection status",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
