@@ -175,6 +175,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)
 - Fix: add periodic heartbeat check timer to detect controlbox disconnection
 - Fix: recover FSM from unlimitedAutonomous when controlbox reconnects
+- UI: allow clearing ControlBox SKI in admin config
 
 ### 0.1.0 (2026-08-01)
 

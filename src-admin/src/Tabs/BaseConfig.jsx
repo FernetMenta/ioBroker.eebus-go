@@ -228,16 +228,26 @@ class Options extends Component {
                         margin="normal"
                     />
                     <br />
-                    <TextField
-                        style={{ ...styles.input }}
-                        variant="standard"
-                        label={I18n.t('ControlBox SKI')}
-                        value={this.props.native.controlboxSki}
-                        type="text"
-                        disabled
-                        margin="normal"
-                    />
-                    <br />
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <TextField
+                            sx={{ minWidth: 420 }}
+                            variant="standard"
+                            label={I18n.t('ControlBox SKI')}
+                            value={this.props.native.controlboxSki || ''}
+                            type="text"
+                            disabled
+                            margin="normal"
+                        />
+                        <Button
+                            variant="outlined"
+                            size="small"
+                            disabled={!this.props.native.controlboxSki}
+                            onClick={() => this.props.onChange('controlboxSki', '')} 
+                            sx={{ minWidth: 300 }}
+                        >
+                            {I18n.t('Clear ControlBox SKI')}
+                        </Button>
+                    </Box>
                     <br />
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
                         <FormControlLabel
