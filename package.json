@@ -1,82 +1,82 @@
 {
-    "name": "iobroker.eebus-go",
-    "version": "0.1.0",
-    "description": "eebus grpc client for a hems",
-    "author": {
-        "name": "FernetMenta",
-        "email": "fernetmenta@online.de"
-    },
-    "contributors": [],
-    "homepage": "https://github.com/FernetMenta/ioBroker.eebus-go",
-    "license": "GPL-3.0-only",
-    "keywords": [
-        "ioBroker",
-        "eebus",
-        "eebus-go",
-        "hems"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/FernetMenta/ioBroker.eebus-go.git"
-    },
-    "engines": {
-        "node": ">= 22"
-    },
-    "dependencies": {
-        "@grpc/grpc-js": "^1.14.4",
-        "@grpc/proto-loader": "^0.8.1",
-        "@iobroker/adapter-core": "^3.4.3",
-        "javascript-state-machine": "^3.1.0"
-    },
-    "devDependencies": {
-        "@alcalzone/release-script": "^5.2.1",
-        "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
-        "@alcalzone/release-script-plugin-license": "^5.2.2",
-        "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
-        "@iobroker/adapter-dev": "^1.5.0",
-        "@iobroker/build-tools": "^3.0.1",
-        "@iobroker/dev-server": "^0.8.0",
-        "@iobroker/eslint-config": "^2.3.4",
-        "@iobroker/testing": "^5.3.0",
-        "@sinonjs/referee-sinon": "^12.0.1",
-        "@tsconfig/node22": "^22.0.5",
-        "@types/iobroker": "npm:@iobroker/types@^7.2.2",
-        "@types/node": "^22.20.1",
-        "coffee-script": "^1.12.7",
-        "fast-check": "^4.9.0",
-        "globals": "^17.6.0",
-        "jsverify": "^0.8.4",
-        "knuth-shuffle": "^1.0.8",
-        "typescript": "^6.0.3"
-    },
-    "main": "main.js",
-    "files": [
-        "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
-        "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
-        "lib/",
-        "io-package.json",
-        "LICENSE",
-        "main.js"
-    ],
-    "scripts": {
-        "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
-        "test:package": "mocha test/package --exit",
-        "test:integration": "mocha test/integration --exit",
-        "test": "npm run test:js && npm run test:package",
-        "check": "tsc --noEmit -p tsconfig.check.json",
-        "lint": "eslint -c eslint.config.mjs . && npm run lint --prefix src-admin",
-        "translate": "translate-adapter",
-        "release": "release-script",
-        "dev-server": "dev-server",
-        "0-clean": "node tasks --0-clean",
-        "1-npm": "node tasks --1-npm",
-        "2-build": "node tasks --2-build",
-        "3-copy": "node tasks --3-copy",
-        "4-patch": "node tasks --4-patch",
-        "build": "node tasks"
-    },
-    "bugs": {
-        "url": "https://github.com/FernetMenta/ioBroker.eebus-go/issues"
-    },
-    "readmeFilename": "README.md"
+  "name": "iobroker.eebus-go",
+  "version": "0.2.0",
+  "description": "eebus grpc client for a hems",
+  "author": {
+    "name": "FernetMenta",
+    "email": "fernetmenta@online.de"
+  },
+  "contributors": [],
+  "homepage": "https://github.com/FernetMenta/ioBroker.eebus-go",
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "ioBroker",
+    "eebus",
+    "eebus-go",
+    "hems"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FernetMenta/ioBroker.eebus-go.git"
+  },
+  "engines": {
+    "node": ">= 22"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.4",
+    "@grpc/proto-loader": "^0.8.1",
+    "@iobroker/adapter-core": "^3.4.3",
+    "javascript-state-machine": "^3.1.0"
+  },
+  "devDependencies": {
+    "@alcalzone/release-script": "^5.2.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
+    "@alcalzone/release-script-plugin-license": "^5.2.2",
+    "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
+    "@iobroker/adapter-dev": "^1.5.0",
+    "@iobroker/build-tools": "^3.0.1",
+    "@iobroker/dev-server": "^0.8.0",
+    "@iobroker/eslint-config": "^2.3.4",
+    "@iobroker/testing": "^5.3.0",
+    "@sinonjs/referee-sinon": "^12.0.1",
+    "@tsconfig/node22": "^22.0.5",
+    "@types/iobroker": "npm:@iobroker/types@^7.2.2",
+    "@types/node": "^22.20.1",
+    "coffee-script": "^1.12.7",
+    "fast-check": "^4.9.0",
+    "globals": "^17.6.0",
+    "jsverify": "^0.8.4",
+    "knuth-shuffle": "^1.0.8",
+    "typescript": "^6.0.3"
+  },
+  "main": "main.js",
+  "files": [
+    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*|.eslintrc).{json,json5}",
+    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "lib/",
+    "io-package.json",
+    "LICENSE",
+    "main.js"
+  ],
+  "scripts": {
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "check": "tsc --noEmit -p tsconfig.check.json",
+    "lint": "eslint -c eslint.config.mjs . && npm run lint --prefix src-admin",
+    "translate": "translate-adapter",
+    "release": "release-script",
+    "dev-server": "dev-server",
+    "0-clean": "node tasks --0-clean",
+    "1-npm": "node tasks --1-npm",
+    "2-build": "node tasks --2-build",
+    "3-copy": "node tasks --3-copy",
+    "4-patch": "node tasks --4-patch",
+    "build": "node tasks"
+  },
+  "bugs": {
+    "url": "https://github.com/FernetMenta/ioBroker.eebus-go/issues"
+  },
+  "readmeFilename": "README.md"
 }

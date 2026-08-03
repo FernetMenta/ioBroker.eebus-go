@@ -1,180 +1,186 @@
 {
-    "common": {
-        "name": "eebus-go",
-        "version": "0.1.0",
-        "news": {
-            "0.2.0": {
-                "en": "Refactor: separate EG handling from CS use cases into eg-lpc.js / eg-lpp.js\nFix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)\nFix: distribute failsafe limits to energy guards when entering failsafe state\nFix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)\nFix: add periodic heartbeat check timer to detect controlbox disconnection\nFix: recover FSM from unlimitedAutonomous when controlbox reconnects\nUI: allow clearing ControlBox SKI in admin config",
-                "de": "Refactor: EG-Behandlung von CS-Use-Cases in eg-lpc.js / eg-lpp.js getrennt\nFix: dynamisches Failsafe-Limit an Controlbox melden (Summe der Guard-Failsafes, Benutzerschreibvorgänge über vertraglichem Max ablehnen)\nFix: Failsafe-Limits an Energy Guards verteilen beim Eintritt in den Failsafe-Zustand\nFix: nur Controlbox-Heartbeats für FSM-Übergänge verarbeiten (EG-Geräte-Heartbeats ignorieren)\nFix: periodischen Heartbeat-Check-Timer hinzufügen zur Erkennung von Controlbox-Verbindungsabbrüchen\nFix: FSM aus unlimitedAutonomous wiederherstellen wenn Controlbox sich neu verbindet\nUI: Löschen der ControlBox-SKI in der Admin-Konfiguration ermöglichen",
-                "ru": "Рефакторинг: разделение обработки EG от сценариев CS в eg-lpc.js / eg-lpp.js\nИсправление: отправка динамического лимита отказоустойчивости в контролбокс (сумма failsafe охранников, отклонение записей пользователя превышающих договорной максимум)\nИсправление: распределение лимитов отказоустойчивости по энергохранителям при входе в состояние failsafe\nИсправление: обработка только heartbeat контролбокса для переходов FSM (игнорирование heartbeat устройств EG)\nИсправление: добавление периодического таймера проверки heartbeat для обнаружения отключения контролбокса\nИсправление: восстановление FSM из unlimitedAutonomous при повторном подключении контролбокса\nUI: разрешить очистку SKI контролбокса в конфигурации администратора",
-                "pt": "Refatoração: separar tratamento de EG dos casos de uso CS em eg-lpc.js / eg-lpp.js\nCorreção: reportar limite failsafe dinâmico ao controlbox (soma dos failsafes dos guards, rejeitar escritas do utilizador que excedam o máximo contratual)\nCorreção: distribuir limites failsafe aos energy guards ao entrar no estado failsafe\nCorreção: processar apenas heartbeats do controlbox para transições FSM (ignorar heartbeats de dispositivos EG)\nCorreção: adicionar timer periódico de verificação de heartbeat para detetar desconexão do controlbox\nCorreção: recuperar FSM de unlimitedAutonomous quando controlbox se reconecta\nUI: permitir limpar SKI do ControlBox na configuração de administração",
-                "nl": "Refactor: EG-afhandeling gescheiden van CS use cases in eg-lpc.js / eg-lpp.js\nFix: dynamische failsafe-limiet melden aan controlbox (som van guard failsafes, gebruikersschrijfacties boven contractueel max afwijzen)\nFix: failsafe-limieten verdelen aan energy guards bij het betreden van de failsafe-toestand\nFix: alleen controlbox-heartbeats verwerken voor FSM-overgangen (EG-apparaat-heartbeats negeren)\nFix: periodieke heartbeat-controle timer toevoegen om controlbox-verbreking te detecteren\nFix: FSM herstellen uit unlimitedAutonomous wanneer controlbox opnieuw verbindt\nUI: wissen van ControlBox SKI in admin-configuratie toestaan",
-                "fr": "Refactorisation: séparer le traitement EG des cas d'utilisation CS dans eg-lpc.js / eg-lpp.js\nCorrection: signaler la limite failsafe dynamique au controlbox (somme des failsafes des guards, rejeter les écritures utilisateur dépassant le max contractuel)\nCorrection: distribuer les limites failsafe aux energy guards lors de l'entrée en état failsafe\nCorrection: traiter uniquement les heartbeats du controlbox pour les transitions FSM (ignorer les heartbeats des appareils EG)\nCorrection: ajouter un timer de vérification périodique des heartbeats pour détecter la déconnexion du controlbox\nCorrection: récupérer le FSM depuis unlimitedAutonomous lorsque le controlbox se reconnecte\nUI: permettre l'effacement du SKI du ControlBox dans la configuration admin",
-                "it": "Refactoring: separare la gestione EG dai casi d'uso CS in eg-lpc.js / eg-lpp.js\nFix: segnalare il limite failsafe dinamico al controlbox (somma dei failsafe dei guard, rifiutare scritture utente che superano il max contrattuale)\nFix: distribuire i limiti failsafe agli energy guard all'ingresso nello stato failsafe\nFix: elaborare solo gli heartbeat del controlbox per le transizioni FSM (ignorare gli heartbeat dei dispositivi EG)\nFix: aggiungere un timer periodico di controllo heartbeat per rilevare la disconnessione del controlbox\nFix: ripristinare FSM da unlimitedAutonomous quando il controlbox si riconnette\nUI: consentire la cancellazione dello SKI del ControlBox nella configurazione admin",
-                "es": "Refactorización: separar manejo de EG de los casos de uso CS en eg-lpc.js / eg-lpp.js\nCorreción: reportar límite failsafe dinámico al controlbox (suma de failsafes de guardias, rechazar escrituras de usuario que excedan el máximo contractual)\nCorreción: distribuir límites failsafe a los energy guards al entrar en estado failsafe\nCorreción: procesar solo heartbeats del controlbox para transiciones FSM (ignorar heartbeats de dispositivos EG)\nCorreción: agregar timer periódico de verificación de heartbeat para detectar desconexión del controlbox\nCorreción: recuperar FSM desde unlimitedAutonomous cuando el controlbox se reconecta\nUI: permitir borrar el SKI del ControlBox en la configuración de administración",
-                "pl": "Refaktoryzacja: rozdzielenie obsługi EG od przypadków użycia CS do eg-lpc.js / eg-lpp.js\nPoprawka: raportowanie dynamicznego limitu failsafe do controlboxa (suma failsafe strażników, odrzucanie zapisów użytkownika przekraczających maksimum umowne)\nPoprawka: dystrybucja limitów failsafe do strażników energii przy wejściu w stan failsafe\nPoprawka: przetwarzanie tylko heartbeatów controlboxa dla przejść FSM (ignorowanie heartbeatów urządzeń EG)\nPoprawka: dodanie okresowego timera sprawdzania heartbeat do wykrywania rozłączenia controlboxa\nPoprawka: odzyskiwanie FSM z unlimitedAutonomous po ponownym połączeniu controlboxa\nUI: umożliwienie czyszczenia SKI ControlBoxa w konfiguracji administratora",
-                "uk": "Рефакторинг: відокремлення обробки EG від сценаріїв CS у eg-lpc.js / eg-lpp.js\nВиправлення: повідомлення динамічного ліміту failsafe контролбоксу (сума failsafe охоронців, відхилення записів користувача, що перевищують контрактний максимум)\nВиправлення: розподіл лімітів failsafe серед енергоохоронців при вході у стан failsafe\nВиправлення: обробка лише heartbeat контролбокса для переходів FSM (ігнорування heartbeat пристроїв EG)\nВиправлення: додавання періодичного таймера перевірки heartbeat для виявлення відключення контролбокса\nВиправлення: відновлення FSM з unlimitedAutonomous при повторному підключенні контролбокса\nUI: дозволити очищення SKI ControlBox у конфігурації адміністратора",
-                "zh-cn": "重构：将EG处理从CS用例中分离到eg-lpc.js / eg-lpp.js\n修复：向控制箱报告动态故障安全限制（守卫故障安全之和，拒绝超出合同最大值的用户写入）\n修复：进入故障安全状态时将故障安全限制分配给能源守卫\n修复：仅处理控制箱心跳用于FSM转换（忽略EG设备心跳）\n修复：添加周期性心跳检查计时器以检测控制箱断开连接\n修复：控制箱重新连接时从unlimitedAutonomous恢复FSM\nUI：允许在管理配置中清除ControlBox SKI"
-            },
-            "0.1.0": {
-                "en": "Add LPP (Limitation of Power Production) use case\nFix race condition in limit distribution (use stored limit value)\nFix budget-respecting limit distribution: percentages are hard caps, no redistribution of disconnected shares, failsafe of disconnected guards reserved from budget\nUI: place contractual nominal max fields next to use case checkboxes\nAdapter requires admin >= 7.8.23 now.",
-                "de": "Hinzufügen von LPP (Limitation of Power Production) Use Case\nFixer Rennzustand in Limitverteilung (verwendet gespeicherter Grenzwert)\nFeste Budget-konforme Limit-Verteilung: Prozentsätze sind Hard Caps, keine Umverteilung von getrennten Aktien, Failsafe von getrennten Wachen, die vom Budget reserviert sind\nUI: Platzieren Sie die Felder Contractual Nominal Max neben Use Case Checkboxen\nAdapter erfordert admin >= 7.8.23 jetzt.",
-                "ru": "Добавить LPP (Limitation of Power Production)\nУсловие фиксированной гонки в предельном распределении (использовать сохраненное предельное значение)\nИсправьте распределение лимитов, уважающих бюджет: проценты являются жесткими ограничениями, никакого перераспределения отключенных акций, отказоустойчивости отключенных охранников, зарезервированных из бюджета\nUI: размещайте договорные номинальные поля max рядом с флажками\nАдаптер требует администратора >= 7.8.23.",
-                "pt": "Adicionar caso de uso de LPP (Limitação da Produção de Energia)\nCorrigir a condição de raça na distribuição do limite (utilizar o valor-limite armazenado)\nCorrigir a distribuição do limite que respeita o orçamento: as percentagens são limites rígidos, não há redistribuição de acções desligadas, não há segurança dos guardas desligados reservados do orçamento\nUI: colocar campos nominais máx. contratuais ao lado de caixas de verificação de caixa de uso\nAdaptador requer administrador >= 7.8.23 agora.",
-                "nl": "LPP (Limitation of Power Production) use case toevoegen\nFix race conditie in limit distributie (gebruik opgeslagen grenswaarde)\nFix budget-respecting limit distribution: percentages zijn harde plafonds, geen herverdeling van niet-afgekoppelde aandelen, failsafety of losgekoppelde bewakers gereserveerd van de begroting\nUI: plaats contractuele nominale max-velden naast geval-checkboxen\nVoor adapter is admin < 7.8.23 nodig.",
-                "fr": "Ajouter le cas d'utilisation LPP (Limitation de la production d'électricité)\nFixer l'état de race dans la distribution limite (utiliser la valeur limite stockée)\nFixer la répartition des limites de respect du budget: les pourcentages sont des plafonds rigides, pas de redistribution des actions déconnectées, pas de sécurité des gardes déconnectés réservés au budget\nUI: placez des champs nominaux à côté des cases à cocher\nAdaptateur nécessite admin >= 7.8.23 maintenant.",
-                "it": "Aggiungere LPP (Limitation of Power Production) caso di utilizzo\nFissare la condizione di gara nella distribuzione dei limiti (utilizzare il valore limite memorizzato)\nFissare la distribuzione dei limiti di controllo del bilancio: le percentuali sono capretti duri, nessuna ridistribuzione delle azioni scollegate, failsafe delle guardie scollegate riservate al bilancio\nUI: posizionare campi max contrattuali nominali accanto alle caselle di controllo del caso di utilizzo\nL'adattatore richiede ora admin >= 7.8.23.",
-                "es": "Add LPP (Limitation of Power Production) use case\nFijar la condición de raza en la distribución límite (valor límite de uso almacenado)\nCorrección de la distribución límite de revisión presupuestaria: porcentajes son tapas duras, no redistribución de acciones desconectadas, inseguro de guardias desconectados reservados del presupuesto\nUI: colocar campos máximos nominales contractuales al lado de las casillas de verificación de caso\nEl adaptador requiere admin= 7.8.23 ahora.",
-                "pl": "Dodaj LPP (Ograniczenie produkcji energii elektrycznej)\nPopraw stan wyścigu w dystrybucji granicznej (użyj zapisanej wartości granicznej)\nFix budżet - przestrzeganie limitu dystrybucji: procent są twarde pułapy, nie redystrybucja odłączonych akcji, zabezpieczenie niesprawności odłączonych strażników zarezerwowane z budżetu\nInterfejs: umieść umowne pole maksimum obok pola wyboru przypadku\nAdapter wymaga admin > = 7.8.23 teraz.",
-                "uk": "Додати LPP (Облік виробництва електроенергії)\nФіксувати стан раси в обмеженому розподілі (з використанням збереженого ліміту значення)\nВиправлення розподілу лімітів бюджету: відсотки є твердими ковпачками, не перерозподілу відключених акцій, небезпечних відключених охоронців, що зараховуються від бюджету\nUI: розмістити договірні номінальні максимальні поля поряд з прапорцями справи\nАдаптер вимагає адміністратора >= 7.8.23 тепер.",
-                "zh-cn": "添加LPP(限制电力生产)使用例\n将种族条件固定在限制分布中( 使用存储限制值)\n修正尊重预算的限制分配:百分比是硬上限,不重新分配断开的股票,不保证从预算中保留的断开的警卫的安全\nUI: 将合同标定的最大字段放在使用大小写复选框的旁边\n适配器需要管理员 \\ 7.8.23现在."
-            },
-            "0.0.5": {
-                "en": "some fixes",
-                "de": "einige fixes",
-                "ru": "некоторые исправления",
-                "pt": "algumas correções",
-                "nl": "sommige fixes",
-                "fr": "quelques corrections",
-                "it": "alcune correzioni",
-                "es": "algunos arreglos",
-                "pl": "niektóre poprawki",
-                "uk": "деякі виправлення",
-                "zh-cn": "一些修正"
-            },
-            "0.0.4": {
-                "en": "fixes required by iobroker checker",
-                "de": "fixes erforderlich von iobroker checker",
-                "ru": "требуется iobroker checker",
-                "pt": "correções exigidas pelo verificador iobroker",
-                "nl": "fixes vereist door iobroker checker",
-                "fr": "correctifs requis par iobroker checker",
-                "it": "correzioni richieste da iobroker checker",
-                "es": "fijaciones requeridas por iobroker checker",
-                "pl": "poprawki wymagane przez sprawdzacz iobroker",
-                "uk": "фіксатори, необхідні для перевірки iobroker",
-                "zh-cn": "iobrocco 检查器所需的修正"
-            },
-            "0.0.3": {
-                "en": "fixes for repo checker",
-                "de": "fixes für repo checker",
-                "ru": "обсуждение repo checker",
-                "pt": "correções para repo checker",
-                "nl": "correcties voor repo-checker",
-                "fr": "correctifs pour repo checker",
-                "it": "correzioni per repo checker",
-                "es": "fijaciones para el checker de repo",
-                "pl": "poprawki do sprawdzania repo",
-                "uk": "фіксації для репо-реєстратора",
-                "zh-cn": "repo 检查器的修改"
-            },
-            "0.0.2": {
-                "en": "initial release",
-                "de": "erstmalige freigabe",
-                "ru": "первоначальное освобождение",
-                "pt": "libertação inicial",
-                "nl": "eerste release",
-                "fr": "libération initiale",
-                "it": "rilascio iniziale",
-                "es": "liberación inicial",
-                "pl": "początkowe zwolnienie",
-                "uk": "початковий реліз",
-                "zh-cn": "初步释放"
-            }
-        },
-        "titleLang": {
-            "en": "EEBUS HEMS",
-            "de": "EEBUS HEMS",
-            "ru": "ЭЕВУС ХМС",
-            "pt": "EEBUS BAINHAS",
-            "nl": "EEBUS-ZOMEN",
-            "fr": "OURLETS EEBUS",
-            "it": "ORLI EEBUS",
-            "es": "DOBLADILLOS EEBUS",
-            "pl": "EEBUS HEMS",
-            "uk": "EEBUS HEMS",
-            "zh-cn": "EEBUS HEMS"
-        },
-        "desc": {
-            "en": "eebus grpc client for a hems",
-            "de": "eebus GRPC-Client für einen Saum",
-            "ru": "Клиент eebus grpc для рубки",
-            "pt": "cliente eebus grpc para bainhas",
-            "nl": "eebus grpc-client voor zomen",
-            "fr": "client eebus grpc pour un ourlet",
-            "it": "client eebus grpc per un hems",
-            "es": "Cliente eebus grpc para dobladillos",
-            "pl": "Klient eebus grpc dla obszyć",
-            "uk": "eebus grpc клієнт для hems",
-            "zh-cn": "用于下摆的 eebus grpc 客户端"
-        },
-        "authors": ["FernetMenta <fernetmenta@online.de>"],
-        "keywords": ["eebus", "eebus-go", "hems"],
-        "licenseInformation": {
-            "type": "free",
-            "license": "GPL-3.0-only"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "eebus-go.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
-        "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "daemon",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "html"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=7.0.6"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.8.23"
-            }
-        ]
+  "common": {
+    "name": "eebus-go",
+    "version": "0.2.0",
+    "news": {
+      "0.2.0": {
+        "en": "Refactor: separate EG handling from CS use cases into eg-lpc.js / eg-lpp.js\nFix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)\nFix: distribute failsafe limits to energy guards when entering failsafe state\nFix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)\nFix: add periodic heartbeat check timer to detect controlbox disconnection\nFix: recover FSM from unlimitedAutonomous when controlbox reconnects\nUI: allow clearing ControlBox SKI in admin config",
+        "de": "Refactor: EG-Behandlung von CS-Use-Cases in eg-lpc.js / eg-lpp.js getrennt\nFix: dynamisches Failsafe-Limit an Controlbox melden (Summe der Guard-Failsafes, Benutzerschreibvorgänge über vertraglichem Max ablehnen)\nFix: Failsafe-Limits an Energy Guards verteilen beim Eintritt in den Failsafe-Zustand\nFix: nur Controlbox-Heartbeats für FSM-Übergänge verarbeiten (EG-Geräte-Heartbeats ignorieren)\nFix: periodischen Heartbeat-Check-Timer hinzufügen zur Erkennung von Controlbox-Verbindungsabbrüchen\nFix: FSM aus unlimitedAutonomous wiederherstellen wenn Controlbox sich neu verbindet\nUI: Löschen der ControlBox-SKI in der Admin-Konfiguration ermöglichen",
+        "ru": "Рефакторинг: разделение обработки EG от сценариев CS в eg-lpc.js / eg-lpp.js\nИсправление: отправка динамического лимита отказоустойчивости в контролбокс (сумма failsafe охранников, отклонение записей пользователя превышающих договорной максимум)\nИсправление: распределение лимитов отказоустойчивости по энергохранителям при входе в состояние failsafe\nИсправление: обработка только heartbeat контролбокса для переходов FSM (игнорирование heartbeat устройств EG)\nИсправление: добавление периодического таймера проверки heartbeat для обнаружения отключения контролбокса\nИсправление: восстановление FSM из unlimitedAutonomous при повторном подключении контролбокса\nUI: разрешить очистку SKI контролбокса в конфигурации администратора",
+        "pt": "Refatoração: separar tratamento de EG dos casos de uso CS em eg-lpc.js / eg-lpp.js\nCorreção: reportar limite failsafe dinâmico ao controlbox (soma dos failsafes dos guards, rejeitar escritas do utilizador que excedam o máximo contratual)\nCorreção: distribuir limites failsafe aos energy guards ao entrar no estado failsafe\nCorreção: processar apenas heartbeats do controlbox para transições FSM (ignorar heartbeats de dispositivos EG)\nCorreção: adicionar timer periódico de verificação de heartbeat para detetar desconexão do controlbox\nCorreção: recuperar FSM de unlimitedAutonomous quando controlbox se reconecta\nUI: permitir limpar SKI do ControlBox na configuração de administração",
+        "nl": "Refactor: EG-afhandeling gescheiden van CS use cases in eg-lpc.js / eg-lpp.js\nFix: dynamische failsafe-limiet melden aan controlbox (som van guard failsafes, gebruikersschrijfacties boven contractueel max afwijzen)\nFix: failsafe-limieten verdelen aan energy guards bij het betreden van de failsafe-toestand\nFix: alleen controlbox-heartbeats verwerken voor FSM-overgangen (EG-apparaat-heartbeats negeren)\nFix: periodieke heartbeat-controle timer toevoegen om controlbox-verbreking te detecteren\nFix: FSM herstellen uit unlimitedAutonomous wanneer controlbox opnieuw verbindt\nUI: wissen van ControlBox SKI in admin-configuratie toestaan",
+        "fr": "Refactorisation: séparer le traitement EG des cas d'utilisation CS dans eg-lpc.js / eg-lpp.js\nCorrection: signaler la limite failsafe dynamique au controlbox (somme des failsafes des guards, rejeter les écritures utilisateur dépassant le max contractuel)\nCorrection: distribuer les limites failsafe aux energy guards lors de l'entrée en état failsafe\nCorrection: traiter uniquement les heartbeats du controlbox pour les transitions FSM (ignorer les heartbeats des appareils EG)\nCorrection: ajouter un timer de vérification périodique des heartbeats pour détecter la déconnexion du controlbox\nCorrection: récupérer le FSM depuis unlimitedAutonomous lorsque le controlbox se reconnecte\nUI: permettre l'effacement du SKI du ControlBox dans la configuration admin",
+        "it": "Refactoring: separare la gestione EG dai casi d'uso CS in eg-lpc.js / eg-lpp.js\nFix: segnalare il limite failsafe dinamico al controlbox (somma dei failsafe dei guard, rifiutare scritture utente che superano il max contrattuale)\nFix: distribuire i limiti failsafe agli energy guard all'ingresso nello stato failsafe\nFix: elaborare solo gli heartbeat del controlbox per le transizioni FSM (ignorare gli heartbeat dei dispositivi EG)\nFix: aggiungere un timer periodico di controllo heartbeat per rilevare la disconnessione del controlbox\nFix: ripristinare FSM da unlimitedAutonomous quando il controlbox si riconnette\nUI: consentire la cancellazione dello SKI del ControlBox nella configurazione admin",
+        "es": "Refactorización: separar manejo de EG de los casos de uso CS en eg-lpc.js / eg-lpp.js\nCorreción: reportar límite failsafe dinámico al controlbox (suma de failsafes de guardias, rechazar escrituras de usuario que excedan el máximo contractual)\nCorreción: distribuir límites failsafe a los energy guards al entrar en estado failsafe\nCorreción: procesar solo heartbeats del controlbox para transiciones FSM (ignorar heartbeats de dispositivos EG)\nCorreción: agregar timer periódico de verificación de heartbeat para detectar desconexión del controlbox\nCorreción: recuperar FSM desde unlimitedAutonomous cuando el controlbox se reconecta\nUI: permitir borrar el SKI del ControlBox en la configuración de administración",
+        "pl": "Refaktoryzacja: rozdzielenie obsługi EG od przypadków użycia CS do eg-lpc.js / eg-lpp.js\nPoprawka: raportowanie dynamicznego limitu failsafe do controlboxa (suma failsafe strażników, odrzucanie zapisów użytkownika przekraczających maksimum umowne)\nPoprawka: dystrybucja limitów failsafe do strażników energii przy wejściu w stan failsafe\nPoprawka: przetwarzanie tylko heartbeatów controlboxa dla przejść FSM (ignorowanie heartbeatów urządzeń EG)\nPoprawka: dodanie okresowego timera sprawdzania heartbeat do wykrywania rozłączenia controlboxa\nPoprawka: odzyskiwanie FSM z unlimitedAutonomous po ponownym połączeniu controlboxa\nUI: umożliwienie czyszczenia SKI ControlBoxa w konfiguracji administratora",
+        "uk": "Рефакторинг: відокремлення обробки EG від сценаріїв CS у eg-lpc.js / eg-lpp.js\nВиправлення: повідомлення динамічного ліміту failsafe контролбоксу (сума failsafe охоронців, відхилення записів користувача, що перевищують контрактний максимум)\nВиправлення: розподіл лімітів failsafe серед енергоохоронців при вході у стан failsafe\nВиправлення: обробка лише heartbeat контролбокса для переходів FSM (ігнорування heartbeat пристроїв EG)\nВиправлення: додавання періодичного таймера перевірки heartbeat для виявлення відключення контролбокса\nВиправлення: відновлення FSM з unlimitedAutonomous при повторному підключенні контролбокса\nUI: дозволити очищення SKI ControlBox у конфігурації адміністратора",
+        "zh-cn": "重构：将EG处理从CS用例中分离到eg-lpc.js / eg-lpp.js\n修复：向控制箱报告动态故障安全限制（守卫故障安全之和，拒绝超出合同最大值的用户写入）\n修复：进入故障安全状态时将故障安全限制分配给能源守卫\n修复：仅处理控制箱心跳用于FSM转换（忽略EG设备心跳）\n修复：添加周期性心跳检查计时器以检测控制箱断开连接\n修复：控制箱重新连接时从unlimitedAutonomous恢复FSM\nUI：允许在管理配置中清除ControlBox SKI"
+      },
+      "0.1.0": {
+        "en": "Add LPP (Limitation of Power Production) use case\nFix race condition in limit distribution (use stored limit value)\nFix budget-respecting limit distribution: percentages are hard caps, no redistribution of disconnected shares, failsafe of disconnected guards reserved from budget\nUI: place contractual nominal max fields next to use case checkboxes\nAdapter requires admin >= 7.8.23 now.",
+        "de": "Hinzufügen von LPP (Limitation of Power Production) Use Case\nFixer Rennzustand in Limitverteilung (verwendet gespeicherter Grenzwert)\nFeste Budget-konforme Limit-Verteilung: Prozentsätze sind Hard Caps, keine Umverteilung von getrennten Aktien, Failsafe von getrennten Wachen, die vom Budget reserviert sind\nUI: Platzieren Sie die Felder Contractual Nominal Max neben Use Case Checkboxen\nAdapter erfordert admin >= 7.8.23 jetzt.",
+        "ru": "Добавить LPP (Limitation of Power Production)\nУсловие фиксированной гонки в предельном распределении (использовать сохраненное предельное значение)\nИсправьте распределение лимитов, уважающих бюджет: проценты являются жесткими ограничениями, никакого перераспределения отключенных акций, отказоустойчивости отключенных охранников, зарезервированных из бюджета\nUI: размещайте договорные номинальные поля max рядом с флажками\nАдаптер требует администратора >= 7.8.23.",
+        "pt": "Adicionar caso de uso de LPP (Limitação da Produção de Energia)\nCorrigir a condição de raça na distribuição do limite (utilizar o valor-limite armazenado)\nCorrigir a distribuição do limite que respeita o orçamento: as percentagens são limites rígidos, não há redistribuição de acções desligadas, não há segurança dos guardas desligados reservados do orçamento\nUI: colocar campos nominais máx. contratuais ao lado de caixas de verificação de caixa de uso\nAdaptador requer administrador >= 7.8.23 agora.",
+        "nl": "LPP (Limitation of Power Production) use case toevoegen\nFix race conditie in limit distributie (gebruik opgeslagen grenswaarde)\nFix budget-respecting limit distribution: percentages zijn harde plafonds, geen herverdeling van niet-afgekoppelde aandelen, failsafety of losgekoppelde bewakers gereserveerd van de begroting\nUI: plaats contractuele nominale max-velden naast geval-checkboxen\nVoor adapter is admin < 7.8.23 nodig.",
+        "fr": "Ajouter le cas d'utilisation LPP (Limitation de la production d'électricité)\nFixer l'état de race dans la distribution limite (utiliser la valeur limite stockée)\nFixer la répartition des limites de respect du budget: les pourcentages sont des plafonds rigides, pas de redistribution des actions déconnectées, pas de sécurité des gardes déconnectés réservés au budget\nUI: placez des champs nominaux à côté des cases à cocher\nAdaptateur nécessite admin >= 7.8.23 maintenant.",
+        "it": "Aggiungere LPP (Limitation of Power Production) caso di utilizzo\nFissare la condizione di gara nella distribuzione dei limiti (utilizzare il valore limite memorizzato)\nFissare la distribuzione dei limiti di controllo del bilancio: le percentuali sono capretti duri, nessuna ridistribuzione delle azioni scollegate, failsafe delle guardie scollegate riservate al bilancio\nUI: posizionare campi max contrattuali nominali accanto alle caselle di controllo del caso di utilizzo\nL'adattatore richiede ora admin >= 7.8.23.",
+        "es": "Add LPP (Limitation of Power Production) use case\nFijar la condición de raza en la distribución límite (valor límite de uso almacenado)\nCorrección de la distribución límite de revisión presupuestaria: porcentajes son tapas duras, no redistribución de acciones desconectadas, inseguro de guardias desconectados reservados del presupuesto\nUI: colocar campos máximos nominales contractuales al lado de las casillas de verificación de caso\nEl adaptador requiere admin= 7.8.23 ahora.",
+        "pl": "Dodaj LPP (Ograniczenie produkcji energii elektrycznej)\nPopraw stan wyścigu w dystrybucji granicznej (użyj zapisanej wartości granicznej)\nFix budżet - przestrzeganie limitu dystrybucji: procent są twarde pułapy, nie redystrybucja odłączonych akcji, zabezpieczenie niesprawności odłączonych strażników zarezerwowane z budżetu\nInterfejs: umieść umowne pole maksimum obok pola wyboru przypadku\nAdapter wymaga admin > = 7.8.23 teraz.",
+        "uk": "Додати LPP (Облік виробництва електроенергії)\nФіксувати стан раси в обмеженому розподілі (з використанням збереженого ліміту значення)\nВиправлення розподілу лімітів бюджету: відсотки є твердими ковпачками, не перерозподілу відключених акцій, небезпечних відключених охоронців, що зараховуються від бюджету\nUI: розмістити договірні номінальні максимальні поля поряд з прапорцями справи\nАдаптер вимагає адміністратора >= 7.8.23 тепер.",
+        "zh-cn": "添加LPP(限制电力生产)使用例\n将种族条件固定在限制分布中( 使用存储限制值)\n修正尊重预算的限制分配:百分比是硬上限,不重新分配断开的股票,不保证从预算中保留的断开的警卫的安全\nUI: 将合同标定的最大字段放在使用大小写复选框的旁边\n适配器需要管理员 \\ 7.8.23现在."
+      },
+      "0.0.5": {
+        "en": "some fixes",
+        "de": "einige fixes",
+        "ru": "некоторые исправления",
+        "pt": "algumas correções",
+        "nl": "sommige fixes",
+        "fr": "quelques corrections",
+        "it": "alcune correzioni",
+        "es": "algunos arreglos",
+        "pl": "niektóre poprawki",
+        "uk": "деякі виправлення",
+        "zh-cn": "一些修正"
+      },
+      "0.0.4": {
+        "en": "fixes required by iobroker checker",
+        "de": "fixes erforderlich von iobroker checker",
+        "ru": "требуется iobroker checker",
+        "pt": "correções exigidas pelo verificador iobroker",
+        "nl": "fixes vereist door iobroker checker",
+        "fr": "correctifs requis par iobroker checker",
+        "it": "correzioni richieste da iobroker checker",
+        "es": "fijaciones requeridas por iobroker checker",
+        "pl": "poprawki wymagane przez sprawdzacz iobroker",
+        "uk": "фіксатори, необхідні для перевірки iobroker",
+        "zh-cn": "iobrocco 检查器所需的修正"
+      },
+      "0.0.3": {
+        "en": "fixes for repo checker",
+        "de": "fixes für repo checker",
+        "ru": "обсуждение repo checker",
+        "pt": "correções para repo checker",
+        "nl": "correcties voor repo-checker",
+        "fr": "correctifs pour repo checker",
+        "it": "correzioni per repo checker",
+        "es": "fijaciones para el checker de repo",
+        "pl": "poprawki do sprawdzania repo",
+        "uk": "фіксації для репо-реєстратора",
+        "zh-cn": "repo 检查器的修改"
+      },
+      "0.0.2": {
+        "en": "initial release",
+        "de": "erstmalige freigabe",
+        "ru": "первоначальное освобождение",
+        "pt": "libertação inicial",
+        "nl": "eerste release",
+        "fr": "libération initiale",
+        "it": "rilascio iniziale",
+        "es": "liberación inicial",
+        "pl": "początkowe zwolnienie",
+        "uk": "початковий реліз",
+        "zh-cn": "初步释放"
+      }
     },
-    "native": {
-        "grpcEndpoint": "localhost:50051",
-        "servicePort": 4715,
-        "serialNumber": "123456",
-        "heartbeatTimeoutSeconds": 30,
-        "controlboxSki": "",
-        "contractualConsumptionNominalMax": 4200,
-        "energyGuards": [],
-        "lpcEnabled": true,
-        "lppEnabled": false,
-        "contractualProductionNominalMax": 4200,
-        "lppEnergyGuards": []
+    "titleLang": {
+      "en": "EEBUS HEMS",
+      "de": "EEBUS HEMS",
+      "ru": "ЭЕВУС ХМС",
+      "pt": "EEBUS BAINHAS",
+      "nl": "EEBUS-ZOMEN",
+      "fr": "OURLETS EEBUS",
+      "it": "ORLI EEBUS",
+      "es": "DOBLADILLOS EEBUS",
+      "pl": "EEBUS HEMS",
+      "uk": "EEBUS HEMS",
+      "zh-cn": "EEBUS HEMS"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "gRPC connection status",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "eebus grpc client for a hems",
+      "de": "eebus GRPC-Client für einen Saum",
+      "ru": "Клиент eebus grpc для рубки",
+      "pt": "cliente eebus grpc para bainhas",
+      "nl": "eebus grpc-client voor zomen",
+      "fr": "client eebus grpc pour un ourlet",
+      "it": "client eebus grpc per un hems",
+      "es": "Cliente eebus grpc para dobladillos",
+      "pl": "Klient eebus grpc dla obszyć",
+      "uk": "eebus grpc клієнт для hems",
+      "zh-cn": "用于下摆的 eebus grpc 客户端"
+    },
+    "authors": [
+      "FernetMenta <fernetmenta@online.de>"
+    ],
+    "keywords": [
+      "eebus",
+      "eebus-go",
+      "hems"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "GPL-3.0-only"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "eebus-go.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
+    "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "html"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=7.0.6"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.8.23"
+      }
     ]
+  },
+  "native": {
+    "grpcEndpoint": "localhost:50051",
+    "servicePort": 4715,
+    "serialNumber": "123456",
+    "heartbeatTimeoutSeconds": 30,
+    "controlboxSki": "",
+    "contractualConsumptionNominalMax": 4200,
+    "energyGuards": [],
+    "lpcEnabled": true,
+    "lppEnabled": false,
+    "contractualProductionNominalMax": 4200,
+    "lppEnergyGuards": []
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "gRPC connection status",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }

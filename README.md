@@ -167,7 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.0 (2026-08-03)
 
 - Refactor: separate EG (Energy Guard) handling from CS (Controllable System) use cases into eg-lpc.js / eg-lpp.js
 - Fix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)
@@ -196,10 +196,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### 0.0.3 (2026-07-29)
 
 - fixes for repo checker
-
-### 0.0.2 (2026-07-29)
-
-- (FernetMenta) initial release
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
