@@ -167,6 +167,15 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Refactor: separate EG (Energy Guard) handling from CS (Controllable System) use cases into eg-lpc.js / eg-lpp.js
+- Fix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)
+- Fix: distribute failsafe limits to energy guards when entering failsafe state
+- Fix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)
+- Fix: add periodic heartbeat check timer to detect controlbox disconnection
+- Fix: recover FSM from unlimitedAutonomous when controlbox reconnects
+
 ### 0.1.0 (2026-08-01)
 
 - (FernetMenta) Add LPP (Limitation of Power Production) use case
