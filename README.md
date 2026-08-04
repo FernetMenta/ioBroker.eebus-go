@@ -167,6 +167,11 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
+- Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
+
 ### 0.2.0 (2026-08-03)
 
 - Refactor: separate EG (Energy Guard) handling from CS (Controllable System) use cases into eg-lpc.js / eg-lpp.js
