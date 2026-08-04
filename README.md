@@ -167,7 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.1 (2026-08-04)
 
 - Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
 - Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
@@ -198,10 +198,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### 0.0.4 (2026-07-29)
 
 - fixes required by iobroker checker
-
-### 0.0.3 (2026-07-29)
-
-- fixes for repo checker
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
