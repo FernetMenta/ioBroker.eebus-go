@@ -171,6 +171,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 
 - Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
 - Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
+- Fix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations
 
 ### 0.2.0 (2026-08-03)
 
