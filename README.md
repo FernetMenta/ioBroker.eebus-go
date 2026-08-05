@@ -167,7 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.2.2 (2026-08-05)
 
 - Fix: properly clean up resources before reconnect and propagate CS registration errors
 - Fix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)
@@ -200,10 +200,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### 0.0.5 (2026-07-29)
 
 - some fixes
-
-### 0.0.4 (2026-07-29)
-
-- fixes required by iobroker checker
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

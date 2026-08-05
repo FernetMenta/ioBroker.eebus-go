@@ -1,4 +1,8 @@
 # Older changes
+## 0.0.4 (2026-07-29)
+
+- fixes required by iobroker checker
+
 ## 0.0.3 (2026-07-29)
 
 - fixes for repo checker
