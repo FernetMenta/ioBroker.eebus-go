@@ -167,6 +167,12 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Fix: properly clean up resources before reconnect and propagate CS registration errors
+- Fix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)
+- Chore: clean up admin folder and build pipeline (remove CRA boilerplate, add exec plugin for release builds)
+
 ### 0.2.1 (2026-08-04)
 
 - Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)

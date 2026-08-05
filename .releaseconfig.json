@@ -1,3 +1,7 @@
 {
-    "plugins": ["iobroker", "license", "manual-review"]
+    "plugins": ["iobroker", "license", "manual-review", "exec", "version"],
+    "exec": {
+        "before_commit": "npm run build"
+    },
+    "versionFiles": [["src-admin/package.json", "\"version\": \"${version}\""]]
 }
