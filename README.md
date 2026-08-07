@@ -167,6 +167,10 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Feature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects
+
 ### 0.2.2 (2026-08-05)
 
 - Fix: properly clean up resources before reconnect and propagate CS registration errors
