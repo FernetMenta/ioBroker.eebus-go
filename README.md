@@ -170,6 +170,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### **WORK IN PROGRESS**
 
 - Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive
+- Fix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)
 - Feature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects
 
 ### 0.2.2 (2026-08-05)
