@@ -1,6 +1,6 @@
 {
   "name": "iobroker.eebus-go",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "eebus grpc client for a hems",
   "author": {
     "name": "FernetMenta",

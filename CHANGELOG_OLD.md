@@ -1,4 +1,8 @@
 # Older changes
+## 0.0.5 (2026-07-29)
+
+- some fixes
+
 ## 0.0.4 (2026-07-29)
 
 - fixes required by iobroker checker

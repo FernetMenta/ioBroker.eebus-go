@@ -167,7 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.3.0 (2026-08-07)
 
 - Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive
 - Fix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)
@@ -205,10 +205,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - (FernetMenta) Fix budget-respecting limit distribution: percentages are hard caps, no redistribution of disconnected shares, failsafe of disconnected guards reserved from budget
 - (FernetMenta) UI: place contractual nominal max fields next to use case checkboxes
 - (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
-
-### 0.0.5 (2026-07-29)
-
-- some fixes
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
