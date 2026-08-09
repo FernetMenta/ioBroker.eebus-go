@@ -112,3 +112,5 @@ The entrypoint uses these environment variables (with their Dockerfile defaults)
 | `KEY_PATH`  | `/certs/myhems_key`  | Path to private key                  |
 | `GRPC_PORT` | `50051`              | gRPC server port                     |
 | `LOG_LEVEL` | `info`               | Log level: trace, debug, info, error |
+
+Note that the IP address 0.0.0.0 is a meta-address that configures the server to listen on all available network interfaces. While convenient for development and testing, it is highly recommended to use the server's specific, intended IP address for production environments to improve security and control.
