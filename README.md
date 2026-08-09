@@ -167,8 +167,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 0.3.1 (2026-08-09)
 
 - Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
 - Fix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)
@@ -203,14 +202,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: add periodic heartbeat check timer to detect controlbox disconnection
 - Fix: recover FSM from unlimitedAutonomous when controlbox reconnects
 - UI: allow clearing ControlBox SKI in admin config
-
-### 0.1.0 (2026-08-01)
-
-- (FernetMenta) Add LPP (Limitation of Power Production) use case
-- (FernetMenta) Fix race condition in limit distribution (use stored limit value)
-- (FernetMenta) Fix budget-respecting limit distribution: percentages are hard caps, no redistribution of disconnected shares, failsafe of disconnected guards reserved from budget
-- (FernetMenta) UI: place contractual nominal max fields next to use case checkboxes
-- (ioBroker-Bot) Adapter requires admin >= 7.8.23 now.
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

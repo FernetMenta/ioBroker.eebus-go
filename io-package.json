@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eebus-go",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change\nFix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)",
+        "de": "Fix: Reduzieren Sie den Log-Spam durch wiederholte Fehlersicherheits-/Dauer-Updates – protokollieren und melden Sie sich nur dann an Controlbox, wenn sich die Werte tatsächlich ändern\nFix: Deaktivieren Sie Energieschutzgrenzen, wenn die Limitdauer abläuft (limitDurationExpired transition)",
+        "ru": "Исправление: уменьшение спама в журналах от повторных отказоустойчивых/длительных обновлений - только журнал и отчет в блок управления, когда значения фактически меняются\nИсправление: деактивация пределов энергозащиты при истечении предельной продолжительности (limitDurationExpired transition)",
+        "pt": "Corrigir: reduzir o spam log a partir de atualizações repetidas de segurança/duração — apenas registrar e reportar à caixa de controle quando os valores realmente mudarem\nCorrigir: desativar limites de proteção de energia quando expirar a duração limite (limitDurationExpired transition)",
+        "nl": "Fix: reduceer log spam van herhaalde failsafe/dure updates alleen log en rapporteer aan controlbox wanneer waarden daadwerkelijk veranderen\nFix: deactiveer de limieten van de energiebescherming wanneer de limietduur verstrijkt (limitDurationExpired transition)",
+        "fr": "Correction: réduire le log spam à partir de mises à jour fallsafe/duration répétées — seulement log et rapporter à la boîte de contrôle lorsque les valeurs changent réellement\nCorrection : désactiver les limites de garde d'énergie lorsque la durée limite expire (limitDurationExpiré la transition)",
+        "it": "Fisso: ridurre lo spam di registro da ripetuti aggiornamenti di failsafe/duration — solo log and report to controlbox quando i valori in realtà cambiano\nFisso: disattivare i limiti di protezione energetica quando la durata limite scade (limiteDurationExpired transizione)",
+        "es": "Fijación: reducir el spam log de actualizaciones repetidas de seguridad/duración — sólo inicie sesión e informe a controlbox cuando los valores realmente cambian\nFijación: desactivar los límites de la guardia de energía cuando expira la duración límite (limitDurationExpired transition)",
+        "pl": "Fix: zmniejszyć spam logowania z powtarzających się aktualizacji bezpieczeństwa / czasu trwania - tylko logować i zgłosić się do sterownika, gdy wartości rzeczywiście się zmieniają\nFix: dezaktywować wartości graniczne osłony energetycznej po wygaśnięciu limitu czasu trwania (limitaDurationExpired transformation)",
+        "uk": "Виправлення: зменшення спаму журналу від повторних небезпечних / оновлюваних оновлень — тільки журнал і звіт до контрольної скриньки при зміні значень\nВиправлення: деактивувати обмеження охоронців енергії при обмеженні тривалості (limitDurationExpired переходу)",
+        "zh-cn": "修正: 减少重复的故障安全/ 持续时间更新的日志垃圾邮件—— 只有日志和在值实际改变时报告到控制框\n固定:在期限到期时解除能量警戒限制(限期过渡)"
+      },
       "0.3.0": {
         "en": "Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive\nFix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)\nFix: do not report failsafe limit to controlbox before remote device confirms the write\nFeature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device\nFeature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe\nFeature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects",
         "de": "Fix: Setzen Sie eebusConnected=true auf UseCaseSupportUpdate (Geräte wie PLENTICORE lehnen Heartbeat-Abonnements ab); setzen Sie den Heartbeat-Timer bei jedem Anwendungsfallereignis zurück, um die Wache am Leben zu halten\nFix: Verwenden Sie korrekte gRPC RPC-Namen für LPP-Energieschützer (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit anstelle von Verbrauchsvarianten)\nFix: Melden Sie das ausfallsichere Limit nicht an controlbox, bevor das entfernte Gerät das Schreiben bestätigt\nFeature: Fügen Sie beschreibbare FailsafeDuration-Zustand (Sekunden) zu EEBUS-Energieschützern hinzu - liest und schreibt auf das entfernte Gerät\nFeature: Rufen Sie StartHeartbeat auf dem EG-Client auf, damit der entfernte CS die Trennung erkennen und in die Fehlersicherheit eintreten kann\nFeature: Handle Szenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) für LPC- und LPP-Energieschützer — schreibt nominale maximale Leistung in ioBroker-Objekte",
@@ -80,19 +93,6 @@
         "pl": "niektóre poprawki",
         "uk": "деякі виправлення",
         "zh-cn": "一些修正"
-      },
-      "0.0.4": {
-        "en": "fixes required by iobroker checker",
-        "de": "fixes erforderlich von iobroker checker",
-        "ru": "требуется iobroker checker",
-        "pt": "correções exigidas pelo verificador iobroker",
-        "nl": "fixes vereist door iobroker checker",
-        "fr": "correctifs requis par iobroker checker",
-        "it": "correzioni richieste da iobroker checker",
-        "es": "fijaciones requeridas por iobroker checker",
-        "pl": "poprawki wymagane przez sprawdzacz iobroker",
-        "uk": "фіксатори, необхідні для перевірки iobroker",
-        "zh-cn": "iobrocco 检查器所需的修正"
       }
     },
     "titleLang": {
