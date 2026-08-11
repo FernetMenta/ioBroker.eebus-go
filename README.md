@@ -167,6 +167,10 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level
+
 ### 0.3.1 (2026-08-09)
 
 - Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
