@@ -21,6 +21,7 @@ export default [
             'dist',
             '**/adapter-config.d.ts',
             'widgets/**/*.js',
+            'doc/**',
         ],
     },
 

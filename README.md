@@ -119,6 +119,8 @@ States related to manual energy guards:
 - heartbeat: user script has to write this state regularly to signal that the controllable device is in a state where it can be dimmed
 - connected: if manual heartbeats are received in time, this is true, false otherwise. Can be set directly if desired.
 
+See doc folder for an example of a manual guard.
+
 **Note:** When upgrading from a version without LPP support, existing LPC states are automatically migrated from `info.*` to `LPC.*` and energy guard objects from `EnergyGuards.Guard_*` to `LPC.EnergyGuards.Guard_*`. User scripts referencing the old paths need to be updated.
 
 ### Behaviour
@@ -171,6 +173,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 
 - Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level
 - Fix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)
+- Add an example of a manual LPC guard to the doc folder.
 
 ### 0.3.1 (2026-08-09)
 
