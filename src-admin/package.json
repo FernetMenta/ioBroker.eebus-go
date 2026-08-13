@@ -16,12 +16,10 @@
         "react-dom": "^19.2.8"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.5",
+        "@iobroker/eslint-config": "^2.3.4",
         "@testing-library/jest-dom": "^7.0.0",
         "@testing-library/react": "^16.3.2",
         "@vitejs/plugin-react": "^6.0.5",
-        "eslint": "^9.39.5",
-        "eslint-plugin-react": "^7.37.5",
         "globals": "^17.6.0",
         "jsdom": "^30.0.1",
         "vite": "^8.2.0",
