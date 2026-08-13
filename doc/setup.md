@@ -11,6 +11,7 @@ services:
   eebus-grpc:
     image: fernetmenta/iobroker.eebus-grpc:latest
     container_name: eebus-grpc
+    hostname: iob-hems
     restart: unless-stopped
     environment:
       # This is the GRPC Server bind address in the docker bridge network
