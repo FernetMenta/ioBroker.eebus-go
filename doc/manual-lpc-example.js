@@ -60,7 +60,7 @@ async function tasmotaHeartbeat() {
 }
 
 async function tasmotaDisableKeba() {
-    return tasmotaSendCommand('Event disable=1');
+    return tasmotaSendCommand('POWER1 OFF');
 }
 
 // The wallbox can switch from 1 phase loading to 3 phase loading or vice verca only every 5 minutes
