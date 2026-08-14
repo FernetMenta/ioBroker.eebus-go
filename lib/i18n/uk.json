@@ -1,17 +1,20 @@
 {
     "Confirmed Limit": "Підтверджений ліміт",
     "Connected": "Підключено",
-    "Control Box Limit": "Ліміт блоку керування",
-    "Control Box Limit Duration": "Тривалість ліміту блоку керування",
+    "Connection Status": "Стан підключення",
     "Current Limit": "Поточний ліміт",
     "Discovered Devices": "Виявлені пристрої",
-    "EEBUS Connected": "EEBUS Connected",
+    "EEBUS Connected": "EEBUS підключено",
+    "Failsafe Duration": "Аварійна тривалість",
     "Failsafe Limit": "Аварійний ліміт",
-    "HEMS FSM State": "Стан FSM HEMS",
-    "Heartbeat": "Серцебиття",
-    "Last Heartbeat": "Останнє серцебиття",
-    "Limit Active Minutes Today": "Хвилини активного обмеження сьогодні",
+    "Heartbeat": "Heartbeat",
+    "Last Heartbeat": "Останній heartbeat",
+    "Limit": "Ліміт",
+    "Limit Duration": "Тривалість ліміту",
+    "Limit Minutes Today": "Хвилини ліміту сьогодні",
     "Local SKI": "Локальний SKI",
     "Manual Limit": "Ручний ліміт",
-    "Percentage": "Відсоток"
+    "Nominal Max Power": "Номінальна макс. потужність",
+    "Percentage": "Відсоток",
+    "State": "Стан"
 }

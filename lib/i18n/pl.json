@@ -1,17 +1,20 @@
 {
     "Confirmed Limit": "Potwierdzony limit",
     "Connected": "Połączony",
-    "Control Box Limit": "Limit skrzynki sterującej",
-    "Control Box Limit Duration": "Czas trwania limitu skrzynki sterującej",
+    "Connection Status": "Status połączenia",
     "Current Limit": "Bieżący limit",
     "Discovered Devices": "Wykryte urządzenia",
-    "EEBUS Connected": "EEBUS Connected",
+    "EEBUS Connected": "EEBUS połączony",
+    "Failsafe Duration": "Czas trwania awaryjny",
     "Failsafe Limit": "Limit awaryjny",
-    "HEMS FSM State": "Stan FSM HEMS",
-    "Heartbeat": "Tętno",
-    "Last Heartbeat": "Ostatnie tętno",
-    "Limit Active Minutes Today": "Minuty aktywnego ograniczenia dzisiaj",
+    "Heartbeat": "Heartbeat",
+    "Last Heartbeat": "Ostatni heartbeat",
+    "Limit": "Limit",
+    "Limit Duration": "Czas trwania limitu",
+    "Limit Minutes Today": "Minuty limitu dzisiaj",
     "Local SKI": "Lokalny SKI",
     "Manual Limit": "Limit ręczny",
-    "Percentage": "Procent"
+    "Nominal Max Power": "Nominalna moc maksymalna",
+    "Percentage": "Procent",
+    "State": "Stan"
 }

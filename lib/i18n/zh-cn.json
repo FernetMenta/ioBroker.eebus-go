@@ -1,17 +1,20 @@
 {
     "Confirmed Limit": "已确认限制",
     "Connected": "已连接",
-    "Control Box Limit": "控制箱限制",
-    "Control Box Limit Duration": "控制箱限制持续时间",
+    "Connection Status": "连接状态",
     "Current Limit": "当前限制",
     "Discovered Devices": "已发现设备",
     "EEBUS Connected": "EEBUS 已连接",
+    "Failsafe Duration": "故障保护持续时间",
     "Failsafe Limit": "故障保护限制",
-    "HEMS FSM State": "HEMS FSM 状态",
     "Heartbeat": "心跳",
     "Last Heartbeat": "上次心跳",
-    "Limit Active Minutes Today": "今日限制活动分钟数",
+    "Limit": "限制",
+    "Limit Duration": "限制持续时间",
+    "Limit Minutes Today": "今日限制分钟数",
     "Local SKI": "本地 SKI",
     "Manual Limit": "手动限制",
-    "Percentage": "百分比"
+    "Nominal Max Power": "额定最大功率",
+    "Percentage": "百分比",
+    "State": "状态"
 }
