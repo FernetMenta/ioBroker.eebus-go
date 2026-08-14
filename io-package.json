@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eebus-go",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "news": {
+      "0.3.2": {
+        "en": "Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level\nFix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)\nAdd an example of a manual LPC guard to the doc folder.\nFix: translations\nVarious smaller fixes.",
+        "de": "Fix: Reduzieren Sie den Log-Spam auf manuellen Energieschützern - erfordern Sie 2 aufeinanderfolgende verpasste Herzschläge, bevor Sie die nicht angeschlossenen markierten Routine-Herzschlagprotokolle auf Debug-Ebene herunterstufen\nFix: Unterdrücken von Protokollen auf Fehlerebene und Wiederverbindungsversuche, wenn der Adapter heruntergefahren wird (gRPC-Stream CANCELLED wird während des Stopps erwartet)\nFügen Sie ein Beispiel für einen manuellen LPC-Schutz zum doc-Ordner hinzu.\nFix: Übersetzungen\nVerschiedene kleinere Fixes.",
+        "ru": "Исправление: уменьшить логарифмический спам на ручной энергозащите — требуется 2 последовательных пропущенных сердцебиения перед разметкой отключенных, понизить рутинные журналы сердцебиения до уровня отладки\nИсправление: подавление журналов уровня ошибок и попытки повторного подключения при отключении адаптера (во время остановки ожидается прекращение потока gRPC)\nДобавьте пример ручной LPC-охраны в папку doc.\nИсправление: переводы\nНесколько небольших исправлений.",
+        "pt": "Corrigir: reduzir o spam de log em protetores de energia manuais — exigir 2 batimentos cardíacos perdidos consecutivos antes de marcar desconectados, downgrade registros cardíacos de rotina para nível de depuração\nCorrigir: suprimir registros de nível de erro e reconectar tentativas quando o adaptador está desligando (gRPC fluxo CANCELLED é esperado durante parada)\nAdicione um exemplo de um LPC manual guard à pasta doc.\nCorrigir: traduções\nVárias correções menores.",
+        "nl": "Fix: verminderen van log spam op handmatige energiebewakers \nFix: onderdrukken van fout-niveau logs en opnieuw verbinden pogingen bij het afsluiten van de adapter (gRPC stream CANCELLED wordt verwacht tijdens het stoppen)\nVoeg een voorbeeld van een handmatige LPC-beschermer toe aan de doc-map.\nFix: vertalingen\nVerschillende kleinere fixes.",
+        "fr": "Correction: réduire le spam de log sur les gardes d'énergie manuels — exiger 2 battements de coeur manqués consécutifs avant de marquer déconnecté, abaisser les logs routiniers de rythme cardiaque au niveau de débogage\nCorrection: supprimer les journaux de niveau d'erreur et reconnecter les tentatives lorsque l'adaptateur s'arrête (gRPC stream ANNULED est attendu pendant l'arrêt)\nAjoutez un exemple de garde manuel LPC au dossier doc.\nCorrection : traductions\nDiverses petites corrections.",
+        "it": "Fisso: ridurre lo spam di registro sulle protezioni di energia manuale — richiedono 2 battiti cardiaci mancati consecutivi prima di marcare disconnessi, downgrade log di battito cardiaco di routine per debug livello\nFisso: sopprimere i registri di livello di errore e ricollegare i tentativi quando l'adattatore è spento (gRPC flusso CANCELLED è previsto durante la fermata)\nAggiungi un esempio di una guardia LPC manuale alla cartella doc.\nFisso: traduzioni\nVarie correzioni più piccole.",
+        "es": "Fijación: reducir el spam log en los protectores de energía manuales — requerir 2 latidos cardíacos perdidos consecutivos antes de marcar troncos de ritmo cardíaco de rutina desconectados y degradados para depurar el nivel\nFijación: suprimir registros de nivel de error y volver a conectar los intentos cuando el adaptador está apagado (GRPC stream CANCELLED se espera durante la parada)\nAgregue un ejemplo de un protector LPC manual a la carpeta doc.\nCorrección: traducciones\nVarias correcciones más pequeñas.",
+        "pl": "Fix: zmniejszyć spam logowania na ręcznych osłonach energetycznych - wymagają 2 kolejnych pominiętych uderzeń serca przed oznaczeniem odłączone, obniżanie rutynowych dzienników bicia serca do poziomu debugowania\nFix: tłumić logi poziomu błędu i ponownie połączyć próby po wyłączeniu adaptera (gRPC strumień CANCELLED jest spodziewany podczas zatrzymania)\nDodaj przykład ręcznej osłony LPC do folderu doc.\nFix: tłumaczenia\nRóżne mniejsze poprawki.",
+        "uk": "Виправлення: зменшення спаму журналу на ручних охоронцях енергії — вимагають 2 послідовних пропущених серцебиття, перш ніж розмітити відключені, внизу рутинні колоди серця, щоб зменшити рівень\nВиправлення: пригнічувати журнали похибки та відключення помилок, коли адаптер вимкнено (наприклад, GRPC потік CANCELLED очікується під час зупинки)\nДодати приклад ручного LPC-охоронця до папки doc.\nФіксація: переклади\nРізні менші кріплення.",
+        "zh-cn": "修补:减少手动能量守卫上的日志垃圾邮件——在标记断开的,降级的常规心跳日志调试级别之前,需要连续两次丢失心跳\n修补:在适配器关闭时压制错误级别日志并重新连接尝试(预计停机时会使用gRPC流 CANCELLED)\n在 Doc 文件夹中添加一个手动LPC 守护的示例.\n修正:翻译\n各种较小的修补."
+      },
       "0.3.1": {
         "en": "Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change\nFix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)",
         "de": "Fix: Reduzieren Sie den Log-Spam durch wiederholte Fehlersicherheits-/Dauer-Updates – protokollieren und melden Sie sich nur dann an Controlbox, wenn sich die Werte tatsächlich ändern\nFix: Deaktivieren Sie Energieschutzgrenzen, wenn die Limitdauer abläuft (limitDurationExpired transition)",
@@ -80,19 +93,6 @@
         "pl": "Dodaj LPP (Ograniczenie produkcji energii elektrycznej)\nPopraw stan wyścigu w dystrybucji granicznej (użyj zapisanej wartości granicznej)\nFix budżet - przestrzeganie limitu dystrybucji: procent są twarde pułapy, nie redystrybucja odłączonych akcji, zabezpieczenie niesprawności odłączonych strażników zarezerwowane z budżetu\nInterfejs: umieść umowne pole maksimum obok pola wyboru przypadku\nAdapter wymaga admin > = 7.8.23 teraz.",
         "uk": "Додати LPP (Облік виробництва електроенергії)\nФіксувати стан раси в обмеженому розподілі (з використанням збереженого ліміту значення)\nВиправлення розподілу лімітів бюджету: відсотки є твердими ковпачками, не перерозподілу відключених акцій, небезпечних відключених охоронців, що зараховуються від бюджету\nUI: розмістити договірні номінальні максимальні поля поряд з прапорцями справи\nАдаптер вимагає адміністратора >= 7.8.23 тепер.",
         "zh-cn": "添加LPP(限制电力生产)使用例\n将种族条件固定在限制分布中( 使用存储限制值)\n修正尊重预算的限制分配:百分比是硬上限,不重新分配断开的股票,不保证从预算中保留的断开的警卫的安全\nUI: 将合同标定的最大字段放在使用大小写复选框的旁边\n适配器需要管理员 \\ 7.8.23现在."
-      },
-      "0.0.5": {
-        "en": "some fixes",
-        "de": "einige fixes",
-        "ru": "некоторые исправления",
-        "pt": "algumas correções",
-        "nl": "sommige fixes",
-        "fr": "quelques corrections",
-        "it": "alcune correzioni",
-        "es": "algunos arreglos",
-        "pl": "niektóre poprawki",
-        "uk": "деякі виправлення",
-        "zh-cn": "一些修正"
       }
     },
     "titleLang": {

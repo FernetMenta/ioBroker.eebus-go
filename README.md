@@ -169,7 +169,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.3.2 (2026-08-14)
 
 - Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level
 - Fix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)
@@ -202,16 +202,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
 - Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
 - Fix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations
-
-### 0.2.0 (2026-08-03)
-
-- Refactor: separate EG (Energy Guard) handling from CS (Controllable System) use cases into eg-lpc.js / eg-lpp.js
-- Fix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)
-- Fix: distribute failsafe limits to energy guards when entering failsafe state
-- Fix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)
-- Fix: add periodic heartbeat check timer to detect controlbox disconnection
-- Fix: recover FSM from unlimitedAutonomous when controlbox reconnects
-- UI: allow clearing ControlBox SKI in admin config
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
