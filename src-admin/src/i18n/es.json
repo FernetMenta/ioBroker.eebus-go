@@ -9,6 +9,8 @@
     "ControlBox SKI": "ControlBox SKI",
     "Clear ControlBox SKI": "Borrar SKI del ControlBox",
     "Discovered Devices": "Dispositivos descubiertos",
+    "Docker Log Level": "Nivel de registro Docker",
+    "Enable Docker Container": "Activar contenedor Docker",
     "Enable LPC (Limitation of Power Consumption)": "Activar LPC (Limitación del consumo de energía)",
     "Enable LPP (Limitation of Power Production)": "Activar LPP (Limitación de la producción de energía)",
     "Energy Guards": "Guardas de energía",

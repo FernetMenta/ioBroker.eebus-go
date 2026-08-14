@@ -169,6 +169,11 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- Feature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via "Enable Docker Container" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)
+- Fix: reset info.connection state to false on adapter unload
+
 ### 0.3.2 (2026-08-14)
 
 - Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level

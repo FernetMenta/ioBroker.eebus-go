@@ -35,6 +35,11 @@ class EebusGo extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
+        // When Docker container is managed by the plugin, always connect to the local container endpoint
+        if (this.config.dockerEnabled) {
+            this.config.grpcEndpoint = '127.0.0.1:50051';
+        }
+
         if (!this.config.grpcEndpoint) {
             this.log.error('grpcEndpoint is not configured — please set it in the adapter settings');
             return;
@@ -63,6 +68,7 @@ class EebusGo extends utils.Adapter {
                 this.hems = null;
             }
 
+            this.setState('info.connection', false, true);
             callback();
         } catch (error) {
             this.log.error(`Error during unloading: ${error.message}`);
