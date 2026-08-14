@@ -174,6 +174,8 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level
 - Fix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)
 - Add an example of a manual LPC guard to the doc folder.
+- Fix: translations
+- Various smaller fixes.
 
 ### 0.3.1 (2026-08-09)
 
