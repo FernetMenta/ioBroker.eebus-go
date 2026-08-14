@@ -200,9 +200,23 @@ class Options extends Component {
                         style={{ ...styles.input }}
                         variant="standard"
                         label={I18n.t('Service Port')}
-                        value={this.props.native.servicePort}
+                        value={this.props.native.servicePort ?? ''}
                         type="number"
-                        onChange={e => this.props.onChange('servicePort', parseInt(e.target.value, 10) || 0)}
+                        slotProps={{ htmlInput: { min: 1, max: 65535 } }}
+                        onChange={e => {
+                            const val = e.target.value;
+                            this.props.onChange('servicePort', val === '' ? '' : parseInt(val, 10));
+                        }}
+                        onBlur={e => {
+                            let value = parseInt(e.target.value, 10);
+                            if (Number.isNaN(value) || value < 1) {
+                                value = 4712;
+                            }
+                            if (value > 65535) {
+                                value = 65535;
+                            }
+                            this.props.onChange('servicePort', value);
+                        }}
                         margin="normal"
                     />
                     <br />
@@ -220,11 +234,23 @@ class Options extends Component {
                         style={{ ...styles.input }}
                         variant="standard"
                         label={I18n.t('Heartbeat Timeout (seconds)')}
-                        value={this.props.native.heartbeatTimeoutSeconds}
+                        value={this.props.native.heartbeatTimeoutSeconds ?? ''}
                         type="number"
-                        onChange={e =>
-                            this.props.onChange('heartbeatTimeoutSeconds', parseInt(e.target.value, 10) || 30)
-                        }
+                        slotProps={{ htmlInput: { min: 5, max: 300 } }}
+                        onChange={e => {
+                            const val = e.target.value;
+                            this.props.onChange('heartbeatTimeoutSeconds', val === '' ? '' : parseInt(val, 10));
+                        }}
+                        onBlur={e => {
+                            let value = parseInt(e.target.value, 10);
+                            if (Number.isNaN(value) || value < 5) {
+                                value = 30;
+                            }
+                            if (value > 300) {
+                                value = 300;
+                            }
+                            this.props.onChange('heartbeatTimeoutSeconds', value);
+                        }}
                         margin="normal"
                     />
                     <br />
@@ -242,7 +268,7 @@ class Options extends Component {
                             variant="outlined"
                             size="small"
                             disabled={!this.props.native.controlboxSki}
-                            onClick={() => this.props.onChange('controlboxSki', '')} 
+                            onClick={() => this.props.onChange('controlboxSki', '')}
                             sx={{ minWidth: 300 }}
                         >
                             {I18n.t('Clear ControlBox SKI')}
@@ -263,14 +289,26 @@ class Options extends Component {
                         <TextField
                             variant="standard"
                             label={I18n.t('Contractual Consumption Nominal Max (W)')}
-                            value={this.props.native.contractualConsumptionNominalMax}
+                            value={this.props.native.contractualConsumptionNominalMax ?? ''}
                             type="number"
-                            onChange={e =>
+                            slotProps={{ htmlInput: { min: 0, max: 999999 } }}
+                            onChange={e => {
+                                const val = e.target.value;
                                 this.props.onChange(
                                     'contractualConsumptionNominalMax',
-                                    parseInt(e.target.value, 10) || 0,
-                                )
-                            }
+                                    val === '' ? '' : parseInt(val, 10),
+                                );
+                            }}
+                            onBlur={e => {
+                                let value = parseInt(e.target.value, 10);
+                                if (Number.isNaN(value) || value < 0) {
+                                    value = 0;
+                                }
+                                if (value > 999999) {
+                                    value = 999999;
+                                }
+                                this.props.onChange('contractualConsumptionNominalMax', value);
+                            }}
                             margin="normal"
                             sx={{ minWidth: 300 }}
                         />
@@ -292,13 +330,23 @@ class Options extends Component {
                                 label={I18n.t('Contractual Production Nominal Max (W)')}
                                 value={this.props.native.contractualProductionNominalMax ?? ''}
                                 type="number"
-                                inputProps={{ min: 0, max: 999999 }}
+                                slotProps={{ htmlInput: { min: 0, max: 999999 } }}
                                 onChange={e => {
-                                    const parsed = parseInt(e.target.value, 10);
+                                    const val = e.target.value;
                                     this.props.onChange(
                                         'contractualProductionNominalMax',
-                                        Number.isFinite(parsed) ? parsed : 0,
+                                        val === '' ? '' : parseInt(val, 10),
                                     );
+                                }}
+                                onBlur={e => {
+                                    let value = parseInt(e.target.value, 10);
+                                    if (Number.isNaN(value) || value < 0) {
+                                        value = 0;
+                                    }
+                                    if (value > 999999) {
+                                        value = 999999;
+                                    }
+                                    this.props.onChange('contractualProductionNominalMax', value);
                                 }}
                                 margin="normal"
                                 sx={{ minWidth: 300 }}
