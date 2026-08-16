@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+    eebus-grpc:
+        image: fernetmenta/iobroker.eebus-grpc:latest
+        container_name: eebus-grpc
+        restart: unless-stopped
+        network_mode: 'host'
+        environment:
+            GRPC_ENDPOINT: '127.0.0.1:50051'
+            CRT_PATH: '/certs/myhems_cert'
+            KEY_PATH: '/certs/myhems_key'
+            LOG_LEVEL: '${config.dockerLogLevel:-info}'
+        volumes:
+            - eebus-certs:/certs
+        labels:
+            - 'iobEnabled=${config.dockerEnabled:-true}'
+            - 'iobStopOnUnload=true'
+            - 'iobBackup=eebus-certs'
+            - 'iobMonitoringEnabled=true'
+            - 'iobAutoImageUpdate=true'
+
+volumes:
+    eebus-certs:

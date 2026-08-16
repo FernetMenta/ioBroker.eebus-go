@@ -1,12 +1,30 @@
 # Setup of iobroker.eebus-grpc container
 
-EEBUS communication uses mDNS (multicast DNS) to discover devices on the network. Make sure that all EEBUS devices you want to communicate with are on the same subnet.
+The eebus-go adapter communicates with the EEBUS network through a gRPC server running in a Docker container. EEBUS uses mDNS (multicast DNS) for device discovery, so the container must have access to the local network (host networking or macvlan).
 
-There are two options for docker networks that can be used with mDNS. Either you attach the container directly to the host network or better use a macvlan as shown below.
+There are three options for running the container, depending on your environment.
 
-## Example for docker-compose
+## Option 1: Managed by ioBroker (recommended)
 
-```
+If ioBroker is installed **directly on the host** (not inside a container), the adapter can manage the Docker container automatically using the built-in Docker plugin.
+
+**Prerequisites:**
+- Docker Engine >= 20.10 installed on the host
+- The ioBroker user must have access to the Docker socket (typically member of the `docker` group)
+
+**Setup:**
+1. Open the adapter instance configuration in the admin UI
+2. On the **Base Config** tab, check **Enable Docker Container**
+3. Optionally adjust the **Docker Log Level**
+4. Save — the adapter will automatically pull the image, create, and start the container with host networking
+
+The gRPC endpoint is managed internally (`127.0.0.1:50051`) and cannot be changed when Docker is enabled. The container lifecycle (start/stop/update) is fully handled by the adapter.
+
+## Option 2: Docker Compose (ioBroker running in a container)
+
+If ioBroker itself runs inside a Docker container, you need to run the eebus-grpc container separately. Use a macvlan network so both containers can use mDNS on the LAN.
+
+```yaml
 services:
   eebus-grpc:
     image: fernetmenta/iobroker.eebus-grpc:latest
@@ -14,24 +32,19 @@ services:
     hostname: iob-hems
     restart: unless-stopped
     environment:
-      # This is the GRPC Server bind address in the docker bridge network
       IPV4_ADDR: 172.30.0.10
       CRT_PATH: "/certs/myhems_cert"
       KEY_PATH: "/certs/myhems_key"
       GRPC_PORT: 50051
-      # Possible values: trace, debug, info, error
       LOG_LEVEL: info
     networks:
       internal:
         ipv4_address: 172.30.0.10
       lan:
         ipv4_address: 192.168.178.221
-    # adopt to your UID/GID
     user: 1000:1000
-
     volumes:
       - ./certs:/certs
-
     healthcheck:
       test: ["CMD-SHELL", "grpc-health-probe -addr=$${IPV4_ADDR}:50051 || pkill -u $$(id -u)"]
       interval: 60s
@@ -58,6 +71,7 @@ services:
       - ./iobrokerdata:/opt/iobroker
     environment:
       - TZ=Europe/Berlin
+
 networks:
   internal:
     driver: bridge
@@ -66,7 +80,6 @@ networks:
         - subnet: 172.30.0.0/24
           gateway: 172.30.0.1
           ip_range: 172.30.0.0/24
-
   lan:
     driver: macvlan
     driver_opts:
@@ -78,25 +91,23 @@ networks:
           ip_range: 192.168.178.220/30
 ```
 
-Note parameter IPV4_ADDR. In this example the result is that the gRPC server only binds to the internal network address. Hence the server is not reachable from outside the docker network.
+**Important:** In the adapter settings, set `grpcEndpoint` to `172.30.0.10:50051` (the container's internal bridge IP). Do **not** enable the Docker checkbox in this setup.
 
-**Important:** In the ioBroker adapter settings, set `grpcEndpoint` to `172.30.0.10:50051` (the container's internal bridge IP) since both containers share the `internal` network. Using `localhost:50051` would not work in this setup.
+If you need to reach containers on the macvlan from the host, set up an additional IP link:
 
-If you want to reach containers on the macvlan from the host, you have to set up an additional IP link on the host. To make this persistent you can set up a systemd service that creates the link on startup.
-
-```
+```bash
 ip link add mac0 link enp3s0 type macvlan mode bridge
 ip addr add 192.168.178.219/24 dev mac0
 ip link set mac0 up
 ip route add 192.168.178.220/30 dev mac0 protocol static
 ```
 
-## Run command for quick test on host network
+## Option 3: Quick test with docker run
 
-Run grpc server (certs will be created automatically in the specified certs directory if not exist!)
+For development or quick testing on the host network:
 
 ```bash
-mkdir certs
+mkdir -p certs
 docker run --rm -it \
   --network=host \
   -v "$PWD/certs:/certs" \
@@ -104,7 +115,9 @@ docker run --rm -it \
   fernetmenta/iobroker.eebus-grpc:latest
 ```
 
-The entrypoint uses these environment variables (with their Dockerfile defaults):
+Certificates are created automatically in the certs directory if they don't exist. Set `grpcEndpoint` in the adapter to `127.0.0.1:50051`.
+
+## Environment Variables
 
 | Variable    | Default              | Description                          |
 | ----------- | -------------------- | ------------------------------------ |
@@ -114,4 +127,4 @@ The entrypoint uses these environment variables (with their Dockerfile defaults)
 | `GRPC_PORT` | `50051`              | gRPC server port                     |
 | `LOG_LEVEL` | `info`               | Log level: trace, debug, info, error |
 
-Note that the IP address 0.0.0.0 is a meta-address that configures the server to listen on all available network interfaces. While convenient for development and testing, it is highly recommended to use the server's specific, intended IP address for production environments to improve security and control.
+Note: `0.0.0.0` configures the server to listen on all interfaces. For production, use a specific IP address to limit exposure.

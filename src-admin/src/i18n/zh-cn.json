@@ -9,6 +9,8 @@
     "ControlBox SKI": "ControlBox SKI",
     "Clear ControlBox SKI": "清除 ControlBox SKI",
     "Discovered Devices": "已发现设备",
+    "Docker Log Level": "Docker 日志级别",
+    "Enable Docker Container": "启用 Docker 容器",
     "Enable LPC (Limitation of Power Consumption)": "启用 LPC（用电功率限制）",
     "Enable LPP (Limitation of Power Production)": "启用 LPP（发电功率限制）",
     "Energy Guards": "能量守卫",

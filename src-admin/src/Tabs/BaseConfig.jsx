@@ -1,7 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { TextField, Button, Box, Checkbox, FormControlLabel } from '@mui/material';
+import {
+    TextField,
+    Button,
+    Box,
+    Checkbox,
+    FormControlLabel,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { I18n, Logo } from '@iobroker/gui-components';
 import { QRCodeSVG } from 'qrcode.react';
@@ -186,6 +196,35 @@ class Options extends Component {
                     onLoad={this.props.onLoad}
                 />
                 <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                        <FormControlLabel
+                            sx={{ minWidth: 420 }}
+                            control={
+                                <Checkbox
+                                    checked={!!this.props.native.dockerEnabled}
+                                    onChange={e => this.props.onChange('dockerEnabled', e.target.checked)}
+                                />
+                            }
+                            label={I18n.t('Enable Docker Container')}
+                        />
+                        <FormControl
+                            variant="standard"
+                            sx={{ minWidth: 300 }}
+                        >
+                            <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
+                            <Select
+                                value={this.props.native.dockerLogLevel || 'info'}
+                                onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
+                                disabled={!this.props.native.dockerEnabled}
+                            >
+                                <MenuItem value="trace">trace</MenuItem>
+                                <MenuItem value="debug">debug</MenuItem>
+                                <MenuItem value="info">info</MenuItem>
+                                <MenuItem value="warn">warn</MenuItem>
+                                <MenuItem value="error">error</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
@@ -194,6 +233,7 @@ class Options extends Component {
                         type="text"
                         onChange={e => this.props.onChange('grpcEndpoint', e.target.value)}
                         margin="normal"
+                        disabled={!!this.props.native.dockerEnabled}
                     />
                     <br />
                     <TextField
