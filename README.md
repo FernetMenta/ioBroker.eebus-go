@@ -171,6 +171,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 -->
 ### **WORK IN PROGRESS**
 
+- Breaking: requires eebus-grpc container image version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). The gRPC API changed to a single-server architecture with instance-based routing — use cases no longer spawn separate gRPC servers.
 - Feature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via "Enable Docker Container" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)
 - Fix: reset info.connection state to false on adapter unload
 

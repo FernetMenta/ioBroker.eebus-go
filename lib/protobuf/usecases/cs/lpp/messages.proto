@@ -10,6 +10,7 @@ package cs_lpp;
 import "common_types/types.proto";
 
 message ProductionLimitRequest {
+    string instance_id = 1;
 }
 
 message ProductionLimitResponse {
@@ -17,13 +18,15 @@ message ProductionLimitResponse {
 }
 
 message SetProductionLimitRequest {
-    common_types.LoadLimit load_limit = 1;
+    string instance_id = 1;
+    common_types.LoadLimit load_limit = 2;
 }
 
 message SetProductionLimitResponse {
 }
 
 message PendingProductionLimitRequest {
+    string instance_id = 1;
 }
 
 message PendingProductionLimitResponse {
@@ -31,15 +34,17 @@ message PendingProductionLimitResponse {
 }
 
 message ApproveOrDenyProductionLimitRequest {
-    uint64 msg_counter = 1;
-    bool approve = 2;
-    string reason = 3;
+    string instance_id = 1;
+    uint64 msg_counter = 2;
+    bool approve = 3;
+    string reason = 4;
 }
 
 message ApproveOrDenyProductionLimitResponse {
 }
 
 message FailsafeProductionActivePowerLimitRequest {
+    string instance_id = 1;
 }
 
 message FailsafeProductionActivePowerLimitResponse {
@@ -48,14 +53,16 @@ message FailsafeProductionActivePowerLimitResponse {
 }
 
 message SetFailsafeProductionActivePowerLimitRequest {
-    double value = 1;
-    bool is_changeable = 2;
+    string instance_id = 1;
+    double value = 2;
+    bool is_changeable = 3;
 }
 
 message SetFailsafeProductionActivePowerLimitResponse {
 }
 
 message FailsafeDurationMinimumRequest {
+    string instance_id = 1;
 }
 
 message FailsafeDurationMinimumResponse {
@@ -64,26 +71,30 @@ message FailsafeDurationMinimumResponse {
 }
 
 message SetFailsafeDurationMinimumRequest {
-    int64 duration_nanoseconds = 1;
-    bool is_changeable = 2;
+    string instance_id = 1;
+    int64 duration_nanoseconds = 2;
+    bool is_changeable = 3;
 }
 
 message SetFailsafeDurationMinimumResponse {
 }
 
 message StartHeartbeatRequest {
+    string instance_id = 1;
 }
 
 message StartHeartbeatResponse {
 }
 
 message StopHeartbeatRequest {
+    string instance_id = 1;
 }
 
 message StopHeartbeatResponse {
 }
 
 message IsHeartbeatWithinDurationRequest {
+    string instance_id = 1;
 }
 
 message IsHeartbeatWithinDurationResponse {
@@ -91,6 +102,7 @@ message IsHeartbeatWithinDurationResponse {
 }
 
 message ProductionNominalMaxRequest {
+    string instance_id = 1;
 }
 
 message ProductionNominalMaxResponse {
@@ -98,7 +110,8 @@ message ProductionNominalMaxResponse {
 }
 
 message SetProductionNominalMaxRequest {
-    double value = 1;
+    string instance_id = 1;
+    double value = 2;
 }
 
 message SetProductionNominalMaxResponse {

@@ -35,10 +35,11 @@ service ControlService {
     // Register remote SKI to the EEBus service
     rpc RegisterRemoteSki (RegisterRemoteSkiRequest) returns (EmptyResponse) {}
 
-    // Adds an usecase to the EEBus service
+    // Adds a usecase to the EEBus service. Returns an instance_id that
+    // identifies this use case instance for all subsequent calls.
     rpc AddUseCase (AddUseCaseRequest) returns (AddUseCaseResponse) {}
 
-    // Subscribes to usecase events
+    // Subscribes to usecase events for a given instance.
     rpc SubscribeUseCaseEvents (SubscribeUseCaseEventsRequest) returns (stream SubscribeUseCaseEventsResponse) {}
 
     // Subscribes to discovery events (DISCOVERED / REMOVED) for remote EEBUS

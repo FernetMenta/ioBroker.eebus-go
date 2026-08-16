@@ -43,7 +43,7 @@ message AddUseCaseRequest {
 }
 
 message AddUseCaseResponse {
-    string endpoint = 1;
+    string instance_id = 1;
 }
 
 message RegisterRemoteSkiRequest {
@@ -51,8 +51,7 @@ message RegisterRemoteSkiRequest {
 }
 
 message SubscribeUseCaseEventsRequest {
-    common_types.EntityAddress entity_address = 1;
-    UseCase use_case = 2;
+    string instance_id = 1;
 }
 
 message SubscribeUseCaseEventsResponse {

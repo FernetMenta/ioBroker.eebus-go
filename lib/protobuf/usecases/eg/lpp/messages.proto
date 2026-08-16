@@ -10,8 +10,9 @@ package eg_lpp;
 import "common_types/types.proto";
 
 message ProductionLimitRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
 }
 
 message ProductionLimitResponse {
@@ -19,9 +20,10 @@ message ProductionLimitResponse {
 }
 
 message WriteProductionLimitRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
-    common_types.LoadLimit limit = 3;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
+    common_types.LoadLimit limit = 4;
 }
 
 message WriteProductionLimitResponse {
@@ -31,8 +33,9 @@ message WriteProductionLimitResponse {
 }
 
 message FailsafeProductionActivePowerLimitRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
 }
 
 message FailsafeProductionActivePowerLimitResponse {
@@ -40,9 +43,10 @@ message FailsafeProductionActivePowerLimitResponse {
 }
 
 message WriteFailsafeProductionActivePowerLimitRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
-    double limit = 3;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
+    double limit = 4;
 }
 
 message WriteFailsafeProductionActivePowerLimitResponse {
@@ -50,8 +54,9 @@ message WriteFailsafeProductionActivePowerLimitResponse {
 }
 
 message FailsafeDurationMinimumRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
 }
 
 message FailsafeDurationMinimumResponse {
@@ -59,9 +64,10 @@ message FailsafeDurationMinimumResponse {
 }
 
 message WriteFailsafeDurationMinimumRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
-    uint64 duration_nanoseconds = 3;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
+    uint64 duration_nanoseconds = 4;
 }
 
 message WriteFailsafeDurationMinimumResponse {
@@ -69,20 +75,23 @@ message WriteFailsafeDurationMinimumResponse {
 }
 
 message StartHeartbeatRequest {
+    string instance_id = 1;
 }
 
 message StartHeartbeatResponse {
 }
 
 message StopHeartbeatRequest {
+    string instance_id = 1;
 }
 
 message StopHeartbeatResponse {
 }
 
 message IsHeartbeatWithinDurationRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
 }
 
 message IsHeartbeatWithinDurationResponse {
@@ -90,8 +99,9 @@ message IsHeartbeatWithinDurationResponse {
 }
 
 message ProductionNominalMaxRequest {
-    string remote_ski = 1;
-    common_types.EntityAddress remote_entity_address = 2;
+    string instance_id = 1;
+    string remote_ski = 2;
+    common_types.EntityAddress remote_entity_address = 3;
 }
 
 message ProductionNominalMaxResponse {
