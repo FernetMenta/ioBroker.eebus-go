@@ -26,6 +26,7 @@
         "@grpc/grpc-js": "^1.14.4",
         "@grpc/proto-loader": "^0.8.1",
         "@iobroker/adapter-core": "^3.4.3",
+        "@iobroker/plugin-docker": "^1.1.2",
         "javascript-state-machine": "^3.1.0"
     },
     "devDependencies": {
@@ -38,7 +39,6 @@
         "@iobroker/dev-server": "^0.8.0",
         "@iobroker/eslint-config": "^2.3.4",
         "@iobroker/testing": "^5.3.0",
-        "@iobroker/plugin-docker": "^1.1.2",
         "@sinonjs/referee-sinon": "^12.0.1",
         "@tsconfig/node22": "^22.0.5",
         "@types/iobroker": "npm:@iobroker/types@^7.2.2",
