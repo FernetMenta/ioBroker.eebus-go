@@ -19,6 +19,7 @@ services:
             - 'iobBackup=eebus-certs'
             - 'iobMonitoringEnabled=true'
             - 'iobAutoImageUpdate=true'
+            - 'iobWaitForReady=true'
 
 volumes:
     eebus-certs:

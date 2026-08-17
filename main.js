@@ -8,11 +8,10 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 const path = require('node:path');
+const fs = require('node:fs');
 const { I18n } = require('@iobroker/adapter-core');
+const { DockerManager } = require('@iobroker/plugin-docker');
 const { Hems } = require('./lib/hems');
-
-// Load your modules here, e.g.:
-// const fs = require('node:fs');
 
 class EebusGo extends utils.Adapter {
     /**
@@ -32,12 +31,140 @@ class EebusGo extends utils.Adapter {
     }
 
     /**
+     * Returns the Docker volume name for the eebus-certs volume.
+     * The plugin prefixes it with iob_<adapterName>_<instance>_
+     */
+    get certsVolumeName() {
+        return `iob_eebus_go_${this.instance}_eebus-certs`;
+    }
+
+    /**
+     * Returns the local path where certs are backed up within the adapter data directory.
+     */
+    get certsBackupDir() {
+        return 'certs';
+    }
+
+    /**
+     * Create a standalone DockerManager instance using the same API config as the plugin.
+     * This is needed because the plugin's own manager isn't available before instanceIsReady().
+     */
+    async createDockerManager() {
+        // Read the dockerApi config the same way the plugin does
+        const pluginConfig = this.getPluginConfig('docker');
+        let dockerApi;
+        if (pluginConfig && pluginConfig.iobDockerApi && typeof pluginConfig.iobDockerApi === 'string') {
+            const systemDockerObj = await this.getForeignObjectAsync('system.docker');
+            const nativeConfig = systemDockerObj?.native;
+            if (nativeConfig?.hosts?.[pluginConfig.iobDockerApi]) {
+                dockerApi = nativeConfig.hosts[pluginConfig.iobDockerApi];
+            }
+        } else if (pluginConfig && typeof pluginConfig.iobDockerApi === 'object') {
+            dockerApi = pluginConfig.iobDockerApi;
+        }
+
+        const manager = new DockerManager({
+            dockerApi,
+            logger: this.log,
+            namespace: `${this.name}.${this.instance}`,
+        });
+        await manager.isReady();
+        return manager;
+    }
+
+    /**
+     * Copy certificate files from the Docker volume to the ioBroker file storage.
+     * Called when info.connection becomes true (container is running with valid certs).
+     * Files are visible in admin Files tab and included in ioBroker backups.
+     */
+    async backupCertsFromVolume() {
+        try {
+            const manager = await this.createDockerManager();
+
+            const entries = await manager.volumeDir(this.certsVolumeName);
+            if (typeof entries === 'string' || !entries.length) {
+                this.log.debug('No cert files found in Docker volume to back up');
+                return;
+            }
+
+            for (const entry of entries) {
+                if (entry.isDir || entry.isLink) {
+                    continue;
+                }
+                const content = await manager.volumeFile(this.certsVolumeName, entry.name);
+                if (content != null) {
+                    await this.writeFileAsync(this.namespace, `${this.certsBackupDir}/${entry.name}`, content);
+                }
+            }
+            this.log.info('Backed up cert files from Docker volume to ioBroker file storage');
+        } catch (e) {
+            this.log.warn(`Could not back up certs from Docker volume: ${e.message}`);
+        }
+    }
+
+    /**
+     * Copy certificate files from ioBroker file storage into the Docker volume.
+     * Called before signaling instanceIsReady so the container starts with restored certs.
+     */
+    async restoreCertsToVolume() {
+        let files;
+        try {
+            const result = await this.readDirAsync(this.namespace, this.certsBackupDir);
+            files = result.filter(entry => entry.isDir === false);
+        } catch {
+            // Directory doesn't exist — first run
+            this.log.debug('No cert backup in file storage — skipping restore to volume');
+            return;
+        }
+
+        if (!files.length) {
+            this.log.debug('Cert backup in file storage is empty — skipping restore to volume');
+            return;
+        }
+
+        // Write cert files to a temporary directory, then copy to volume
+        const tmpDir = path.join(require('node:os').tmpdir(), `eebus-certs-restore-${Date.now()}`);
+        fs.mkdirSync(tmpDir, { recursive: true });
+
+        try {
+            for (const file of files) {
+                const { file: data } = await this.readFileAsync(this.namespace, `${this.certsBackupDir}/${file.file}`);
+                fs.writeFileSync(path.join(tmpDir, file.file), data);
+            }
+
+            const manager = await this.createDockerManager();
+            const result = await manager.volumeCopyTo(this.certsVolumeName, tmpDir);
+            if (result.stderr) {
+                this.log.warn(`Could not restore certs to Docker volume: ${result.stderr}`);
+            } else {
+                this.log.info(`Restored ${files.length} cert files to Docker volume from file storage`);
+            }
+        } catch (e) {
+            this.log.warn(`Could not restore certs to Docker volume: ${e.message}`);
+        } finally {
+            // Clean up temp directory
+            fs.rmSync(tmpDir, { recursive: true, force: true });
+        }
+    }
+
+    /**
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
         // When Docker container is managed by the plugin, always connect to the local container endpoint
         if (this.config.dockerEnabled) {
             this.config.grpcEndpoint = '127.0.0.1:50051';
+
+            // Restore certs to the Docker volume before the container starts.
+            // The compose file has iobWaitForReady=true, so the container won't start
+            // until we call instanceIsReady() below.
+            await this.restoreCertsToVolume();
+
+            // Signal the Docker plugin that provisioning is complete — the container can start now.
+            const dockerPlugin = this.getPluginInstance('docker');
+            if (dockerPlugin) {
+                await dockerPlugin.instanceIsReady();
+            }
         }
 
         if (!this.config.grpcEndpoint) {
@@ -47,6 +174,9 @@ class EebusGo extends utils.Adapter {
 
         // Initialize I18n for translated object names
         await I18n.init(path.join(__dirname, 'lib'), this);
+
+        // Subscribe to info.connection to trigger cert backup when connected
+        this.subscribeStates('info.connection');
 
         // Subscribe to Energy Guard state changes (percentage, heartbeat, connected, manualLimit)
         this.subscribeStates('LPC.EnergyGuards.*');
@@ -101,6 +231,14 @@ class EebusGo extends utils.Adapter {
      */
     onStateChange(id, state) {
         if (state) {
+            // When info.connection becomes true, back up certs from the Docker volume
+            if (id.endsWith('.info.connection') && state.val === true && state.ack === true) {
+                if (this.config.dockerEnabled) {
+                    this.backupCertsFromVolume();
+                }
+                return;
+            }
+
             if (state.ack === false) {
                 if ((id.includes('.EnergyGuards.') || id.includes('.LPC.') || id.includes('.LPP.')) && this.hems) {
                     this.log.info(`User command for ${id}: ${state.val}`);
