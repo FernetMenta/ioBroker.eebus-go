@@ -169,7 +169,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.0.0 (2026-08-17)
 
 - Breaking: requires eebus-grpc container image version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). The gRPC API changed to a single-server architecture with instance-based routing — use cases no longer spawn separate gRPC servers.
 - Feature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via "Enable Docker Container" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)
@@ -202,12 +202,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: properly clean up resources before reconnect and propagate CS registration errors
 - Fix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)
 - Chore: clean up admin folder and build pipeline (remove CRA boilerplate, add exec plugin for release builds)
-
-### 0.2.1 (2026-08-04)
-
-- Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
-- Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
-- Fix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

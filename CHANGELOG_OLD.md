@@ -1,4 +1,10 @@
 # Older changes
+## 0.2.1 (2026-08-04)
+
+- Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)
+- Fix: correct invalid state roles (level.power → level, indicator.connected write flag)
+- Fix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations
+
 ## 0.2.0 (2026-08-03)
 
 - Refactor: separate EG (Energy Guard) handling from CS (Controllable System) use cases into eg-lpc.js / eg-lpp.js
