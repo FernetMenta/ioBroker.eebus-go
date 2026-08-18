@@ -20,7 +20,7 @@ var kebaEnabled = true;
 
 async function tasmotaSendCommand(command) {
     try {
-        await axios.get('http://keba-failsafe.fritz.box/cm', {
+        const response = await axios.get('http://keba-failsafe.fritz.box/cm', {
             auth: {
                 username: 'admin',
                 password: getenv('PW_KEBA_FAILSAFE'),
@@ -38,16 +38,17 @@ async function tasmotaSendCommand(command) {
     } catch (error) {
         if (tasmotaAlive) {
             console.error(
-                `KEBA command failed: ${JSON.stringify(
-                    {
-                        command: command,
-                        status: error.response?.status,
-                        data: error.response?.data,
-                        message: error.message,
-                    },
-                    null,
-                    2,
-                )}`,
+                'KEBA command failed: ' +
+                    JSON.stringify(
+                        {
+                            command: command,
+                            status: error.response?.status,
+                            data: error.response?.data,
+                            message: error.message,
+                        },
+                        null,
+                        2,
+                    ),
             ); // The '2' formats it cleanly on multiple lines
             tasmotaAlive = false;
         }
