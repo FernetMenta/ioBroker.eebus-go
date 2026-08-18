@@ -48,8 +48,11 @@ class EebusGo extends utils.Adapter {
     /**
      * Create a standalone DockerManager instance using the same API config as the plugin.
      * This is needed because the plugin's own manager isn't available before instanceIsReady().
+     *
+     * @param {{ silent?: boolean }} [options] - Options for creating the manager
      */
-    async createDockerManager() {
+    async createDockerManager(options) {
+        const silent = options && options.silent;
         // Read the dockerApi config the same way the plugin does
         const pluginConfig = this.getPluginConfig('docker');
         let dockerApi;
@@ -63,9 +66,13 @@ class EebusGo extends utils.Adapter {
             dockerApi = pluginConfig.iobDockerApi;
         }
 
+        const logger = silent
+            ? { silly: () => {}, debug: () => {}, info: () => {}, warn: () => {}, error: () => {} }
+            : this.log;
+
         const manager = new DockerManager({
             dockerApi,
-            logger: this.log,
+            logger,
             namespace: `${this.name}.${this.instance}`,
         });
         await manager.isReady();
@@ -154,7 +161,7 @@ class EebusGo extends utils.Adapter {
         // Check Docker availability and publish result as a state for the admin UI
         let dockerAvailable = false;
         try {
-            const manager = await this.createDockerManager();
+            const manager = await this.createDockerManager({ silent: true });
             const info = await manager.getDockerDaemonInfo();
             dockerAvailable = !!info.daemonRunning;
         } catch {
