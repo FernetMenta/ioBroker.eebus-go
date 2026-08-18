@@ -173,6 +173,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 
 - Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles
 - Check if docker is available and make admin UI options available on this.
+- Update depencendy on eebus-grpc
 
 ### 1.0.0 (2026-08-17)
 

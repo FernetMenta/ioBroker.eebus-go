@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
     eebus-grpc:
-        image: fernetmenta/iobroker.eebus-grpc:2.0.0
+        image: fernetmenta/iobroker.eebus-grpc:2.0.1
         container_name: eebus-grpc
         restart: unless-stopped
         network_mode: 'host'
