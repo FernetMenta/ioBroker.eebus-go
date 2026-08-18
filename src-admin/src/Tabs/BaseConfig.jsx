@@ -17,47 +17,27 @@ import { I18n, Logo } from '@iobroker/gui-components';
 import { QRCodeSVG } from 'qrcode.react';
 
 const styles = {
-    tab: {
-        width: '100%',
-        minHeight: '100%',
-    },
-    input: {
-        minWidth: 400,
-        marginRight: 2,
-        marginBottom: 2,
-    },
-    column: {
-        display: 'inline-block',
-        verticalAlign: 'top',
-        marginRight: 20,
-    },
-    columnSettings: {
-        width: 'calc(100% - 10px)',
-    },
+    tab: { width: '100%', minHeight: '100%' },
+    input: { minWidth: 400, marginRight: 2, marginBottom: 2 },
+    column: { display: 'inline-block', verticalAlign: 'top', marginRight: 20 },
+    columnSettings: { width: 'calc(100% - 10px)' },
 };
 
-/**
- * Class for handling basic settings like connection parameters
- */
 class Options extends Component {
-    /**
-     * @param {object} props - properties set when the component gets created
-     */
     constructor(props) {
         super(props);
-
         this.state = {
             inAction: false,
             isInstanceAlive: false,
+            dockerInstalled: false,
             rowSelectionModel: { type: 'include', ids: new Set() },
             discoveredDevices: {},
             ski: '',
         };
-
         this.aliveId = `system.adapter.${this.props.adapterName}.${this.props.instance}.alive`;
+        this.dockerInstalledId = `${this.props.adapterName}.${this.props.instance}.info.dockerInstalled`;
         this.discoveredDevicesId = `${this.props.adapterName}.${this.props.instance}.info.discoveredDevices`;
         this.skiId = `${this.props.adapterName}.${this.props.instance}.info.ski`;
-
         this.columns = [
             { field: 'remoteSki', headerName: 'SKI', minWidth: 350, flex: 2 },
             { field: 'brand', headerName: I18n.t('Brand'), minWidth: 100, flex: 1 },
@@ -67,27 +47,29 @@ class Options extends Component {
         ];
     }
 
-    /**
-     * Called by React when component was mounted
-     */
     componentDidMount() {
         this.props.socket.getState(this.aliveId).then(state => {
             this.setState({ isInstanceAlive: state && state.val });
             this.props.socket.subscribeState(this.aliveId, this.onAliveChanged);
         });
-        // Subscribe to discoveredDevices state
+        this.props.socket.getState(this.dockerInstalledId).then(state => {
+            const installed = !!(state && state.val);
+            this.setState({ dockerInstalled: installed });
+            if (!installed && this.props.native.dockerEnabled) {
+                this.props.onChange('dockerEnabled', false);
+            }
+        });
+        this.props.socket.subscribeState(this.dockerInstalledId, this.onDockerInstalledChanged);
         this.props.socket.getState(this.discoveredDevicesId).then(state => {
             if (state && state.val) {
                 try {
                     this.setState({ discoveredDevices: JSON.parse(state.val) });
                 } catch {
-                    /* ignore parse errors */
+                    /* ignore */
                 }
             }
         });
         this.props.socket.subscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
-
-        // Subscribe to local SKI state
         this.props.socket.getState(this.skiId).then(state => {
             if (state && state.val) {
                 this.setState({ ski: state.val });
@@ -96,11 +78,9 @@ class Options extends Component {
         this.props.socket.subscribeState(this.skiId, this.onSkiChanged);
     }
 
-    /**
-     * Called by React before component will unmount.
-     */
     componentWillUnmount() {
         this.props.socket.unsubscribeState(this.aliveId, this.onAliveChanged);
+        this.props.socket.unsubscribeState(this.dockerInstalledId, this.onDockerInstalledChanged);
         this.props.socket.unsubscribeState(this.discoveredDevicesId, this.onDiscoveredDevicesChanged);
         this.props.socket.unsubscribeState(this.skiId, this.onSkiChanged);
     }
@@ -111,12 +91,22 @@ class Options extends Component {
         }
     };
 
+    onDockerInstalledChanged = (id, state) => {
+        if (id === this.dockerInstalledId) {
+            const installed = !!(state && state.val);
+            this.setState({ dockerInstalled: installed });
+            if (!installed && this.props.native.dockerEnabled) {
+                this.props.onChange('dockerEnabled', false);
+            }
+        }
+    };
+
     onDiscoveredDevicesChanged = (id, state) => {
         if (id === this.discoveredDevicesId && state && state.val) {
             try {
                 this.setState({ discoveredDevices: JSON.parse(state.val) });
             } catch {
-                /* ignore parse errors */
+                /* ignore */
             }
         }
     };
@@ -127,11 +117,6 @@ class Options extends Component {
         }
     };
 
-    /**
-     * Get discovered devices as array for DataGrid rows.
-     *
-     * @returns {Array} rows
-     */
     getDiscoveredDeviceRows() {
         const devices = this.state.discoveredDevices || {};
         return Object.values(devices).map(d => ({
@@ -144,9 +129,6 @@ class Options extends Component {
         }));
     }
 
-    /**
-     * Copy the selected device SKI to controlboxSki config.
-     */
     handleCopyToControlboxSki = () => {
         const selected = this.state.rowSelectionModel;
         if (selected.ids.size > 0) {
@@ -154,34 +136,18 @@ class Options extends Component {
         }
     };
 
-    /**
-     * Format a hex SKI string into space-separated 4-char groups.
-     *
-     * @param {string} ski - Raw hex SKI (e.g. "2bf3f7efc244f1bdd5a861a2f07c3243ab0468be")
-     * @returns {string} Formatted SKI (e.g. "2bf3 f7ef c244 ...")
-     */
     formatSki(ski) {
         const clean = ski.replace(/[\s-]/g, '').toLowerCase();
         return clean.replace(/(.{4})/g, '$1 ').trim();
     }
 
-    /**
-     * Build SHIP connection string for QR code.
-     *
-     * @returns {string} The SHIP URI or empty string if SKI not available
-     */
     getShipConnectionString() {
         const { ski } = this.state;
-        if (!ski) {
-            return '';
-        }
+        if (!ski) return '';
         const formattedSki = this.formatSki(ski);
         return `SHIP;SKI:${formattedSki};ID:i:12345_u:123abc456def;END`;
     }
 
-    /**
-     * Renders the component
-     */
     render() {
         const rows = this.getDiscoveredDeviceRows();
         const shipString = this.getShipConnectionString();
@@ -196,35 +162,37 @@ class Options extends Component {
                     onLoad={this.props.onLoad}
                 />
                 <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
-                        <FormControlLabel
-                            sx={{ minWidth: 420 }}
-                            control={
-                                <Checkbox
-                                    checked={!!this.props.native.dockerEnabled}
-                                    onChange={e => this.props.onChange('dockerEnabled', e.target.checked)}
-                                />
-                            }
-                            label={I18n.t('Enable Docker Container')}
-                        />
-                        <FormControl
-                            variant="standard"
-                            sx={{ minWidth: 300 }}
-                        >
-                            <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
-                            <Select
-                                value={this.props.native.dockerLogLevel || 'info'}
-                                onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
-                                disabled={!this.props.native.dockerEnabled}
+                    {this.state.dockerInstalled && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                            <FormControlLabel
+                                sx={{ minWidth: 420 }}
+                                control={
+                                    <Checkbox
+                                        checked={!!this.props.native.dockerEnabled}
+                                        onChange={e => this.props.onChange('dockerEnabled', e.target.checked)}
+                                    />
+                                }
+                                label={I18n.t('Enable Docker Container')}
+                            />
+                            <FormControl
+                                variant="standard"
+                                sx={{ minWidth: 300 }}
                             >
-                                <MenuItem value="trace">trace</MenuItem>
-                                <MenuItem value="debug">debug</MenuItem>
-                                <MenuItem value="info">info</MenuItem>
-                                <MenuItem value="warn">warn</MenuItem>
-                                <MenuItem value="error">error</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
+                                <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
+                                <Select
+                                    value={this.props.native.dockerLogLevel || 'info'}
+                                    onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
+                                    disabled={!this.props.native.dockerEnabled}
+                                >
+                                    <MenuItem value="trace">trace</MenuItem>
+                                    <MenuItem value="debug">debug</MenuItem>
+                                    <MenuItem value="info">info</MenuItem>
+                                    <MenuItem value="warn">warn</MenuItem>
+                                    <MenuItem value="error">error</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
+                    )}
                     <TextField
                         style={{ ...styles.input }}
                         variant="standard"
@@ -249,12 +217,8 @@ class Options extends Component {
                         }}
                         onBlur={e => {
                             let value = parseInt(e.target.value, 10);
-                            if (Number.isNaN(value) || value < 1) {
-                                value = 4712;
-                            }
-                            if (value > 65535) {
-                                value = 65535;
-                            }
+                            if (Number.isNaN(value) || value < 1) value = 4712;
+                            if (value > 65535) value = 65535;
                             this.props.onChange('servicePort', value);
                         }}
                         margin="normal"
@@ -283,12 +247,8 @@ class Options extends Component {
                         }}
                         onBlur={e => {
                             let value = parseInt(e.target.value, 10);
-                            if (Number.isNaN(value) || value < 5) {
-                                value = 30;
-                            }
-                            if (value > 300) {
-                                value = 300;
-                            }
+                            if (Number.isNaN(value) || value < 5) value = 30;
+                            if (value > 300) value = 300;
                             this.props.onChange('heartbeatTimeoutSeconds', value);
                         }}
                         margin="normal"
@@ -341,12 +301,8 @@ class Options extends Component {
                             }}
                             onBlur={e => {
                                 let value = parseInt(e.target.value, 10);
-                                if (Number.isNaN(value) || value < 0) {
-                                    value = 0;
-                                }
-                                if (value > 999999) {
-                                    value = 999999;
-                                }
+                                if (Number.isNaN(value) || value < 0) value = 0;
+                                if (value > 999999) value = 999999;
                                 this.props.onChange('contractualConsumptionNominalMax', value);
                             }}
                             margin="normal"
@@ -380,12 +336,8 @@ class Options extends Component {
                                 }}
                                 onBlur={e => {
                                     let value = parseInt(e.target.value, 10);
-                                    if (Number.isNaN(value) || value < 0) {
-                                        value = 0;
-                                    }
-                                    if (value > 999999) {
-                                        value = 999999;
-                                    }
+                                    if (Number.isNaN(value) || value < 0) value = 0;
+                                    if (value > 999999) value = 999999;
                                     this.props.onChange('contractualProductionNominalMax', value);
                                 }}
                                 margin="normal"

@@ -205,6 +205,19 @@
                 "def": false
             },
             "native": {}
+        },
+        {
+            "_id": "info.dockerInstalled",
+            "type": "state",
+            "common": {
+                "role": "info.status",
+                "name": "Docker daemon available",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
         }
     ]
 }

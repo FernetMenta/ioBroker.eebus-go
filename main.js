@@ -151,8 +151,27 @@ class EebusGo extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
+        // Check Docker availability and publish result as a state for the admin UI
+        let dockerAvailable = false;
+        try {
+            const manager = await this.createDockerManager();
+            const info = await manager.getDockerDaemonInfo();
+            dockerAvailable = !!info.daemonRunning;
+        } catch {
+            // Docker not installed or not reachable
+        }
+        await this.setStateAsync('info.dockerInstalled', dockerAvailable, true);
+
         // When Docker container is managed by the plugin, always connect to the local container endpoint
         if (this.config.dockerEnabled) {
+            if (!dockerAvailable) {
+                this.log.error(
+                    'Docker is configured but the Docker daemon is not running. ' +
+                        'Please start Docker or disable the Docker container in the adapter settings.',
+                );
+                return;
+            }
+
             this.config.grpcEndpoint = '127.0.0.1:50051';
 
             // Restore certs to the Docker volume before the container starts.
@@ -249,23 +268,6 @@ class EebusGo extends utils.Adapter {
             }
         }
     }
-    // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-    // /**
-    //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-    //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-    //  * @param {ioBroker.Message} obj
-    //  */
-    // onMessage(obj) {
-    //     if (typeof obj === 'object' && obj.message) {
-    //         if (obj.command === 'send') {
-    //             // e.g. send email or pushover or whatever
-    //             this.log.info('send command');
-
-    //             // Send response in callback if required
-    //             if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-    //         }
-    //     }
-    // }
 }
 
 if (require.main !== module) {
