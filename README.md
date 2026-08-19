@@ -169,7 +169,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.1.0 (2026-08-19)
 
 - Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles
 - Check if docker is available and make admin UI options available on this.
@@ -202,12 +202,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Feature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device
 - Feature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe
 - Feature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects
-
-### 0.2.2 (2026-08-05)
-
-- Fix: properly clean up resources before reconnect and propagate CS registration errors
-- Fix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)
-- Chore: clean up admin folder and build pipeline (remove CRA boilerplate, add exec plugin for release builds)
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

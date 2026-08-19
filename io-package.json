@@ -1,223 +1,231 @@
 {
-    "common": {
-        "name": "eebus-go",
-        "version": "1.0.0",
-        "news": {
-            "1.0.0": {
-                "en": "Breaking: requires eebus-grpc container image version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). The gRPC API changed to a single-server architecture with instance-based routing — use cases no longer spawn separate gRPC servers.\nFeature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via \"Enable Docker Container\" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)\nFix: reset info.connection state to false on adapter unload",
-                "de": "Wichtig: Erfordert das eebus-grpc-Container-Image Version 2.0.0 („fernetmenta/iobroker.eebus-grpc:2.0.0“). Die gRPC-API wurde auf eine Einzelserverarchitektur mit instanzbasiertem Routing umgestellt – Anwendungsfälle erzeugen keine separaten gRPC-Server mehr.\nFunktion: Integration des ioBroker-Plugins Docker zur automatischen Verwaltung des eebus-grpc-Containers (Pull, Start, Stop, Update) – Aktivierung über das Kontrollkästchen „Docker-Container aktivieren“ auf der Registerkarte „Basiskonfiguration“ (erfordert Docker Engine >= 20.10 auf dem Host).\nBehebung: Rücksetzung des Verbindungsstatus auf „false“ beim Entladen des Adapters.",
-                "ru": "Критическая ошибка: требуется образ контейнера eebus-grpc версии 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). API gRPC перешел на односерверную архитектуру с маршрутизацией на основе экземпляров — сценарии использования больше не запускают отдельные серверы gRPC.\nФункция: интеграция плагина ioBroker plugin-docker для автоматического управления контейнером eebus-grpc (загрузка, запуск, остановка, обновление) — включение осуществляется с помощью флажка \"Включить контейнер Docker\" на вкладке \"Базовая конфигурация\" (требуется Docker Engine >= 20.10 на хосте).\nИсправление: сброс состояния info.connection в значение false при выгрузке адаптера.",
-                "pt": "Atenção: requer a versão 2.0.0 da imagem do contêiner eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). A API gRPC foi alterada para uma arquitetura de servidor único com roteamento baseado em instâncias — os casos de uso não geram mais servidores gRPC separados.\nFuncionalidade: integração do plugin ioBroker-docker para gerenciar automaticamente o contêiner eebus-grpc (pull, start, stop, update) — habilite através da caixa de seleção \"Enable Docker Container\" na aba Base Config (requer Docker Engine >= 20.10 no host).\nCorreção: redefine o estado de info.connection para falso ao descarregar o adaptador.",
-                "nl": "Breaking news: vereist eebus-grpc container image versie 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). De gRPC API is gewijzigd naar een architectuur met één server en op instanties gebaseerde routing — use cases starten niet langer afzonderlijke gRPC-servers.\nFunctie: integreer de ioBroker plugin-docker om de eebus-grpc container automatisch te beheren (ophalen, starten, stoppen, bijwerken) — inschakelen via het selectievakje \"Docker-container inschakelen\" op het tabblad Basisconfiguratie (vereist Docker Engine >= 20.10 op de host)\nOplossing: stel de status van info.connection terug naar false wanneer de adapter wordt ontladen.",
-                "fr": "Information importante : nécessite l’image conteneur eebus-grpc version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). L’API gRPC est désormais basée sur une architecture à serveur unique avec routage par instance ; les cas d’utilisation ne nécessitent plus de serveurs gRPC distincts.\nFonctionnalité : intégration du plugin ioBroker-docker pour la gestion automatique du conteneur eebus-grpc (extraction, démarrage, arrêt, mise à jour) — à activer via la case à cocher « Activer le conteneur Docker » dans l’onglet Configuration de base (nécessite Docker Engine >= 20.10 sur l’hôte).\nCorrection : réinitialiser l’état info.connection à false lors du déchargement de l’adaptateur",
-                "it": "Aggiornamento importante: richiede la versione 2.0.0 dell'immagine container eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). L'API gRPC è stata modificata in un'architettura a server singolo con routing basato su istanze: i casi d'uso non creano più server gRPC separati.\nFunzionalità: integrazione del plugin ioBroker-docker per gestire automaticamente il container eebus-grpc (pull, start, stop, update) — abilitabile tramite la casella di controllo \"Abilita container Docker\" nella scheda Configurazione base (richiede Docker Engine >= 20.10 sull'host)\nCorrezione: reimpostare lo stato di info.connection su false allo scaricamento dell'adattatore",
-                "es": "Cambio importante: requiere la versión 2.0.0 de la imagen de contenedor eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). La API gRPC cambió a una arquitectura de servidor único con enrutamiento basado en instancias; los casos de uso ya no generan servidores gRPC separados.\nFuncionalidad: integra el plugin ioBroker plugin-docker para gestionar automáticamente el contenedor eebus-grpc (descargar, iniciar, detener, actualizar). Habilítalo mediante la casilla de verificación \"Habilitar contenedor Docker\" en la pestaña Configuración base (requiere Docker Engine >= 20.10 en el host).\nSolución: restablecer el estado de info.connection a falso al descargar el adaptador.",
-                "pl": "Uwaga: wymagana jest wersja obrazu kontenera eebus-grpc 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). Interfejs API gRPC został zmieniony na architekturę jednoserwerową z routingiem opartym na instancjach — przypadki użycia nie generują już oddzielnych serwerów gRPC.\nFunkcja: integracja wtyczki ioBroker-docker w celu automatycznego zarządzania kontenerem eebus-grpc (pobieranie, uruchamianie, zatrzymywanie, aktualizowanie) — włącz, zaznaczając pole wyboru „Włącz kontener Docker” na karcie Konfiguracja podstawowa (wymaga Docker Engine w wersji ≥ 20.10 na hoście)\nNaprawiono: zresetowano stan info.connection do false po rozładowaniu adaptera",
-                "uk": "Порушення: потрібен образ контейнера eebus-grpc версії 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). API gRPC змінено на архітектуру з одним сервером та маршрутизацією на основі екземплярів — варіанти використання більше не породжують окремі сервери gRPC.\nФункція: інтеграція плагіна ioBroker-docker для автоматичного керування контейнером eebus-grpc (витягування, запуск, зупинка, оновлення) — увімкнення через прапорець «Увімкнути Docker Container» на вкладці Base Config (потрібен Docker Engine >= 20.10 на хості)\nВиправлення: скидання стану info.connection до false під час вивантаження адаптера",
-                "zh-cn": "重大变更：需要 eebus-grpc 容器镜像版本 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`)。gRPC API 已更改为基于实例的路由的单服务器架构——用例不再生成单独的 gRPC 服务器。\n功能：集成 ioBroker plugin-docker 以自动管理 eebus-grpc 容器（拉取、启动、停止、更新）——通过“基本配置”选项卡上的“启用 Docker 容器”复选框启用（主机上需要 Docker Engine >= 20.10）\n修复：在适配器卸载时将 info.connection 状态重置为 false"
-            },
-            "0.3.2": {
-                "en": "Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level\nFix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)\nAdd an example of a manual LPC guard to the doc folder.\nFix: translations\nVarious smaller fixes.",
-                "de": "Fix: Reduzieren Sie den Log-Spam auf manuellen Energieschützern - erfordern Sie 2 aufeinanderfolgende verpasste Herzschläge, bevor Sie die nicht angeschlossenen markierten Routine-Herzschlagprotokolle auf Debug-Ebene herunterstufen\nFix: Unterdrücken von Protokollen auf Fehlerebene und Wiederverbindungsversuche, wenn der Adapter heruntergefahren wird (gRPC-Stream CANCELLED wird während des Stopps erwartet)\nFügen Sie ein Beispiel für einen manuellen LPC-Schutz zum doc-Ordner hinzu.\nFix: Übersetzungen\nVerschiedene kleinere Fixes.",
-                "ru": "Исправление: уменьшить логарифмический спам на ручной энергозащите — требуется 2 последовательных пропущенных сердцебиения перед разметкой отключенных, понизить рутинные журналы сердцебиения до уровня отладки\nИсправление: подавление журналов уровня ошибок и попытки повторного подключения при отключении адаптера (во время остановки ожидается прекращение потока gRPC)\nДобавьте пример ручной LPC-охраны в папку doc.\nИсправление: переводы\nНесколько небольших исправлений.",
-                "pt": "Corrigir: reduzir o spam de log em protetores de energia manuais — exigir 2 batimentos cardíacos perdidos consecutivos antes de marcar desconectados, downgrade registros cardíacos de rotina para nível de depuração\nCorrigir: suprimir registros de nível de erro e reconectar tentativas quando o adaptador está desligando (gRPC fluxo CANCELLED é esperado durante parada)\nAdicione um exemplo de um LPC manual guard à pasta doc.\nCorrigir: traduções\nVárias correções menores.",
-                "nl": "Fix: verminderen van log spam op handmatige energiebewakers \nFix: onderdrukken van fout-niveau logs en opnieuw verbinden pogingen bij het afsluiten van de adapter (gRPC stream CANCELLED wordt verwacht tijdens het stoppen)\nVoeg een voorbeeld van een handmatige LPC-beschermer toe aan de doc-map.\nFix: vertalingen\nVerschillende kleinere fixes.",
-                "fr": "Correction: réduire le spam de log sur les gardes d'énergie manuels — exiger 2 battements de coeur manqués consécutifs avant de marquer déconnecté, abaisser les logs routiniers de rythme cardiaque au niveau de débogage\nCorrection: supprimer les journaux de niveau d'erreur et reconnecter les tentatives lorsque l'adaptateur s'arrête (gRPC stream ANNULED est attendu pendant l'arrêt)\nAjoutez un exemple de garde manuel LPC au dossier doc.\nCorrection : traductions\nDiverses petites corrections.",
-                "it": "Fisso: ridurre lo spam di registro sulle protezioni di energia manuale — richiedono 2 battiti cardiaci mancati consecutivi prima di marcare disconnessi, downgrade log di battito cardiaco di routine per debug livello\nFisso: sopprimere i registri di livello di errore e ricollegare i tentativi quando l'adattatore è spento (gRPC flusso CANCELLED è previsto durante la fermata)\nAggiungi un esempio di una guardia LPC manuale alla cartella doc.\nFisso: traduzioni\nVarie correzioni più piccole.",
-                "es": "Fijación: reducir el spam log en los protectores de energía manuales — requerir 2 latidos cardíacos perdidos consecutivos antes de marcar troncos de ritmo cardíaco de rutina desconectados y degradados para depurar el nivel\nFijación: suprimir registros de nivel de error y volver a conectar los intentos cuando el adaptador está apagado (GRPC stream CANCELLED se espera durante la parada)\nAgregue un ejemplo de un protector LPC manual a la carpeta doc.\nCorrección: traducciones\nVarias correcciones más pequeñas.",
-                "pl": "Fix: zmniejszyć spam logowania na ręcznych osłonach energetycznych - wymagają 2 kolejnych pominiętych uderzeń serca przed oznaczeniem odłączone, obniżanie rutynowych dzienników bicia serca do poziomu debugowania\nFix: tłumić logi poziomu błędu i ponownie połączyć próby po wyłączeniu adaptera (gRPC strumień CANCELLED jest spodziewany podczas zatrzymania)\nDodaj przykład ręcznej osłony LPC do folderu doc.\nFix: tłumaczenia\nRóżne mniejsze poprawki.",
-                "uk": "Виправлення: зменшення спаму журналу на ручних охоронцях енергії — вимагають 2 послідовних пропущених серцебиття, перш ніж розмітити відключені, внизу рутинні колоди серця, щоб зменшити рівень\nВиправлення: пригнічувати журнали похибки та відключення помилок, коли адаптер вимкнено (наприклад, GRPC потік CANCELLED очікується під час зупинки)\nДодати приклад ручного LPC-охоронця до папки doc.\nФіксація: переклади\nРізні менші кріплення.",
-                "zh-cn": "修补:减少手动能量守卫上的日志垃圾邮件——在标记断开的,降级的常规心跳日志调试级别之前,需要连续两次丢失心跳\n修补:在适配器关闭时压制错误级别日志并重新连接尝试(预计停机时会使用gRPC流 CANCELLED)\n在 Doc 文件夹中添加一个手动LPC 守护的示例.\n修正:翻译\n各种较小的修补."
-            },
-            "0.3.1": {
-                "en": "Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change\nFix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)",
-                "de": "Fix: Reduzieren Sie den Log-Spam durch wiederholte Fehlersicherheits-/Dauer-Updates – protokollieren und melden Sie sich nur dann an Controlbox, wenn sich die Werte tatsächlich ändern\nFix: Deaktivieren Sie Energieschutzgrenzen, wenn die Limitdauer abläuft (limitDurationExpired transition)",
-                "ru": "Исправление: уменьшение спама в журналах от повторных отказоустойчивых/длительных обновлений - только журнал и отчет в блок управления, когда значения фактически меняются\nИсправление: деактивация пределов энергозащиты при истечении предельной продолжительности (limitDurationExpired transition)",
-                "pt": "Corrigir: reduzir o spam log a partir de atualizações repetidas de segurança/duração — apenas registrar e reportar à caixa de controle quando os valores realmente mudarem\nCorrigir: desativar limites de proteção de energia quando expirar a duração limite (limitDurationExpired transition)",
-                "nl": "Fix: reduceer log spam van herhaalde failsafe/dure updates alleen log en rapporteer aan controlbox wanneer waarden daadwerkelijk veranderen\nFix: deactiveer de limieten van de energiebescherming wanneer de limietduur verstrijkt (limitDurationExpired transition)",
-                "fr": "Correction: réduire le log spam à partir de mises à jour fallsafe/duration répétées — seulement log et rapporter à la boîte de contrôle lorsque les valeurs changent réellement\nCorrection : désactiver les limites de garde d'énergie lorsque la durée limite expire (limitDurationExpiré la transition)",
-                "it": "Fisso: ridurre lo spam di registro da ripetuti aggiornamenti di failsafe/duration — solo log and report to controlbox quando i valori in realtà cambiano\nFisso: disattivare i limiti di protezione energetica quando la durata limite scade (limiteDurationExpired transizione)",
-                "es": "Fijación: reducir el spam log de actualizaciones repetidas de seguridad/duración — sólo inicie sesión e informe a controlbox cuando los valores realmente cambian\nFijación: desactivar los límites de la guardia de energía cuando expira la duración límite (limitDurationExpired transition)",
-                "pl": "Fix: zmniejszyć spam logowania z powtarzających się aktualizacji bezpieczeństwa / czasu trwania - tylko logować i zgłosić się do sterownika, gdy wartości rzeczywiście się zmieniają\nFix: dezaktywować wartości graniczne osłony energetycznej po wygaśnięciu limitu czasu trwania (limitaDurationExpired transformation)",
-                "uk": "Виправлення: зменшення спаму журналу від повторних небезпечних / оновлюваних оновлень — тільки журнал і звіт до контрольної скриньки при зміні значень\nВиправлення: деактивувати обмеження охоронців енергії при обмеженні тривалості (limitDurationExpired переходу)",
-                "zh-cn": "修正: 减少重复的故障安全/ 持续时间更新的日志垃圾邮件—— 只有日志和在值实际改变时报告到控制框\n固定:在期限到期时解除能量警戒限制(限期过渡)"
-            },
-            "0.3.0": {
-                "en": "Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive\nFix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)\nFix: do not report failsafe limit to controlbox before remote device confirms the write\nFeature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device\nFeature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe\nFeature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects",
-                "de": "Fix: Setzen Sie eebusConnected=true auf UseCaseSupportUpdate (Geräte wie PLENTICORE lehnen Heartbeat-Abonnements ab); setzen Sie den Heartbeat-Timer bei jedem Anwendungsfallereignis zurück, um die Wache am Leben zu halten\nFix: Verwenden Sie korrekte gRPC RPC-Namen für LPP-Energieschützer (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit anstelle von Verbrauchsvarianten)\nFix: Melden Sie das ausfallsichere Limit nicht an controlbox, bevor das entfernte Gerät das Schreiben bestätigt\nFeature: Fügen Sie beschreibbare FailsafeDuration-Zustand (Sekunden) zu EEBUS-Energieschützern hinzu - liest und schreibt auf das entfernte Gerät\nFeature: Rufen Sie StartHeartbeat auf dem EG-Client auf, damit der entfernte CS die Trennung erkennen und in die Fehlersicherheit eintreten kann\nFeature: Handle Szenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) für LPC- und LPP-Energieschützer — schreibt nominale maximale Leistung in ioBroker-Objekte",
-                "ru": "Исправление: установите eebusConnected=true на UseCaseSupportUpdate (устройства, такие как PLENTICORE, отклоняют подписки на сердцебиение); сбросьте таймер сердцебиения на любой случай использования, чтобы сохранить бдительность\nИсправьте: используйте правильные названия GRPC RPC для энергоохранников LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit вместо вариантов потребления)\nИсправление: не сообщайте об отказоустойчивом лимите в блок управления до того, как удаленное устройство подтвердит запись\nФункция: добавьте записываемое состояние отказоустойчивости (секунды) к энергозащитным устройствам EEBUS — читает и записывает на удаленное устройство\nФункция: вызов StartHeartbeat на EG-клиенте, чтобы удаленная CS могла обнаружить отключение и ввести отказоустойчивый\nФункция: рукоятка Сценарий 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) для LPC и LPP энергоохранников — записывает номинальную максимальную мощность на объекты ioBroker",
-                "pt": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivos como PLENTICORE rejeitam assinaturas de batimento cardíaco); reset temporizador cardíaco em qualquer evento caso de uso para manter a guarda viva\nCorrigir: use nomes corretos do RPC do gRPC para protetores de energia do LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit em vez de variantes de consumo)\nCorrigir: não relate o limite failsafe à caixa de controle antes que o dispositivo remoto confirme a gravação\nCaracterística: adicionar o estado de duração (segundos) ao EEBUS — lê e escreve para o dispositivo remoto\nCaracterística: chame StartHeartbeat no cliente EG para que o CS remoto possa detectar desconexão e inserir failsafe\nCaracterística: manipular Cenário 4 (DataUpdatePowerConsumoNominalMax / DataUpdatePowerProductionNominalMax) para LPC e LPP protetores de energia — escreve potência máxima nominal para objetos ioBroker",
-                "nl": "Fix: set eebusConnected=true on UseCaseSupportUpdate (apparaten zoals PLENTICORE weigeren hartslag abonnementen); reset hartslag timer op elke use case gebeurtenis om de beveiliging in leven te houden\nFix: gebruik correcte gRPC RPC namen voor LPP energiebewakers (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit in plaats van verbruik varianten)\nFix: rapporteer geen veilige limiet voor de controlebox voordat remote device de schrijfbevestiging bevestigt\nFeature: voeg beschrijfbare failsafeDuration state (seconden) toe aan EEBUS energiebewakers van en schrijft naar het externe apparaat\nFeature: bel StartHeartbeat op EG-client zodat de remote CS ontkoppeling kan detecteren en failsafe kan invoeren\nFeature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) voor LPC en LPP energiebewakers schrijft nominale max vermogen naar ioBroker objecten",
-                "fr": "Fix: set eebusConnected=true on UseCaseSupportMise à jour (dispositifs comme PLENTICORE rejettent les abonnements de battements de coeur); réinitialisez le minuteur de battements de coeur sur tout événement de cas d'utilisation pour garder la garde en vie\nCorrection: utiliser des noms corrects de RPC gRPC pour les gardes énergétiques LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit au lieu des variantes de consommation)\nCorrection : ne pas signaler la limite de sécurité à la boîte de commande avant que le périphérique à distance confirme l'écriture\nFonctionnalité : ajouter l'état de durée (secondes) à EEBUS enregistrable faultsafe\nFonctionnalité : appeler StartHeartbeat sur le client EG pour que le CS distant puisse détecter la déconnexion et entrer dans fallsafe\nFonctionnalité: poignée Scénario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) pour les gardes énergétiques LPC et LPP — écrit la puissance maximale nominale aux objets ioBroker",
-                "it": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivi come PLENTICORE rifiutare abbonamenti battito cardiaco); reset timer battito cardiaco su qualsiasi caso di uso evento per mantenere la guardia viva\nFisso: utilizzare i nomi gRPC RPC corretti per le protezioni di energia LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit invece delle varianti di consumo)\nFix: non segnalare il limite di failsafe alla casella di controllo prima che il dispositivo remoto confermi la scrittura\nCaratteristica: aggiungere il failsafe scrivibileDuration state (secondi) alle protezioni energetiche EEBUS — legge da e scrive al dispositivo remoto\nCaratteristica: chiamare StartHeartbeat sul client EG in modo che il CS remoto possa rilevare la disconnessione e inserire failsafe\nCaratteristica: maniglia Scenario 4 (DataUpdatePowerConsunzioneNominalMax / DataUpdatePowerProductionNominalMax) per protezioni di energia LPC e LPP — scrive potenza massima nominale a oggetti ioBroker",
-                "es": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivos como PLENTICORE rechazan las suscripciones de latidos cardíacos); resetea el temporizador de latidos cardíacos en cualquier evento de caso de uso para mantener la guardia viva\nFix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variations)\nFijación: no reporte límite seguro de fallo a la caja de control antes de que el dispositivo remoto confirme la escritura\nCaracterística: añadir writable failsafeDuration state (segundos) a los guardias de energía EEBUS — lee y escribe al dispositivo remoto\nCaracterística: llame a StartHeartbeat en el cliente de EG para que el CS remoto pueda detectar la desconexión y entrar en seguridad de fallos\nCaracteristicas: mango Escenario 4 (DataUpdatePowerConsumoNominalMax / DataUpdatePowerProductionNominalMax) para los protectores energéticos LPC y LPP – escribe potencia máxima nominal para objetos de yoBroker",
-                "pl": "Fix: zestaw ebusConnected = true na UseCaseSupportUpdate (urządzenia takie jak PENTCORE odrzucają subskrypcje bicia serca); zresetuj zegar bicia serca na każdym przypadku użycia, aby utrzymać ochronę przy życiu\nFix: użyj poprawnych nazw RPC gRPC dla osłon energetycznych LPP (WriteProductionLimit / WriteProductionActivePowerLimit zamiast wariantów zużycia)\nPopraw: nie raportuj limitu bezpieczeństwa do sterownika zanim zdalne urządzenie potwierdzi zapis\nCecha: dodaj zapisywalny stan awarii (sekundy) do osłon energetycznych EEBUS - czyta i pisze do zdalnego urządzenia\nCecha: wywołaj StartHeartbeat na EG klienta, dzięki czemu zdalny CS może wykryć odłączenie i wprowadzić nieszczelność\nCecha: uchwyt Scenariusz 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) dla osłon energetycznych LPC i LPP - pisze nominalną moc maksymalną do obiektów jOBroker",
-                "uk": "Виправлення: встановити eebusConnected=true on useCaseSupportUpdate (розробки, такі як PLENTICORE відхилити підписки на серцебиття); скидання таймера серця на будь-якому випадку використання, щоб зберегти охоронець живим\nВиправлення: використання правильних GRPC RPC імен для енергоохоронців LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit замість варіантів споживання)\nВиправлення: не звітуйте про небезпечне обмеження для контрольної скриньки перед дистанційним пристроєм підтверджує запис\nХарактеристика: додавати небезпечний стан (секунди) до охоронців енергії EEBUS — читання з та напишіть до віддаленого пристрою\nФункція: виклик StartHeartbeat на клієнту EG, тому віддалені CS можуть виявити відключення і ввести небезпечний\nХарактеристика: ручка Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) для енергоохоронців LPC та LPP — пише номінальну потужність об'єктів ioBroker",
-                "zh-cn": "固定 : 设置 eebusConnect= true on UseCase 支持更新( PLENTICORE 等设备拒绝心跳订阅); 重置任何使用大小写事件上的心跳定时器, 以保持守护\n固定:对LPP能量守护使用正确的gRPC RPC名称(Write ProductionLimit / WriteFailsafe ProductionAactivePowerLimit 而不是消费变体)\n固定 : 在远程设备确认写入前不要向控制框报告故障安全限制\n特性: 在 EEBUS 能量守护器中添加可写入的故障保护状态( 秒) —— 从远程设备读取并写入\n特性: 在 EG 客户端上呼叫 StartHeartbeat, 这样远程 CS 可以检测断开并输入故障安全\n特性:处理情景4(DataUpdatePower Conception NominalMax / DataUpdatePower Production NominalMax) 用于LPC和LPP 能量守护者——写给ioBroker对象的名义最大功率"
-            },
-            "0.2.2": {
-                "en": "Fix: properly clean up resources before reconnect and propagate CS registration errors\nFix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)\nChore: clean up admin folder and build pipeline (remove CRA boilerplate, add exec plugin for release builds)",
-                "de": "Behebung: Ressourcen vor dem erneuten Verbinden und Weiterleiten von CS-Registrierungsfehlern ordnungsgemäß bereinigen.\nBehoben: Ereigniskanal beim Stop() des Anwendungsfallservers in eebus-grpc schließen (SubscribeUseCaseEvents beim Zurücksetzen freigeben)\nAufgabe: Admin-Ordner und Build-Pipeline aufräumen (CRA-Boilerplate entfernen, Exec-Plugin für Release-Builds hinzufügen)",
-                "ru": "Исправление: корректно очищать ресурсы перед повторным подключением и распространять ошибки регистрации CS.\nИсправление: закрыть канал событий на сервере вариантов использования Stop() в eebus-grpc (разблокировать SubscribeUseCaseEvents при сбросе)\nЗадача: очистить папку администратора и конвейер сборки (удалить шаблонный код CRA, добавить плагин exec для релизных сборок).",
-                "pt": "Correção: limpar corretamente os recursos antes de reconectar e propagar os erros de registro do CS.\nCorreção: fechar o canal de eventos no servidor de casos de uso Stop() em eebus-grpc (desbloquear SubscribeUseCaseEvents na reinicialização)\nTarefa: limpar a pasta de administração e o pipeline de compilação (remover o código padrão do CRA, adicionar o plugin exec para compilações de lançamento)",
-                "nl": "Oplossing: ruim de resources correct op voordat u opnieuw verbinding maakt en geef CS-registratiefouten door.\nOplossing: sluit het gebeurteniskanaal op de use case-server. Stop() in eebus-grpc (deblokkeer SubscribeUseCaseEvents bij reset).\nTaak: de beheerdersmap opruimen en de build-pipeline optimaliseren (CRA-boilerplate verwijderen, exec-plugin toevoegen voor release-builds).",
-                "fr": "Correction : nettoyer correctement les ressources avant la reconnexion et propager les erreurs d'enregistrement CS\nCorrection : fermeture du canal d’événements sur le serveur de cas d’utilisation. Arrêt de la fonction Stop() dans eebus-grpc (déblocage de SubscribeUseCaseEvents lors de la réinitialisation).\nTâche : nettoyer le dossier d'administration et le pipeline de compilation (supprimer le code répétitif de CRA, ajouter le plugin d'exécution pour les versions de production).",
-                "it": "Correzione: pulire correttamente le risorse prima di riconnettersi e propagare gli errori di registrazione CS\nCorrezione: chiudere il canale degli eventi sul server dei casi d'uso Stop() in eebus-grpc (sbloccare SubscribeUseCaseEvents al ripristino)\nAttività: pulizia della cartella admin e della pipeline di build (rimozione del boilerplate di CRA, aggiunta del plugin exec per le build di rilascio)",
-                "es": "Solución: limpiar correctamente los recursos antes de volver a conectar y propagar los errores de registro de CS.\nCorrección: cerrar el canal de eventos en el servidor de casos de uso Stop() en eebus-grpc (desbloquear SubscribeUseCaseEvents al reiniciar)\nTarea: limpiar la carpeta de administración y la canalización de compilación (eliminar el código repetitivo de CRA, agregar el complemento exec para compilaciones de lanzamiento).",
-                "pl": "Naprawiono: prawidłowe czyszczenie zasobów przed ponownym połączeniem i propagowanie błędów rejestracji CS\nNaprawiono: zamknięcie kanału zdarzeń na serwerze przypadków użycia Stop() w eebus-grpc (odblokowanie SubscribeUseCaseEvents po zresetowaniu)\nZadanie: uporządkowanie folderu administracyjnego i procesu kompilacji (usunięcie szablonu CRA, dodanie wtyczki exec do kompilacji wydań)",
-                "uk": "Виправлення: належним чином очищати ресурси перед повторним підключенням та поширювати помилки реєстрації CS.\nВиправлення: закриття каналу подій на сервері варіантів використання Stop() в eebus-grpc (розблокування SubscribeUseCaseEvents після скидання)\nЗавдання: очищення папки адміністратора та конвеєра збірки (видалення шаблону CRA, додавання плагіна exec для релізних збірок)",
-                "zh-cn": "修复：在重新连接和传播 CS 注册错误之前，正确清理资源。\n修复：在 eebus-grpc 中关闭用例服务器上的事件通道 Stop()（重置时解除对 SubscribeUseCaseEvents 的阻塞）\n任务：清理管理文件夹和构建管道（移除 CRA 样板代码，添加用于发布构建的 exec 插件）"
-            },
-            "0.2.1": {
-                "en": "Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)\nFix: correct invalid state roles (level.power → level, indicator.connected write flag)\nFix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations",
-                "de": "Refactoring: grpc-cslpc.js in grpc-client.js umbenennen (dient sowohl LPC als auch LPP)\nBehoben: Fehlerhafte Statusrollen korrigiert (level.power → level, indicator.connected Schreibflag)\nBehebung: Bei gRPC-Transportfehlern wird nun eine vollständige Neuverbindung ausgelöst, anstatt fehlgeschlagene Operationen stillschweigend zu überspringen.",
-                "ru": "Рефакторинг: переименовать grpc-cslpc.js в grpc-client.js (обслуживает как LPC, так и LPP).\nИсправление: исправлены недопустимые роли состояний (level.power → level, флаг записи indicator.connected)\nИсправление: теперь при ошибках gRPC-транспорта запускается полное переподключение вместо молчаливого пропуска неудачных операций.",
-                "pt": "Refatorar: renomear grpc-cslpc.js para grpc-client.js (serve tanto LPC quanto LPP)\nCorreção: correção de funções de estado inválidas (level.power → level, indicador de conexão escrito).\nCorreção: acionar reconexão completa em caso de erros de transporte gRPC em vez de ignorar silenciosamente as operações com falha.",
-                "nl": "Refactor: hernoem grpc-cslpc.js naar grpc-client.js (voor zowel LPC als LPP)\nOplossing: corrigeer ongeldige statusrollen (level.power → level, indicator.connected write flag)\nOplossing: activeer nu een volledige herverbinding bij gRPC-transportfouten in plaats van mislukte bewerkingen stilzwijgend over te slaan.",
-                "fr": "Refactorisation : renommer grpc-cslpc.js en grpc-client.js (compatible LPC et LPP)\nCorrection : correction des rôles d'état invalides (level.power → level, indicator.connected write flag)\nCorrection : déclencher une reconnexion complète en cas d'erreurs de transport gRPC au lieu d'ignorer silencieusement les opérations ayant échoué",
-                "it": "Ristrutturazione: rinominare grpc-cslpc.js in grpc-client.js (per supportare sia LPC che LPP)\nCorrezione: corretti i ruoli di stato non validi (level.power → level, flag di scrittura indicator.connected)\nCorrezione: attivare la riconnessione completa in caso di errori di trasporto gRPC anziché saltare silenziosamente le operazioni non riuscite.",
-                "es": "Refactorización: cambiar el nombre de grpc-cslpc.js a grpc-client.js (sirve tanto para LPC como para LPP).\nCorrección: corregir roles de estado no válidos (level.power → level, indicador de escritura indicator.connected)\nCorrección: activar la reconexión completa en caso de errores de transporte gRPC en lugar de omitir silenciosamente las operaciones fallidas.",
-                "pl": "Refaktoryzacja: zmień nazwę pliku grpc-cslpc.js na grpc-client.js (obsługuje zarówno LPC, jak i LPP)\nNaprawiono: poprawiono nieprawidłowe role stanu (level.power → level, indicator.connected write flag)\nNaprawiono: wyzwalanie pełnego ponownego połączenia w przypadku błędów transportu gRPC zamiast cichego pomijania nieudanych operacji",
-                "uk": "Рефакторинг: перейменувати grpc-cslpc.js на grpc-client.js (обслуговує як LPC, так і LPP)\nВиправлення: виправлено недійсні ролі станів (level.power → level, прапорець запису indicator.connected)\nВиправлення: запускати повне перепідключення при помилках транспортування gRPC замість тихого пропускання невдалих операцій.",
-                "zh-cn": "重构：将 grpc-cslpc.js 重命名为 grpc-client.js（同时支持 LPC 和 LPP）\n修复：修正无效的状态角色（level.power → level，indicator.connected 写入标志）\n修复：在 gRPC 传输发生错误时触发完全重新连接，而不是静默跳过失败的操作。"
-            },
-            "0.2.0": {
-                "en": "Refactor: separate EG handling from CS use cases into eg-lpc.js / eg-lpp.js\nFix: report dynamic failsafe limit to controlbox (sum of guard failsafes, reject user writes exceeding contractual max)\nFix: distribute failsafe limits to energy guards when entering failsafe state\nFix: only process controlbox heartbeats for FSM transitions (ignore EG device heartbeats)\nFix: add periodic heartbeat check timer to detect controlbox disconnection\nFix: recover FSM from unlimitedAutonomous when controlbox reconnects\nUI: allow clearing ControlBox SKI in admin config",
-                "de": "Refactor: EG-Behandlung von CS-Use-Cases in eg-lpc.js / eg-lpp.js getrennt\nFix: dynamisches Failsafe-Limit an Controlbox melden (Summe der Guard-Failsafes, Benutzerschreibvorgänge über vertraglichem Max ablehnen)\nFix: Failsafe-Limits an Energy Guards verteilen beim Eintritt in den Failsafe-Zustand\nFix: nur Controlbox-Heartbeats für FSM-Übergänge verarbeiten (EG-Geräte-Heartbeats ignorieren)\nFix: periodischen Heartbeat-Check-Timer hinzufügen zur Erkennung von Controlbox-Verbindungsabbrüchen\nFix: FSM aus unlimitedAutonomous wiederherstellen wenn Controlbox sich neu verbindet\nUI: Löschen der ControlBox-SKI in der Admin-Konfiguration ermöglichen",
-                "ru": "Рефакторинг: разделение обработки EG от сценариев CS в eg-lpc.js / eg-lpp.js\nИсправление: отправка динамического лимита отказоустойчивости в контролбокс (сумма failsafe охранников, отклонение записей пользователя превышающих договорной максимум)\nИсправление: распределение лимитов отказоустойчивости по энергохранителям при входе в состояние failsafe\nИсправление: обработка только heartbeat контролбокса для переходов FSM (игнорирование heartbeat устройств EG)\nИсправление: добавление периодического таймера проверки heartbeat для обнаружения отключения контролбокса\nИсправление: восстановление FSM из unlimitedAutonomous при повторном подключении контролбокса\nUI: разрешить очистку SKI контролбокса в конфигурации администратора",
-                "pt": "Refatoração: separar tratamento de EG dos casos de uso CS em eg-lpc.js / eg-lpp.js\nCorreção: reportar limite failsafe dinâmico ao controlbox (soma dos failsafes dos guards, rejeitar escritas do utilizador que excedam o máximo contratual)\nCorreção: distribuir limites failsafe aos energy guards ao entrar no estado failsafe\nCorreção: processar apenas heartbeats do controlbox para transições FSM (ignorar heartbeats de dispositivos EG)\nCorreção: adicionar timer periódico de verificação de heartbeat para detetar desconexão do controlbox\nCorreção: recuperar FSM de unlimitedAutonomous quando controlbox se reconecta\nUI: permitir limpar SKI do ControlBox na configuração de administração",
-                "nl": "Refactor: EG-afhandeling gescheiden van CS use cases in eg-lpc.js / eg-lpp.js\nFix: dynamische failsafe-limiet melden aan controlbox (som van guard failsafes, gebruikersschrijfacties boven contractueel max afwijzen)\nFix: failsafe-limieten verdelen aan energy guards bij het betreden van de failsafe-toestand\nFix: alleen controlbox-heartbeats verwerken voor FSM-overgangen (EG-apparaat-heartbeats negeren)\nFix: periodieke heartbeat-controle timer toevoegen om controlbox-verbreking te detecteren\nFix: FSM herstellen uit unlimitedAutonomous wanneer controlbox opnieuw verbindt\nUI: wissen van ControlBox SKI in admin-configuratie toestaan",
-                "fr": "Refactorisation: séparer le traitement EG des cas d'utilisation CS dans eg-lpc.js / eg-lpp.js\nCorrection: signaler la limite failsafe dynamique au controlbox (somme des failsafes des guards, rejeter les écritures utilisateur dépassant le max contractuel)\nCorrection: distribuer les limites failsafe aux energy guards lors de l'entrée en état failsafe\nCorrection: traiter uniquement les heartbeats du controlbox pour les transitions FSM (ignorer les heartbeats des appareils EG)\nCorrection: ajouter un timer de vérification périodique des heartbeats pour détecter la déconnexion du controlbox\nCorrection: récupérer le FSM depuis unlimitedAutonomous lorsque le controlbox se reconnecte\nUI: permettre l'effacement du SKI du ControlBox dans la configuration admin",
-                "it": "Refactoring: separare la gestione EG dai casi d'uso CS in eg-lpc.js / eg-lpp.js\nFix: segnalare il limite failsafe dinamico al controlbox (somma dei failsafe dei guard, rifiutare scritture utente che superano il max contrattuale)\nFix: distribuire i limiti failsafe agli energy guard all'ingresso nello stato failsafe\nFix: elaborare solo gli heartbeat del controlbox per le transizioni FSM (ignorare gli heartbeat dei dispositivi EG)\nFix: aggiungere un timer periodico di controllo heartbeat per rilevare la disconnessione del controlbox\nFix: ripristinare FSM da unlimitedAutonomous quando il controlbox si riconnette\nUI: consentire la cancellazione dello SKI del ControlBox nella configurazione admin",
-                "es": "Refactorización: separar manejo de EG de los casos de uso CS en eg-lpc.js / eg-lpp.js\nCorreción: reportar límite failsafe dinámico al controlbox (suma de failsafes de guardias, rechazar escrituras de usuario que excedan el máximo contractual)\nCorreción: distribuir límites failsafe a los energy guards al entrar en estado failsafe\nCorreción: procesar solo heartbeats del controlbox para transiciones FSM (ignorar heartbeats de dispositivos EG)\nCorreción: agregar timer periódico de verificación de heartbeat para detectar desconexión del controlbox\nCorreción: recuperar FSM desde unlimitedAutonomous cuando el controlbox se reconecta\nUI: permitir borrar el SKI del ControlBox en la configuración de administración",
-                "pl": "Refaktoryzacja: rozdzielenie obsługi EG od przypadków użycia CS do eg-lpc.js / eg-lpp.js\nPoprawka: raportowanie dynamicznego limitu failsafe do controlboxa (suma failsafe strażników, odrzucanie zapisów użytkownika przekraczających maksimum umowne)\nPoprawka: dystrybucja limitów failsafe do strażników energii przy wejściu w stan failsafe\nPoprawka: przetwarzanie tylko heartbeatów controlboxa dla przejść FSM (ignorowanie heartbeatów urządzeń EG)\nPoprawka: dodanie okresowego timera sprawdzania heartbeat do wykrywania rozłączenia controlboxa\nPoprawka: odzyskiwanie FSM z unlimitedAutonomous po ponownym połączeniu controlboxa\nUI: umożliwienie czyszczenia SKI ControlBoxa w konfiguracji administratora",
-                "uk": "Рефакторинг: відокремлення обробки EG від сценаріїв CS у eg-lpc.js / eg-lpp.js\nВиправлення: повідомлення динамічного ліміту failsafe контролбоксу (сума failsafe охоронців, відхилення записів користувача, що перевищують контрактний максимум)\nВиправлення: розподіл лімітів failsafe серед енергоохоронців при вході у стан failsafe\nВиправлення: обробка лише heartbeat контролбокса для переходів FSM (ігнорування heartbeat пристроїв EG)\nВиправлення: додавання періодичного таймера перевірки heartbeat для виявлення відключення контролбокса\nВиправлення: відновлення FSM з unlimitedAutonomous при повторному підключенні контролбокса\nUI: дозволити очищення SKI ControlBox у конфігурації адміністратора",
-                "zh-cn": "重构：将EG处理从CS用例中分离到eg-lpc.js / eg-lpp.js\n修复：向控制箱报告动态故障安全限制（守卫故障安全之和，拒绝超出合同最大值的用户写入）\n修复：进入故障安全状态时将故障安全限制分配给能源守卫\n修复：仅处理控制箱心跳用于FSM转换（忽略EG设备心跳）\n修复：添加周期性心跳检查计时器以检测控制箱断开连接\n修复：控制箱重新连接时从unlimitedAutonomous恢复FSM\nUI：允许在管理配置中清除ControlBox SKI"
-            }
-        },
-        "titleLang": {
-            "en": "EEBUS HEMS",
-            "de": "EEBUS HEMS",
-            "ru": "ЭЕВУС ХМС",
-            "pt": "EEBUS BAINHAS",
-            "nl": "EEBUS-ZOMEN",
-            "fr": "OURLETS EEBUS",
-            "it": "ORLI EEBUS",
-            "es": "DOBLADILLOS EEBUS",
-            "pl": "EEBUS HEMS",
-            "uk": "EEBUS HEMS",
-            "zh-cn": "EEBUS HEMS"
-        },
-        "desc": {
-            "en": "eebus grpc client for a hems",
-            "de": "eebus GRPC-Client für einen Saum",
-            "ru": "Клиент eebus grpc для рубки",
-            "pt": "cliente eebus grpc para bainhas",
-            "nl": "eebus grpc-client voor zomen",
-            "fr": "client eebus grpc pour un ourlet",
-            "it": "client eebus grpc per un hems",
-            "es": "Cliente eebus grpc para dobladillos",
-            "pl": "Klient eebus grpc dla obszyć",
-            "uk": "eebus grpc клієнт для hems",
-            "zh-cn": "用于下摆的 eebus grpc 客户端"
-        },
-        "authors": ["FernetMenta <fernetmenta@online.de>"],
-        "keywords": ["eebus", "eebus-go", "hems"],
-        "licenseInformation": {
-            "type": "free",
-            "license": "GPL-3.0-only"
-        },
-        "platform": "Javascript/Node.js",
-        "icon": "eebus-go.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
-        "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
-        "loglevel": "info",
-        "tier": 3,
-        "mode": "daemon",
-        "type": "iot-systems",
-        "compact": true,
-        "connectionType": "local",
-        "dataSource": "push",
-        "adminUI": {
-            "config": "html"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=7.0.6"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=7.8.23"
-            }
-        ],
-        "plugins": {
-            "docker": {
-                "iobDockerComposeFiles": ["docker/docker-compose.yaml"],
-                "iobDockerApi": "default"
-            }
-        }
+  "common": {
+    "name": "eebus-go",
+    "version": "1.1.0",
+    "news": {
+      "1.1.0": {
+        "en": "Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles\nCheck if docker is available and make admin UI options available on this.\nUpdate depencendy on eebus-grpc",
+        "de": "Funktion: Automatische Sicherung und Wiederherstellung von Docker-Volume-Zertifikaten – Zertifikate werden beim Verbindungsaufbau im Datenverzeichnis des Adapters gespeichert und beim Start des Adapters auf das Volume wiederhergestellt, wodurch sichergestellt wird, dass sie die Sicherungs-/Wiederherstellungszyklen von ioBroker überstehen.\nPrüfen Sie, ob Docker verfügbar ist und stellen Sie die Optionen der Administrator-Benutzeroberfläche dafür bereit.\nUpdate dependency on eebus-grpc",
+        "ru": "Функция: автоматическое резервное копирование и восстановление сертификатов томов Docker — сертификаты сохраняются в каталоге данных адаптера при подключении и восстанавливаются в том при запуске адаптера, гарантируя их сохранность в циклах резервного копирования/восстановления ioBroker.\nПроверьте, доступен ли Docker, и сделайте доступными параметры административного интерфейса для него.\nОбновить зависимость в eebus-grpc",
+        "pt": "Funcionalidade: backup e restauração automáticos de certificados de volume do Docker — os certificados são salvos no diretório de dados do adaptador na conexão e restaurados para o volume na inicialização do adaptador, garantindo que sobrevivam aos ciclos de backup/restauração do ioBroker.\nVerifique se o Docker está disponível e disponibilize as opções da interface de administração nele.\nAtualizar dependência em eebus-grpc",
+        "nl": "Functie: automatische back-up en herstel van Docker-volumecertificaten — certificaten worden bij verbinding opgeslagen in de gegevensmap van de adapter en bij het opstarten van de adapter hersteld naar het volume, zodat ze de back-up-/herstelcycli van ioBroker overleven.\nControleer of Docker beschikbaar is en maak de beheerdersinterface-opties hiervoor beschikbaar.\nUpdate de afhankelijkheid van eebus-grpc",
+        "fr": "Fonctionnalité : sauvegarde et restauration automatiques des certificats de volume Docker — les certificats sont enregistrés dans le répertoire de données de l’adaptateur lors de la connexion et restaurés sur le volume au démarrage de l’adaptateur, garantissant ainsi leur conservation après les cycles de sauvegarde/restauration d’ioBroker.\nVérifiez si Docker est disponible et rendez les options d'interface d'administration disponibles sur celui-ci.\nMise à jour de la dépendance à eebus-grpc",
+        "it": "Funzionalità: backup e ripristino automatici dei certificati del volume Docker: i certificati vengono salvati nella directory dei dati dell'adattatore al momento della connessione e ripristinati nel volume all'avvio dell'adattatore, garantendo che sopravvivano ai cicli di backup/ripristino di ioBroker.\nVerifica se Docker è disponibile e rendi disponibili le opzioni dell'interfaccia utente di amministrazione su di esso.\nAggiornare la dipendenza da eebus-grpc",
+        "es": "Característica: copia de seguridad y restauración automáticas de los certificados de volumen de Docker: los certificados se guardan en el directorio de datos del adaptador al conectarse y se restauran en el volumen al iniciar el adaptador, lo que garantiza que sobrevivan a los ciclos de copia de seguridad/restauración de ioBroker.\nComprueba si Docker está disponible y habilita las opciones de la interfaz de administración.\nActualizar la dependencia de eebus-grpc",
+        "pl": "Funkcja: automatyczne tworzenie kopii zapasowej i przywracanie certyfikatów woluminu Docker — certyfikaty są zapisywane w katalogu danych adaptera podczas połączenia i przywracane do woluminu podczas uruchamiania adaptera, co zapewnia ich przetrwanie w cyklach tworzenia kopii zapasowych/przywracania ioBroker\nSprawdź, czy docker jest dostępny i udostępnij w nim opcje interfejsu administratora.\nAktualizacja zależności na eebus-grpc",
+        "uk": "Функція: автоматичне резервне копіювання та відновлення сертифікатів тому Docker — сертифікати зберігаються в каталозі даних адаптера під час підключення та відновлюються на тому під час запуску адаптера, що гарантує їх виживання після циклів резервного копіювання/відновлення ioBroker.\nПеревірте, чи доступний Docker, і зробіть доступними параметри інтерфейсу адміністратора.\nОновлення залежності від eebus-grpc",
+        "zh-cn": "功能：Docker 卷证书的自动备份和恢复——证书在连接时保存到适配器数据目录，并在适配器启动时恢复到卷中，确保它们在 ioBroker 备份/恢复周期中仍然存在。\n检查 Docker 是否可用，并在此基础上启用管理界面选项。\n更新对 eebus-grpc 的依赖"
+      },
+      "1.0.0": {
+        "en": "Breaking: requires eebus-grpc container image version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). The gRPC API changed to a single-server architecture with instance-based routing — use cases no longer spawn separate gRPC servers.\nFeature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via \"Enable Docker Container\" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)\nFix: reset info.connection state to false on adapter unload",
+        "de": "Wichtig: Erfordert das eebus-grpc-Container-Image Version 2.0.0 („fernetmenta/iobroker.eebus-grpc:2.0.0“). Die gRPC-API wurde auf eine Einzelserverarchitektur mit instanzbasiertem Routing umgestellt – Anwendungsfälle erzeugen keine separaten gRPC-Server mehr.\nFunktion: Integration des ioBroker-Plugins Docker zur automatischen Verwaltung des eebus-grpc-Containers (Pull, Start, Stop, Update) – Aktivierung über das Kontrollkästchen „Docker-Container aktivieren“ auf der Registerkarte „Basiskonfiguration“ (erfordert Docker Engine >= 20.10 auf dem Host).\nBehebung: Rücksetzung des Verbindungsstatus auf „false“ beim Entladen des Adapters.",
+        "ru": "Критическая ошибка: требуется образ контейнера eebus-grpc версии 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). API gRPC перешел на односерверную архитектуру с маршрутизацией на основе экземпляров — сценарии использования больше не запускают отдельные серверы gRPC.\nФункция: интеграция плагина ioBroker plugin-docker для автоматического управления контейнером eebus-grpc (загрузка, запуск, остановка, обновление) — включение осуществляется с помощью флажка \"Включить контейнер Docker\" на вкладке \"Базовая конфигурация\" (требуется Docker Engine >= 20.10 на хосте).\nИсправление: сброс состояния info.connection в значение false при выгрузке адаптера.",
+        "pt": "Atenção: requer a versão 2.0.0 da imagem do contêiner eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). A API gRPC foi alterada para uma arquitetura de servidor único com roteamento baseado em instâncias — os casos de uso não geram mais servidores gRPC separados.\nFuncionalidade: integração do plugin ioBroker-docker para gerenciar automaticamente o contêiner eebus-grpc (pull, start, stop, update) — habilite através da caixa de seleção \"Enable Docker Container\" na aba Base Config (requer Docker Engine >= 20.10 no host).\nCorreção: redefine o estado de info.connection para falso ao descarregar o adaptador.",
+        "nl": "Breaking news: vereist eebus-grpc container image versie 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). De gRPC API is gewijzigd naar een architectuur met één server en op instanties gebaseerde routing — use cases starten niet langer afzonderlijke gRPC-servers.\nFunctie: integreer de ioBroker plugin-docker om de eebus-grpc container automatisch te beheren (ophalen, starten, stoppen, bijwerken) — inschakelen via het selectievakje \"Docker-container inschakelen\" op het tabblad Basisconfiguratie (vereist Docker Engine >= 20.10 op de host)\nOplossing: stel de status van info.connection terug naar false wanneer de adapter wordt ontladen.",
+        "fr": "Information importante : nécessite l’image conteneur eebus-grpc version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). L’API gRPC est désormais basée sur une architecture à serveur unique avec routage par instance ; les cas d’utilisation ne nécessitent plus de serveurs gRPC distincts.\nFonctionnalité : intégration du plugin ioBroker-docker pour la gestion automatique du conteneur eebus-grpc (extraction, démarrage, arrêt, mise à jour) — à activer via la case à cocher « Activer le conteneur Docker » dans l’onglet Configuration de base (nécessite Docker Engine >= 20.10 sur l’hôte).\nCorrection : réinitialiser l’état info.connection à false lors du déchargement de l’adaptateur",
+        "it": "Aggiornamento importante: richiede la versione 2.0.0 dell'immagine container eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). L'API gRPC è stata modificata in un'architettura a server singolo con routing basato su istanze: i casi d'uso non creano più server gRPC separati.\nFunzionalità: integrazione del plugin ioBroker-docker per gestire automaticamente il container eebus-grpc (pull, start, stop, update) — abilitabile tramite la casella di controllo \"Abilita container Docker\" nella scheda Configurazione base (richiede Docker Engine >= 20.10 sull'host)\nCorrezione: reimpostare lo stato di info.connection su false allo scaricamento dell'adattatore",
+        "es": "Cambio importante: requiere la versión 2.0.0 de la imagen de contenedor eebus-grpc (`fernetmenta/iobroker.eebus-grpc:2.0.0`). La API gRPC cambió a una arquitectura de servidor único con enrutamiento basado en instancias; los casos de uso ya no generan servidores gRPC separados.\nFuncionalidad: integra el plugin ioBroker plugin-docker para gestionar automáticamente el contenedor eebus-grpc (descargar, iniciar, detener, actualizar). Habilítalo mediante la casilla de verificación \"Habilitar contenedor Docker\" en la pestaña Configuración base (requiere Docker Engine >= 20.10 en el host).\nSolución: restablecer el estado de info.connection a falso al descargar el adaptador.",
+        "pl": "Uwaga: wymagana jest wersja obrazu kontenera eebus-grpc 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). Interfejs API gRPC został zmieniony na architekturę jednoserwerową z routingiem opartym na instancjach — przypadki użycia nie generują już oddzielnych serwerów gRPC.\nFunkcja: integracja wtyczki ioBroker-docker w celu automatycznego zarządzania kontenerem eebus-grpc (pobieranie, uruchamianie, zatrzymywanie, aktualizowanie) — włącz, zaznaczając pole wyboru „Włącz kontener Docker” na karcie Konfiguracja podstawowa (wymaga Docker Engine w wersji ≥ 20.10 na hoście)\nNaprawiono: zresetowano stan info.connection do false po rozładowaniu adaptera",
+        "uk": "Порушення: потрібен образ контейнера eebus-grpc версії 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). API gRPC змінено на архітектуру з одним сервером та маршрутизацією на основі екземплярів — варіанти використання більше не породжують окремі сервери gRPC.\nФункція: інтеграція плагіна ioBroker-docker для автоматичного керування контейнером eebus-grpc (витягування, запуск, зупинка, оновлення) — увімкнення через прапорець «Увімкнути Docker Container» на вкладці Base Config (потрібен Docker Engine >= 20.10 на хості)\nВиправлення: скидання стану info.connection до false під час вивантаження адаптера",
+        "zh-cn": "重大变更：需要 eebus-grpc 容器镜像版本 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`)。gRPC API 已更改为基于实例的路由的单服务器架构——用例不再生成单独的 gRPC 服务器。\n功能：集成 ioBroker plugin-docker 以自动管理 eebus-grpc 容器（拉取、启动、停止、更新）——通过“基本配置”选项卡上的“启用 Docker 容器”复选框启用（主机上需要 Docker Engine >= 20.10）\n修复：在适配器卸载时将 info.connection 状态重置为 false"
+      },
+      "0.3.2": {
+        "en": "Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level\nFix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)\nAdd an example of a manual LPC guard to the doc folder.\nFix: translations\nVarious smaller fixes.",
+        "de": "Fix: Reduzieren Sie den Log-Spam auf manuellen Energieschützern - erfordern Sie 2 aufeinanderfolgende verpasste Herzschläge, bevor Sie die nicht angeschlossenen markierten Routine-Herzschlagprotokolle auf Debug-Ebene herunterstufen\nFix: Unterdrücken von Protokollen auf Fehlerebene und Wiederverbindungsversuche, wenn der Adapter heruntergefahren wird (gRPC-Stream CANCELLED wird während des Stopps erwartet)\nFügen Sie ein Beispiel für einen manuellen LPC-Schutz zum doc-Ordner hinzu.\nFix: Übersetzungen\nVerschiedene kleinere Fixes.",
+        "ru": "Исправление: уменьшить логарифмический спам на ручной энергозащите — требуется 2 последовательных пропущенных сердцебиения перед разметкой отключенных, понизить рутинные журналы сердцебиения до уровня отладки\nИсправление: подавление журналов уровня ошибок и попытки повторного подключения при отключении адаптера (во время остановки ожидается прекращение потока gRPC)\nДобавьте пример ручной LPC-охраны в папку doc.\nИсправление: переводы\nНесколько небольших исправлений.",
+        "pt": "Corrigir: reduzir o spam de log em protetores de energia manuais — exigir 2 batimentos cardíacos perdidos consecutivos antes de marcar desconectados, downgrade registros cardíacos de rotina para nível de depuração\nCorrigir: suprimir registros de nível de erro e reconectar tentativas quando o adaptador está desligando (gRPC fluxo CANCELLED é esperado durante parada)\nAdicione um exemplo de um LPC manual guard à pasta doc.\nCorrigir: traduções\nVárias correções menores.",
+        "nl": "Fix: verminderen van log spam op handmatige energiebewakers \nFix: onderdrukken van fout-niveau logs en opnieuw verbinden pogingen bij het afsluiten van de adapter (gRPC stream CANCELLED wordt verwacht tijdens het stoppen)\nVoeg een voorbeeld van een handmatige LPC-beschermer toe aan de doc-map.\nFix: vertalingen\nVerschillende kleinere fixes.",
+        "fr": "Correction: réduire le spam de log sur les gardes d'énergie manuels — exiger 2 battements de coeur manqués consécutifs avant de marquer déconnecté, abaisser les logs routiniers de rythme cardiaque au niveau de débogage\nCorrection: supprimer les journaux de niveau d'erreur et reconnecter les tentatives lorsque l'adaptateur s'arrête (gRPC stream ANNULED est attendu pendant l'arrêt)\nAjoutez un exemple de garde manuel LPC au dossier doc.\nCorrection : traductions\nDiverses petites corrections.",
+        "it": "Fisso: ridurre lo spam di registro sulle protezioni di energia manuale — richiedono 2 battiti cardiaci mancati consecutivi prima di marcare disconnessi, downgrade log di battito cardiaco di routine per debug livello\nFisso: sopprimere i registri di livello di errore e ricollegare i tentativi quando l'adattatore è spento (gRPC flusso CANCELLED è previsto durante la fermata)\nAggiungi un esempio di una guardia LPC manuale alla cartella doc.\nFisso: traduzioni\nVarie correzioni più piccole.",
+        "es": "Fijación: reducir el spam log en los protectores de energía manuales — requerir 2 latidos cardíacos perdidos consecutivos antes de marcar troncos de ritmo cardíaco de rutina desconectados y degradados para depurar el nivel\nFijación: suprimir registros de nivel de error y volver a conectar los intentos cuando el adaptador está apagado (GRPC stream CANCELLED se espera durante la parada)\nAgregue un ejemplo de un protector LPC manual a la carpeta doc.\nCorrección: traducciones\nVarias correcciones más pequeñas.",
+        "pl": "Fix: zmniejszyć spam logowania na ręcznych osłonach energetycznych - wymagają 2 kolejnych pominiętych uderzeń serca przed oznaczeniem odłączone, obniżanie rutynowych dzienników bicia serca do poziomu debugowania\nFix: tłumić logi poziomu błędu i ponownie połączyć próby po wyłączeniu adaptera (gRPC strumień CANCELLED jest spodziewany podczas zatrzymania)\nDodaj przykład ręcznej osłony LPC do folderu doc.\nFix: tłumaczenia\nRóżne mniejsze poprawki.",
+        "uk": "Виправлення: зменшення спаму журналу на ручних охоронцях енергії — вимагають 2 послідовних пропущених серцебиття, перш ніж розмітити відключені, внизу рутинні колоди серця, щоб зменшити рівень\nВиправлення: пригнічувати журнали похибки та відключення помилок, коли адаптер вимкнено (наприклад, GRPC потік CANCELLED очікується під час зупинки)\nДодати приклад ручного LPC-охоронця до папки doc.\nФіксація: переклади\nРізні менші кріплення.",
+        "zh-cn": "修补:减少手动能量守卫上的日志垃圾邮件——在标记断开的,降级的常规心跳日志调试级别之前,需要连续两次丢失心跳\n修补:在适配器关闭时压制错误级别日志并重新连接尝试(预计停机时会使用gRPC流 CANCELLED)\n在 Doc 文件夹中添加一个手动LPC 守护的示例.\n修正:翻译\n各种较小的修补."
+      },
+      "0.3.1": {
+        "en": "Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change\nFix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)",
+        "de": "Fix: Reduzieren Sie den Log-Spam durch wiederholte Fehlersicherheits-/Dauer-Updates – protokollieren und melden Sie sich nur dann an Controlbox, wenn sich die Werte tatsächlich ändern\nFix: Deaktivieren Sie Energieschutzgrenzen, wenn die Limitdauer abläuft (limitDurationExpired transition)",
+        "ru": "Исправление: уменьшение спама в журналах от повторных отказоустойчивых/длительных обновлений - только журнал и отчет в блок управления, когда значения фактически меняются\nИсправление: деактивация пределов энергозащиты при истечении предельной продолжительности (limitDurationExpired transition)",
+        "pt": "Corrigir: reduzir o spam log a partir de atualizações repetidas de segurança/duração — apenas registrar e reportar à caixa de controle quando os valores realmente mudarem\nCorrigir: desativar limites de proteção de energia quando expirar a duração limite (limitDurationExpired transition)",
+        "nl": "Fix: reduceer log spam van herhaalde failsafe/dure updates alleen log en rapporteer aan controlbox wanneer waarden daadwerkelijk veranderen\nFix: deactiveer de limieten van de energiebescherming wanneer de limietduur verstrijkt (limitDurationExpired transition)",
+        "fr": "Correction: réduire le log spam à partir de mises à jour fallsafe/duration répétées — seulement log et rapporter à la boîte de contrôle lorsque les valeurs changent réellement\nCorrection : désactiver les limites de garde d'énergie lorsque la durée limite expire (limitDurationExpiré la transition)",
+        "it": "Fisso: ridurre lo spam di registro da ripetuti aggiornamenti di failsafe/duration — solo log and report to controlbox quando i valori in realtà cambiano\nFisso: disattivare i limiti di protezione energetica quando la durata limite scade (limiteDurationExpired transizione)",
+        "es": "Fijación: reducir el spam log de actualizaciones repetidas de seguridad/duración — sólo inicie sesión e informe a controlbox cuando los valores realmente cambian\nFijación: desactivar los límites de la guardia de energía cuando expira la duración límite (limitDurationExpired transition)",
+        "pl": "Fix: zmniejszyć spam logowania z powtarzających się aktualizacji bezpieczeństwa / czasu trwania - tylko logować i zgłosić się do sterownika, gdy wartości rzeczywiście się zmieniają\nFix: dezaktywować wartości graniczne osłony energetycznej po wygaśnięciu limitu czasu trwania (limitaDurationExpired transformation)",
+        "uk": "Виправлення: зменшення спаму журналу від повторних небезпечних / оновлюваних оновлень — тільки журнал і звіт до контрольної скриньки при зміні значень\nВиправлення: деактивувати обмеження охоронців енергії при обмеженні тривалості (limitDurationExpired переходу)",
+        "zh-cn": "修正: 减少重复的故障安全/ 持续时间更新的日志垃圾邮件—— 只有日志和在值实际改变时报告到控制框\n固定:在期限到期时解除能量警戒限制(限期过渡)"
+      },
+      "0.3.0": {
+        "en": "Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive\nFix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)\nFix: do not report failsafe limit to controlbox before remote device confirms the write\nFeature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device\nFeature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe\nFeature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects",
+        "de": "Fix: Setzen Sie eebusConnected=true auf UseCaseSupportUpdate (Geräte wie PLENTICORE lehnen Heartbeat-Abonnements ab); setzen Sie den Heartbeat-Timer bei jedem Anwendungsfallereignis zurück, um die Wache am Leben zu halten\nFix: Verwenden Sie korrekte gRPC RPC-Namen für LPP-Energieschützer (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit anstelle von Verbrauchsvarianten)\nFix: Melden Sie das ausfallsichere Limit nicht an controlbox, bevor das entfernte Gerät das Schreiben bestätigt\nFeature: Fügen Sie beschreibbare FailsafeDuration-Zustand (Sekunden) zu EEBUS-Energieschützern hinzu - liest und schreibt auf das entfernte Gerät\nFeature: Rufen Sie StartHeartbeat auf dem EG-Client auf, damit der entfernte CS die Trennung erkennen und in die Fehlersicherheit eintreten kann\nFeature: Handle Szenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) für LPC- und LPP-Energieschützer — schreibt nominale maximale Leistung in ioBroker-Objekte",
+        "ru": "Исправление: установите eebusConnected=true на UseCaseSupportUpdate (устройства, такие как PLENTICORE, отклоняют подписки на сердцебиение); сбросьте таймер сердцебиения на любой случай использования, чтобы сохранить бдительность\nИсправьте: используйте правильные названия GRPC RPC для энергоохранников LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit вместо вариантов потребления)\nИсправление: не сообщайте об отказоустойчивом лимите в блок управления до того, как удаленное устройство подтвердит запись\nФункция: добавьте записываемое состояние отказоустойчивости (секунды) к энергозащитным устройствам EEBUS — читает и записывает на удаленное устройство\nФункция: вызов StartHeartbeat на EG-клиенте, чтобы удаленная CS могла обнаружить отключение и ввести отказоустойчивый\nФункция: рукоятка Сценарий 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) для LPC и LPP энергоохранников — записывает номинальную максимальную мощность на объекты ioBroker",
+        "pt": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivos como PLENTICORE rejeitam assinaturas de batimento cardíaco); reset temporizador cardíaco em qualquer evento caso de uso para manter a guarda viva\nCorrigir: use nomes corretos do RPC do gRPC para protetores de energia do LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit em vez de variantes de consumo)\nCorrigir: não relate o limite failsafe à caixa de controle antes que o dispositivo remoto confirme a gravação\nCaracterística: adicionar o estado de duração (segundos) ao EEBUS — lê e escreve para o dispositivo remoto\nCaracterística: chame StartHeartbeat no cliente EG para que o CS remoto possa detectar desconexão e inserir failsafe\nCaracterística: manipular Cenário 4 (DataUpdatePowerConsumoNominalMax / DataUpdatePowerProductionNominalMax) para LPC e LPP protetores de energia — escreve potência máxima nominal para objetos ioBroker",
+        "nl": "Fix: set eebusConnected=true on UseCaseSupportUpdate (apparaten zoals PLENTICORE weigeren hartslag abonnementen); reset hartslag timer op elke use case gebeurtenis om de beveiliging in leven te houden\nFix: gebruik correcte gRPC RPC namen voor LPP energiebewakers (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit in plaats van verbruik varianten)\nFix: rapporteer geen veilige limiet voor de controlebox voordat remote device de schrijfbevestiging bevestigt\nFeature: voeg beschrijfbare failsafeDuration state (seconden) toe aan EEBUS energiebewakers van en schrijft naar het externe apparaat\nFeature: bel StartHeartbeat op EG-client zodat de remote CS ontkoppeling kan detecteren en failsafe kan invoeren\nFeature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) voor LPC en LPP energiebewakers schrijft nominale max vermogen naar ioBroker objecten",
+        "fr": "Fix: set eebusConnected=true on UseCaseSupportMise à jour (dispositifs comme PLENTICORE rejettent les abonnements de battements de coeur); réinitialisez le minuteur de battements de coeur sur tout événement de cas d'utilisation pour garder la garde en vie\nCorrection: utiliser des noms corrects de RPC gRPC pour les gardes énergétiques LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit au lieu des variantes de consommation)\nCorrection : ne pas signaler la limite de sécurité à la boîte de commande avant que le périphérique à distance confirme l'écriture\nFonctionnalité : ajouter l'état de durée (secondes) à EEBUS enregistrable faultsafe\nFonctionnalité : appeler StartHeartbeat sur le client EG pour que le CS distant puisse détecter la déconnexion et entrer dans fallsafe\nFonctionnalité: poignée Scénario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) pour les gardes énergétiques LPC et LPP — écrit la puissance maximale nominale aux objets ioBroker",
+        "it": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivi come PLENTICORE rifiutare abbonamenti battito cardiaco); reset timer battito cardiaco su qualsiasi caso di uso evento per mantenere la guardia viva\nFisso: utilizzare i nomi gRPC RPC corretti per le protezioni di energia LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit invece delle varianti di consumo)\nFix: non segnalare il limite di failsafe alla casella di controllo prima che il dispositivo remoto confermi la scrittura\nCaratteristica: aggiungere il failsafe scrivibileDuration state (secondi) alle protezioni energetiche EEBUS — legge da e scrive al dispositivo remoto\nCaratteristica: chiamare StartHeartbeat sul client EG in modo che il CS remoto possa rilevare la disconnessione e inserire failsafe\nCaratteristica: maniglia Scenario 4 (DataUpdatePowerConsunzioneNominalMax / DataUpdatePowerProductionNominalMax) per protezioni di energia LPC e LPP — scrive potenza massima nominale a oggetti ioBroker",
+        "es": "Fix: set eebusConnected=true on UseCaseSupportUpdate (dispositivos como PLENTICORE rechazan las suscripciones de latidos cardíacos); resetea el temporizador de latidos cardíacos en cualquier evento de caso de uso para mantener la guardia viva\nFix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variations)\nFijación: no reporte límite seguro de fallo a la caja de control antes de que el dispositivo remoto confirme la escritura\nCaracterística: añadir writable failsafeDuration state (segundos) a los guardias de energía EEBUS — lee y escribe al dispositivo remoto\nCaracterística: llame a StartHeartbeat en el cliente de EG para que el CS remoto pueda detectar la desconexión y entrar en seguridad de fallos\nCaracteristicas: mango Escenario 4 (DataUpdatePowerConsumoNominalMax / DataUpdatePowerProductionNominalMax) para los protectores energéticos LPC y LPP – escribe potencia máxima nominal para objetos de yoBroker",
+        "pl": "Fix: zestaw ebusConnected = true na UseCaseSupportUpdate (urządzenia takie jak PENTCORE odrzucają subskrypcje bicia serca); zresetuj zegar bicia serca na każdym przypadku użycia, aby utrzymać ochronę przy życiu\nFix: użyj poprawnych nazw RPC gRPC dla osłon energetycznych LPP (WriteProductionLimit / WriteProductionActivePowerLimit zamiast wariantów zużycia)\nPopraw: nie raportuj limitu bezpieczeństwa do sterownika zanim zdalne urządzenie potwierdzi zapis\nCecha: dodaj zapisywalny stan awarii (sekundy) do osłon energetycznych EEBUS - czyta i pisze do zdalnego urządzenia\nCecha: wywołaj StartHeartbeat na EG klienta, dzięki czemu zdalny CS może wykryć odłączenie i wprowadzić nieszczelność\nCecha: uchwyt Scenariusz 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) dla osłon energetycznych LPC i LPP - pisze nominalną moc maksymalną do obiektów jOBroker",
+        "uk": "Виправлення: встановити eebusConnected=true on useCaseSupportUpdate (розробки, такі як PLENTICORE відхилити підписки на серцебиття); скидання таймера серця на будь-якому випадку використання, щоб зберегти охоронець живим\nВиправлення: використання правильних GRPC RPC імен для енергоохоронців LPP (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit замість варіантів споживання)\nВиправлення: не звітуйте про небезпечне обмеження для контрольної скриньки перед дистанційним пристроєм підтверджує запис\nХарактеристика: додавати небезпечний стан (секунди) до охоронців енергії EEBUS — читання з та напишіть до віддаленого пристрою\nФункція: виклик StartHeartbeat на клієнту EG, тому віддалені CS можуть виявити відключення і ввести небезпечний\nХарактеристика: ручка Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) для енергоохоронців LPC та LPP — пише номінальну потужність об'єктів ioBroker",
+        "zh-cn": "固定 : 设置 eebusConnect= true on UseCase 支持更新( PLENTICORE 等设备拒绝心跳订阅); 重置任何使用大小写事件上的心跳定时器, 以保持守护\n固定:对LPP能量守护使用正确的gRPC RPC名称(Write ProductionLimit / WriteFailsafe ProductionAactivePowerLimit 而不是消费变体)\n固定 : 在远程设备确认写入前不要向控制框报告故障安全限制\n特性: 在 EEBUS 能量守护器中添加可写入的故障保护状态( 秒) —— 从远程设备读取并写入\n特性: 在 EG 客户端上呼叫 StartHeartbeat, 这样远程 CS 可以检测断开并输入故障安全\n特性:处理情景4(DataUpdatePower Conception NominalMax / DataUpdatePower Production NominalMax) 用于LPC和LPP 能量守护者——写给ioBroker对象的名义最大功率"
+      },
+      "0.2.2": {
+        "en": "Fix: properly clean up resources before reconnect and propagate CS registration errors\nFix: close events channel on use case server Stop() in eebus-grpc (unblock SubscribeUseCaseEvents on reset)\nChore: clean up admin folder and build pipeline (remove CRA boilerplate, add exec plugin for release builds)",
+        "de": "Behebung: Ressourcen vor dem erneuten Verbinden und Weiterleiten von CS-Registrierungsfehlern ordnungsgemäß bereinigen.\nBehoben: Ereigniskanal beim Stop() des Anwendungsfallservers in eebus-grpc schließen (SubscribeUseCaseEvents beim Zurücksetzen freigeben)\nAufgabe: Admin-Ordner und Build-Pipeline aufräumen (CRA-Boilerplate entfernen, Exec-Plugin für Release-Builds hinzufügen)",
+        "ru": "Исправление: корректно очищать ресурсы перед повторным подключением и распространять ошибки регистрации CS.\nИсправление: закрыть канал событий на сервере вариантов использования Stop() в eebus-grpc (разблокировать SubscribeUseCaseEvents при сбросе)\nЗадача: очистить папку администратора и конвейер сборки (удалить шаблонный код CRA, добавить плагин exec для релизных сборок).",
+        "pt": "Correção: limpar corretamente os recursos antes de reconectar e propagar os erros de registro do CS.\nCorreção: fechar o canal de eventos no servidor de casos de uso Stop() em eebus-grpc (desbloquear SubscribeUseCaseEvents na reinicialização)\nTarefa: limpar a pasta de administração e o pipeline de compilação (remover o código padrão do CRA, adicionar o plugin exec para compilações de lançamento)",
+        "nl": "Oplossing: ruim de resources correct op voordat u opnieuw verbinding maakt en geef CS-registratiefouten door.\nOplossing: sluit het gebeurteniskanaal op de use case-server. Stop() in eebus-grpc (deblokkeer SubscribeUseCaseEvents bij reset).\nTaak: de beheerdersmap opruimen en de build-pipeline optimaliseren (CRA-boilerplate verwijderen, exec-plugin toevoegen voor release-builds).",
+        "fr": "Correction : nettoyer correctement les ressources avant la reconnexion et propager les erreurs d'enregistrement CS\nCorrection : fermeture du canal d’événements sur le serveur de cas d’utilisation. Arrêt de la fonction Stop() dans eebus-grpc (déblocage de SubscribeUseCaseEvents lors de la réinitialisation).\nTâche : nettoyer le dossier d'administration et le pipeline de compilation (supprimer le code répétitif de CRA, ajouter le plugin d'exécution pour les versions de production).",
+        "it": "Correzione: pulire correttamente le risorse prima di riconnettersi e propagare gli errori di registrazione CS\nCorrezione: chiudere il canale degli eventi sul server dei casi d'uso Stop() in eebus-grpc (sbloccare SubscribeUseCaseEvents al ripristino)\nAttività: pulizia della cartella admin e della pipeline di build (rimozione del boilerplate di CRA, aggiunta del plugin exec per le build di rilascio)",
+        "es": "Solución: limpiar correctamente los recursos antes de volver a conectar y propagar los errores de registro de CS.\nCorrección: cerrar el canal de eventos en el servidor de casos de uso Stop() en eebus-grpc (desbloquear SubscribeUseCaseEvents al reiniciar)\nTarea: limpiar la carpeta de administración y la canalización de compilación (eliminar el código repetitivo de CRA, agregar el complemento exec para compilaciones de lanzamiento).",
+        "pl": "Naprawiono: prawidłowe czyszczenie zasobów przed ponownym połączeniem i propagowanie błędów rejestracji CS\nNaprawiono: zamknięcie kanału zdarzeń na serwerze przypadków użycia Stop() w eebus-grpc (odblokowanie SubscribeUseCaseEvents po zresetowaniu)\nZadanie: uporządkowanie folderu administracyjnego i procesu kompilacji (usunięcie szablonu CRA, dodanie wtyczki exec do kompilacji wydań)",
+        "uk": "Виправлення: належним чином очищати ресурси перед повторним підключенням та поширювати помилки реєстрації CS.\nВиправлення: закриття каналу подій на сервері варіантів використання Stop() в eebus-grpc (розблокування SubscribeUseCaseEvents після скидання)\nЗавдання: очищення папки адміністратора та конвеєра збірки (видалення шаблону CRA, додавання плагіна exec для релізних збірок)",
+        "zh-cn": "修复：在重新连接和传播 CS 注册错误之前，正确清理资源。\n修复：在 eebus-grpc 中关闭用例服务器上的事件通道 Stop()（重置时解除对 SubscribeUseCaseEvents 的阻塞）\n任务：清理管理文件夹和构建管道（移除 CRA 样板代码，添加用于发布构建的 exec 插件）"
+      },
+      "0.2.1": {
+        "en": "Refactor: rename grpc-cslpc.js to grpc-client.js (serves both LPC and LPP)\nFix: correct invalid state roles (level.power → level, indicator.connected write flag)\nFix: trigger full reconnect on gRPC transport errors instead of silently skipping failed operations",
+        "de": "Refactoring: grpc-cslpc.js in grpc-client.js umbenennen (dient sowohl LPC als auch LPP)\nBehoben: Fehlerhafte Statusrollen korrigiert (level.power → level, indicator.connected Schreibflag)\nBehebung: Bei gRPC-Transportfehlern wird nun eine vollständige Neuverbindung ausgelöst, anstatt fehlgeschlagene Operationen stillschweigend zu überspringen.",
+        "ru": "Рефакторинг: переименовать grpc-cslpc.js в grpc-client.js (обслуживает как LPC, так и LPP).\nИсправление: исправлены недопустимые роли состояний (level.power → level, флаг записи indicator.connected)\nИсправление: теперь при ошибках gRPC-транспорта запускается полное переподключение вместо молчаливого пропуска неудачных операций.",
+        "pt": "Refatorar: renomear grpc-cslpc.js para grpc-client.js (serve tanto LPC quanto LPP)\nCorreção: correção de funções de estado inválidas (level.power → level, indicador de conexão escrito).\nCorreção: acionar reconexão completa em caso de erros de transporte gRPC em vez de ignorar silenciosamente as operações com falha.",
+        "nl": "Refactor: hernoem grpc-cslpc.js naar grpc-client.js (voor zowel LPC als LPP)\nOplossing: corrigeer ongeldige statusrollen (level.power → level, indicator.connected write flag)\nOplossing: activeer nu een volledige herverbinding bij gRPC-transportfouten in plaats van mislukte bewerkingen stilzwijgend over te slaan.",
+        "fr": "Refactorisation : renommer grpc-cslpc.js en grpc-client.js (compatible LPC et LPP)\nCorrection : correction des rôles d'état invalides (level.power → level, indicator.connected write flag)\nCorrection : déclencher une reconnexion complète en cas d'erreurs de transport gRPC au lieu d'ignorer silencieusement les opérations ayant échoué",
+        "it": "Ristrutturazione: rinominare grpc-cslpc.js in grpc-client.js (per supportare sia LPC che LPP)\nCorrezione: corretti i ruoli di stato non validi (level.power → level, flag di scrittura indicator.connected)\nCorrezione: attivare la riconnessione completa in caso di errori di trasporto gRPC anziché saltare silenziosamente le operazioni non riuscite.",
+        "es": "Refactorización: cambiar el nombre de grpc-cslpc.js a grpc-client.js (sirve tanto para LPC como para LPP).\nCorrección: corregir roles de estado no válidos (level.power → level, indicador de escritura indicator.connected)\nCorrección: activar la reconexión completa en caso de errores de transporte gRPC en lugar de omitir silenciosamente las operaciones fallidas.",
+        "pl": "Refaktoryzacja: zmień nazwę pliku grpc-cslpc.js na grpc-client.js (obsługuje zarówno LPC, jak i LPP)\nNaprawiono: poprawiono nieprawidłowe role stanu (level.power → level, indicator.connected write flag)\nNaprawiono: wyzwalanie pełnego ponownego połączenia w przypadku błędów transportu gRPC zamiast cichego pomijania nieudanych operacji",
+        "uk": "Рефакторинг: перейменувати grpc-cslpc.js на grpc-client.js (обслуговує як LPC, так і LPP)\nВиправлення: виправлено недійсні ролі станів (level.power → level, прапорець запису indicator.connected)\nВиправлення: запускати повне перепідключення при помилках транспортування gRPC замість тихого пропускання невдалих операцій.",
+        "zh-cn": "重构：将 grpc-cslpc.js 重命名为 grpc-client.js（同时支持 LPC 和 LPP）\n修复：修正无效的状态角色（level.power → level，indicator.connected 写入标志）\n修复：在 gRPC 传输发生错误时触发完全重新连接，而不是静默跳过失败的操作。"
+      }
     },
-    "native": {
-        "dockerEnabled": false,
-        "dockerLogLevel": "info",
-        "grpcEndpoint": "localhost:50051",
-        "servicePort": 4715,
-        "serialNumber": "123456",
-        "heartbeatTimeoutSeconds": 30,
-        "controlboxSki": "",
-        "contractualConsumptionNominalMax": 4200,
-        "energyGuards": [],
-        "lpcEnabled": true,
-        "lppEnabled": false,
-        "contractualProductionNominalMax": 4200,
-        "lppEnergyGuards": []
+    "titleLang": {
+      "en": "EEBUS HEMS",
+      "de": "EEBUS HEMS",
+      "ru": "ЭЕВУС ХМС",
+      "pt": "EEBUS BAINHAS",
+      "nl": "EEBUS-ZOMEN",
+      "fr": "OURLETS EEBUS",
+      "it": "ORLI EEBUS",
+      "es": "DOBLADILLOS EEBUS",
+      "pl": "EEBUS HEMS",
+      "uk": "EEBUS HEMS",
+      "zh-cn": "EEBUS HEMS"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "",
-            "type": "meta",
-            "common": {
-                "name": "User files for eebus-go adapter",
-                "type": "meta.user"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "gRPC connection status",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.dockerInstalled",
-            "type": "state",
-            "common": {
-                "role": "info.status",
-                "name": "Docker daemon available",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        }
-    ]
+    "desc": {
+      "en": "eebus grpc client for a hems",
+      "de": "eebus GRPC-Client für einen Saum",
+      "ru": "Клиент eebus grpc для рубки",
+      "pt": "cliente eebus grpc para bainhas",
+      "nl": "eebus grpc-client voor zomen",
+      "fr": "client eebus grpc pour un ourlet",
+      "it": "client eebus grpc per un hems",
+      "es": "Cliente eebus grpc para dobladillos",
+      "pl": "Klient eebus grpc dla obszyć",
+      "uk": "eebus grpc клієнт для hems",
+      "zh-cn": "用于下摆的 eebus grpc 客户端"
+    },
+    "authors": [
+      "FernetMenta <fernetmenta@online.de>"
+    ],
+    "keywords": [
+      "eebus",
+      "eebus-go",
+      "hems"
+    ],
+    "licenseInformation": {
+      "type": "free",
+      "license": "GPL-3.0-only"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "eebus-go.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/FernetMenta/ioBroker.eebus-go/main/admin/eebus-go.png",
+    "readme": "https://github.com/FernetMenta/ioBroker.eebus-go/blob/main/README.md",
+    "loglevel": "info",
+    "tier": 3,
+    "mode": "daemon",
+    "type": "iot-systems",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "html"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=7.0.6"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.8.23"
+      }
+    ],
+    "plugins": {
+      "docker": {
+        "iobDockerComposeFiles": [
+          "docker/docker-compose.yaml"
+        ],
+        "iobDockerApi": "default"
+      }
+    }
+  },
+  "native": {
+    "dockerEnabled": false,
+    "dockerLogLevel": "info",
+    "grpcEndpoint": "localhost:50051",
+    "servicePort": 4715,
+    "serialNumber": "123456",
+    "heartbeatTimeoutSeconds": 30,
+    "controlboxSki": "",
+    "contractualConsumptionNominalMax": 4200,
+    "energyGuards": [],
+    "lpcEnabled": true,
+    "lppEnabled": false,
+    "contractualProductionNominalMax": 4200,
+    "lppEnergyGuards": []
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "",
+      "type": "meta",
+      "common": {
+        "name": "User files for eebus-go adapter",
+        "type": "meta.user"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "gRPC connection status",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.dockerInstalled",
+      "type": "state",
+      "common": {
+        "role": "info.status",
+        "name": "Docker daemon available",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
