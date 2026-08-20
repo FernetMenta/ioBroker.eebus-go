@@ -173,6 +173,10 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### **WORK IN PROGRESS**
 
 - Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
+- Fix: refactor subscribeCsLpcEvents and signal stream errors to caller
+- Fix: drop console.log in grpc-service.js
+- Fix: German strings / logging in grpc-service.js
+- Update README with note on docker on Windows
 
 ### 1.1.0 (2026-08-19)
 
