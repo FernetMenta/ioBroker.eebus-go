@@ -20,6 +20,8 @@ If ioBroker is installed **directly on the host** (not inside a container), the 
 
 The gRPC endpoint is managed internally (`127.0.0.1:50051`) and cannot be changed when Docker is enabled. The container lifecycle (start/stop/update) is fully handled by the adapter.
 
+> **Note:** Because EEBUS relies on mDNS, the container runs with `--network=host`. Host networking is only supported on **Linux**. On Windows and macOS, Docker Desktop runs containers inside a Linux VM, so `--network=host` does not expose the container to the real LAN. Use Option 2 (macvlan) or run the sidecar natively on those platforms.
+
 ## Option 2: Docker Compose (ioBroker running in a container)
 
 If ioBroker itself runs inside a Docker container, you need to run the eebus-grpc container separately. Use a macvlan network so both containers can use mDNS on the LAN.
