@@ -169,8 +169,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.1.1 (2026-08-20)
 
 - Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
 - Fix: refactor subscribeCsLpcEvents and signal stream errors to caller
@@ -202,15 +201,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 
 - Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
 - Fix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)
-
-### 0.3.0 (2026-08-07)
-
-- Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive
-- Fix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)
-- Fix: do not report failsafe limit to controlbox before remote device confirms the write
-- Feature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device
-- Feature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe
-- Feature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

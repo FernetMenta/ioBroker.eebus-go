@@ -1,4 +1,13 @@
 # Older changes
+## 0.3.0 (2026-08-07)
+
+- Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive
+- Fix: use correct gRPC RPC names for LPP energy guards (WriteProductionLimit / WriteFailsafeProductionActivePowerLimit instead of Consumption variants)
+- Fix: do not report failsafe limit to controlbox before remote device confirms the write
+- Feature: add writable failsafeDuration state (seconds) to EEBUS energy guards — reads from and writes to the remote device
+- Feature: call StartHeartbeat on EG client so the remote CS can detect disconnection and enter failsafe
+- Feature: handle Scenario 4 (DataUpdatePowerConsumptionNominalMax / DataUpdatePowerProductionNominalMax) for LPC and LPP energy guards — writes nominal max power to ioBroker objects
+
 ## 0.2.2 (2026-08-05)
 
 - Fix: properly clean up resources before reconnect and propagate CS registration errors
