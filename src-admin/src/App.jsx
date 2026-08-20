@@ -114,6 +114,8 @@ class App extends GenericApp {
                         onChange={e => Router.doNavigate(e.target.dataset.name)}
                         textColor="secondary"
                         indicatorColor="secondary"
+                        variant="scrollable"
+                        scrollButtons="auto"
                     >
                         <Tab
                             label={I18n.t('Base Config')}

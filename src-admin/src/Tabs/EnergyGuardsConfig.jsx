@@ -53,7 +53,7 @@ class EnergyGuardsConfig extends Component {
             { field: 'name', headerName: I18n.t('Name'), minWidth: 150, flex: 1, editable: true },
             { field: 'type', headerName: I18n.t('Type'), minWidth: 100, flex: 1 },
             { field: 'brand', headerName: I18n.t('Brand'), minWidth: 100, flex: 1 },
-            { field: 'ski', headerName: 'SKI', minWidth: 350, flex: 2 },
+            { field: 'ski', headerName: 'SKI', minWidth: 200, flex: 2 },
         ];
     }
 
@@ -185,7 +185,7 @@ class EnergyGuardsConfig extends Component {
             <form style={{ ...styles.tab }}>
                 <div style={{ ...styles.column, ...styles.columnSettings }}>
                     <h3>{I18n.t('Energy Guards')}</h3>
-                    <Box sx={{ height: 400, width: '100%' }}>
+                    <Box sx={{ height: 400, width: '100%', overflowX: 'auto' }}>
                         <DataGrid
                             rows={rows}
                             columns={this.columns}
@@ -197,7 +197,7 @@ class EnergyGuardsConfig extends Component {
                             processRowUpdate={this.processRowUpdate}
                         />
                     </Box>
-                    <Box sx={{ marginTop: 1, display: 'flex', gap: 1 }}>
+                    <Box sx={{ marginTop: 1, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                         <Button
                             variant="contained"
                             color="primary"

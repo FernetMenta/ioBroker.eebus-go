@@ -204,15 +204,22 @@ describe('BaseConfig contractualProductionNominalMax validation', () => {
         render(<BaseConfig {...props} />);
 
         // Find the contractual production nominal max input by its label
-        const input = screen.getByLabelText('Contractual Production Nominal Max (watts)');
+        const input = screen.getByLabelText('Contractual Production Nominal Max (W)');
         expect(input).toBeInTheDocument();
 
-        // Simulate entering empty value
+        // Simulate entering empty value then blurring (onBlur clamps to 0)
         await act(async () => {
             fireEvent.change(input, { target: { value: '' } });
         });
 
-        // onChange should be called with 0 for empty input
+        // onChange is called with '' for empty input on change event
+        expect(onChange).toHaveBeenCalledWith('contractualProductionNominalMax', '');
+
+        // On blur, the value is clamped to 0
+        await act(async () => {
+            fireEvent.blur(input, { target: { value: '' } });
+        });
+
         expect(onChange).toHaveBeenCalledWith('contractualProductionNominalMax', 0);
     });
 });

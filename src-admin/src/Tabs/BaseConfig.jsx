@@ -18,7 +18,6 @@ import { QRCodeSVG } from 'qrcode.react';
 
 const styles = {
     tab: { width: '100%', minHeight: '100%' },
-    input: { minWidth: 400, marginRight: 2, marginBottom: 2 },
     column: { display: 'inline-block', verticalAlign: 'top', marginRight: 20 },
     columnSettings: { width: 'calc(100% - 10px)' },
 };
@@ -163,9 +162,9 @@ class Options extends Component {
                 />
                 <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
                     {this.state.dockerInstalled && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1, flexWrap: 'wrap' }}>
                             <FormControlLabel
-                                sx={{ minWidth: 420 }}
+                                sx={{ minWidth: { xs: 'auto', md: 420 } }}
                                 control={
                                     <Checkbox
                                         checked={!!this.props.native.dockerEnabled}
@@ -176,7 +175,7 @@ class Options extends Component {
                             />
                             <FormControl
                                 variant="standard"
-                                sx={{ minWidth: 300 }}
+                                sx={{ minWidth: { xs: 'auto', md: 300 } }}
                             >
                                 <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
                                 <Select
@@ -194,7 +193,7 @@ class Options extends Component {
                         </Box>
                     )}
                     <TextField
-                        style={{ ...styles.input }}
+                        sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
                         variant="standard"
                         label={I18n.t('gRPC Endpoint')}
                         value={this.props.native.grpcEndpoint}
@@ -205,7 +204,7 @@ class Options extends Component {
                     />
                     <br />
                     <TextField
-                        style={{ ...styles.input }}
+                        sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
                         variant="standard"
                         label={I18n.t('Service Port')}
                         value={this.props.native.servicePort ?? ''}
@@ -225,7 +224,7 @@ class Options extends Component {
                     />
                     <br />
                     <TextField
-                        style={{ ...styles.input }}
+                        sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
                         variant="standard"
                         label={I18n.t('Serial Number')}
                         value={this.props.native.serialNumber}
@@ -235,7 +234,7 @@ class Options extends Component {
                     />
                     <br />
                     <TextField
-                        style={{ ...styles.input }}
+                        sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
                         variant="standard"
                         label={I18n.t('Heartbeat Timeout (seconds)')}
                         value={this.props.native.heartbeatTimeoutSeconds ?? ''}
@@ -254,9 +253,9 @@ class Options extends Component {
                         margin="normal"
                     />
                     <br />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                         <TextField
-                            sx={{ minWidth: 420 }}
+                            sx={{ minWidth: { xs: 'auto', md: 420 } }}
                             variant="standard"
                             label={I18n.t('ControlBox SKI')}
                             value={this.props.native.controlboxSki || ''}
@@ -269,15 +268,24 @@ class Options extends Component {
                             size="small"
                             disabled={!this.props.native.controlboxSki}
                             onClick={() => this.props.onChange('controlboxSki', '')}
-                            sx={{ minWidth: 300 }}
+                            sx={{ minWidth: { xs: 'auto', md: 300 } }}
                         >
                             {I18n.t('Clear ControlBox SKI')}
                         </Button>
                     </Box>
                     <br />
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: { xs: 'column', md: 'row' },
+                            alignItems: { md: 'center' },
+                            gap: { xs: 0, md: 2 },
+                            mb: 1,
+                            flexWrap: 'wrap',
+                        }}
+                    >
                         <FormControlLabel
-                            sx={{ minWidth: 420 }}
+                            sx={{ minWidth: { md: 420 } }}
                             control={
                                 <Checkbox
                                     checked={this.props.native.lpcEnabled !== false}
@@ -306,12 +314,21 @@ class Options extends Component {
                                 this.props.onChange('contractualConsumptionNominalMax', value);
                             }}
                             margin="normal"
-                            sx={{ minWidth: 300 }}
+                            sx={{ width: { xs: '100%', md: 300 } }}
                         />
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: { xs: 'column', md: 'row' },
+                            alignItems: { md: 'center' },
+                            gap: { xs: 0, md: 2 },
+                            mb: 1,
+                            flexWrap: 'wrap',
+                        }}
+                    >
                         <FormControlLabel
-                            sx={{ minWidth: 420 }}
+                            sx={{ minWidth: { md: 420 } }}
                             control={
                                 <Checkbox
                                     checked={!!this.props.native.lppEnabled}
@@ -341,7 +358,7 @@ class Options extends Component {
                                     this.props.onChange('contractualProductionNominalMax', value);
                                 }}
                                 margin="normal"
-                                sx={{ minWidth: 300 }}
+                                sx={{ width: { xs: '100%', md: 300 } }}
                             />
                         )}
                     </Box>
@@ -368,7 +385,15 @@ class Options extends Component {
                         {I18n.t('Use selected SKI as ControlBox SKI')}
                     </Button>
                     {shipString && (
-                        <div style={{ position: 'absolute', top: 0, right: 0, textAlign: 'center' }}>
+                        <Box
+                            sx={{
+                                position: { xs: 'static', md: 'absolute' },
+                                top: { md: 0 },
+                                right: { md: 0 },
+                                textAlign: 'center',
+                                mb: { xs: 2, md: 0 },
+                            }}
+                        >
                             <div style={{ fontSize: 13, fontWeight: 'bold', marginBottom: 8 }}>EEBUS SKI</div>
                             <QRCodeSVG
                                 value={shipString}
@@ -385,7 +410,7 @@ class Options extends Component {
                             >
                                 {this.state.ski}
                             </div>
-                        </div>
+                        </Box>
                     )}
                 </div>
             </form>
