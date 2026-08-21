@@ -1,8 +1,8 @@
-# Setup of iobroker.eebus-grpc container
+# Setup of iobroker.eebus-grpc sidecar
 
-The eebus-go adapter communicates with the EEBUS network through a gRPC server running in a Docker container. EEBUS uses mDNS (multicast DNS) for device discovery, so the container must have access to the local network (host networking or macvlan).
+The eebus-go adapter communicates with the EEBUS network through a gRPC sidecar. EEBUS uses mDNS (multicast DNS) for device discovery, so the sidecar must have access to the local network (host networking or macvlan).
 
-There are three options for running the container, depending on your environment.
+There are four options for running the sidecar, depending on your environment.
 
 ## Option 1: Managed by ioBroker (recommended)
 
@@ -104,7 +104,31 @@ ip link set mac0 up
 ip route add 192.168.178.220/30 dev mac0 protocol static
 ```
 
-## Option 3: Quick test with docker run
+## Option 3: Pre-built binary (no Docker)
+
+If you cannot use Docker (e.g. on Windows or macOS without a Linux VM), you can download and run the pre-built binary directly from https://github.com/FernetMenta/eebus-grpc.
+
+> **Important:** Do not simply grab the latest release — consult the adapter's [README](../README.md) for the compatible eebus-grpc version. Mismatched versions may cause connection failures.
+
+**Usage:**
+
+```bash
+eebus-grpc-<os>-<arch> -port=<port> -ipv4Addr=<bind address> -certificate-path=<certificate path> -private-key-path=<private key path>
+```
+
+For example on Linux amd64:
+
+```bash
+eebus-grpc-linux-amd64 -port=50051 -ipv4Addr=192.168.178.10 -certificate-path=./certs/myhems_cert -private-key-path=./certs/myhems_key
+```
+
+Set `grpcEndpoint` in the adapter to `<bind address>:<port>`. Do **not** enable the Docker checkbox in this setup.
+
+> **Tip:** When running the binary on the same host as ioBroker, use `127.0.0.1` as the bind address. This keeps the gRPC port off the network and avoids unnecessary exposure.
+
+> **Note:** When running the binary directly, you are responsible for health checks and log redirection (e.g. via systemd, a process manager, or your own scripting).
+
+## Option 4: Quick test with docker run
 
 For development or quick testing on the host network:
 

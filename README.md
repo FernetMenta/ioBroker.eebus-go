@@ -169,6 +169,11 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- Update instructions with info on how to run prebuilt binaries instead of a docker container
+
 ### 1.1.1 (2026-08-20)
 
 - Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
