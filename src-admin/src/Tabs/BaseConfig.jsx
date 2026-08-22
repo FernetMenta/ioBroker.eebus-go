@@ -101,11 +101,15 @@ class Options extends Component {
     };
 
     onDiscoveredDevicesChanged = (id, state) => {
-        if (id === this.discoveredDevicesId && state && state.val) {
-            try {
-                this.setState({ discoveredDevices: JSON.parse(state.val) });
-            } catch {
-                /* ignore */
+        if (id === this.discoveredDevicesId && state) {
+            if (!state.val) {
+                this.setState({ discoveredDevices: {} });
+            } else {
+                try {
+                    this.setState({ discoveredDevices: JSON.parse(state.val) });
+                } catch {
+                    this.setState({ discoveredDevices: {} });
+                }
             }
         }
     };

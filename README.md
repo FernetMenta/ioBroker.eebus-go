@@ -173,6 +173,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### **WORK IN PROGRESS**
 
 - Update instructions with info on how to run prebuilt binaries instead of a docker container
+- Fix: clear discoverd devices on restart
 
 ### 1.1.1 (2026-08-20)
 
