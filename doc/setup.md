@@ -29,7 +29,7 @@ If ioBroker itself runs inside a Docker container, you need to run the eebus-grp
 ```yaml
 services:
   eebus-grpc:
-    image: fernetmenta/iobroker.eebus-grpc:2.0.1
+    image: ghcr.io/fernetmenta/eebus-grpc:v2.0.2
     container_name: eebus-grpc
     hostname: iob-hems
     restart: unless-stopped
@@ -138,7 +138,7 @@ docker run --rm -it \
   --network=host \
   -v "$PWD/certs:/certs" \
   -e LOG_LEVEL=debug \
-  fernetmenta/iobroker.eebus-grpc:2.0.1
+  ghcr.io/fernetmenta/eebus-grpc:v2.0.2
 ```
 
 Certificates are created automatically in the certs directory if they don't exist. Set `grpcEndpoint` in the adapter to `127.0.0.1:50051`.
