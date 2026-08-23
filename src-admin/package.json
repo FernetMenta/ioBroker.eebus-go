@@ -17,7 +17,7 @@
     },
     "devDependencies": {
         "@iobroker/eslint-config": "^2.3.4",
-        "@testing-library/jest-dom": "^7.0.0",
+        "@testing-library/jest-dom": "^7.0.1",
         "@testing-library/react": "^16.3.2",
         "@vitejs/plugin-react": "^6.0.5",
         "fast-check": "^3.22.0",
