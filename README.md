@@ -176,6 +176,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: clear discoverd devices on restart
 - Move container image to GHCR: ghcr.io/fernetmenta/eebus-grpc:v2.0.2
 - Fix: reported failsafe to controlbox is wrong because user set objects was not read at startup
+- Fix: handle edge case when failsafeLimit / limit was set to 0
 
 ### 1.1.1 (2026-08-20)
 
