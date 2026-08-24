@@ -125,23 +125,22 @@ See doc folder for an example of a manual guard.
 
 ### Behaviour
 
-When the controlbox sends an active limit, the adapter distributes it to the configured energy guards based on their percentage setting.
+When the controlbox sends an active limit, the adapter distributes it to all configured energy guards based on their percentage setting.
 
 **How percentages work:**
 
-Each energy guard has a configured percentage that defines how much of the controlbox limit it receives. If a guard is set to 70%, it gets 70% of the limit — never more. The percentage is a hard cap per guard.
+Each energy guard has a configured percentage that defines its share of the total budget. Distribution does not depend on whether a guard is currently connected or disconnected — every guard always participates.
 
-- If the sum of all percentages is less than or equal to 100%, each guard gets exactly its configured share. The remainder stays unused.
+- If the sum of all percentages is less than or equal to 100%, each guard gets its configured share of the budget.
 - If the sum exceeds 100%, all percentages are scaled down proportionally so they fit within 100%.
-- Disconnected guards are skipped. Their share is **not** redistributed to connected guards. Since a disconnected device may still draw (or produce) up to its failsafe power, that amount is reserved from the budget before distributing to connected guards.
 
 **Failsafe limits:**
 
-Each energy guard has a failsafe limit (the minimum power it must always be allowed to draw or produce). If a guard's percentage-based share would be lower than its failsafe, the guard is pinned at its failsafe limit. This consumes more of the total budget, so the remaining guards may receive less than their configured percentage.
+Each energy guard has a failsafe limit (the minimum power it must always be allowed to draw or produce). The distribution algorithm iterates through the guards: if a guard's percentage-based share of the remaining budget is lower than its failsafe, the guard is pinned at its failsafe limit and that amount is subtracted from the budget. This repeats until no more guards need pinning. The remaining budget is then distributed proportionally among the unpinned guards.
 
 **Example:** Controlbox limit is 4200W. Guard A has 70% and a failsafe of 4200W. Guard B has 30% and no failsafe.
 - Guard A's percentage share would be 2940W, but its failsafe requires 4200W → pinned at 4200W.
-- The entire budget is consumed by Guard A. Guard B receives 0W.
+- Remaining budget = 0W. Guard B receives the 1W floor (minimum distinguishable from "no limit").
 
 **Example:** Controlbox limit is 4200W. Guard A has 70% and no failsafe. Guard B has 30% and no failsafe.
 - Guard A gets 2940W (70%), Guard B gets 1260W (30%). Sum = 4200W.
@@ -178,6 +177,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: reported failsafe to controlbox is wrong because user set objects was not read at startup
 - Fix: handle edge case when failsafeLimit / limit was set to 0
 - More meaningful description
+- Revised logic for distribution of limits to energy guards.
 
 ### 1.1.1 (2026-08-20)
 
