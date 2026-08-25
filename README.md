@@ -180,6 +180,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Revised logic for distribution of limits to energy guards.
 - Fix: send limit duration to eebus energy guards
 - Fix: downgrade some heartbeat logs to debug level
+- Fix: do not call distributeLimit if nothing changed
 
 ### 1.1.1 (2026-08-20)
 
