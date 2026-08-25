@@ -181,6 +181,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: send limit duration to eebus energy guards
 - Fix: downgrade some heartbeat logs to debug level
 - Fix: do not call distributeLimit if nothing changed
+- Fix: Add minimum assured power to config, fix misinterpretation of contractual consumption nominal max.
 
 ### 1.1.1 (2026-08-20)
 

@@ -5,6 +5,7 @@
     "Brand": "Марка",
     "Cancel": "Отмена",
     "Contractual Consumption Nominal Max (W)": "Договорное номинальное макс. потребление (Вт)",
+    "Minimum Assured Power (W)": "Минимальная гарантированная мощность (Вт)",
     "Contractual Production Nominal Max (W)": "Договорная номинальная макс. генерация (Вт)",
     "ControlBox SKI": "ControlBox SKI",
     "Clear ControlBox SKI": "Очистить SKI ControlBox",

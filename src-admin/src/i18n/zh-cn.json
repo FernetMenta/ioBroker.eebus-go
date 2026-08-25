@@ -5,6 +5,7 @@
     "Brand": "品牌",
     "Cancel": "取消",
     "Contractual Consumption Nominal Max (W)": "合同额定最大用电功率 (W)",
+    "Minimum Assured Power (W)": "最低保证功率 (W)",
     "Contractual Production Nominal Max (W)": "合同额定最大发电功率 (W)",
     "ControlBox SKI": "ControlBox SKI",
     "Clear ControlBox SKI": "清除 ControlBox SKI",

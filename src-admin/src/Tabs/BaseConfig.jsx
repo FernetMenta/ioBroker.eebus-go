@@ -320,6 +320,25 @@ class Options extends Component {
                             margin="normal"
                             sx={{ width: { xs: '100%', md: 300 } }}
                         />
+                        <TextField
+                            variant="standard"
+                            label={I18n.t('Minimum Assured Power (W)')}
+                            value={this.props.native.lpcMinimumAssuredPower ?? ''}
+                            type="number"
+                            slotProps={{ htmlInput: { min: 0, max: 999999 } }}
+                            onChange={e => {
+                                const val = e.target.value;
+                                this.props.onChange('lpcMinimumAssuredPower', val === '' ? '' : parseInt(val, 10));
+                            }}
+                            onBlur={e => {
+                                let value = parseInt(e.target.value, 10);
+                                if (Number.isNaN(value) || value < 0) value = 0;
+                                if (value > 999999) value = 999999;
+                                this.props.onChange('lpcMinimumAssuredPower', value);
+                            }}
+                            margin="normal"
+                            sx={{ width: { xs: '100%', md: 300 } }}
+                        />
                     </Box>
                     <Box
                         sx={{
