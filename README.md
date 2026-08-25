@@ -168,8 +168,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.2.0 (2026-08-25)
 
 - Update instructions with info on how to run prebuilt binaries instead of a docker container
 - Fix: clear discoverd devices on restart
@@ -210,11 +209,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Add an example of a manual LPC guard to the doc folder.
 - Fix: translations
 - Various smaller fixes.
-
-### 0.3.1 (2026-08-09)
-
-- Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
-- Fix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

@@ -1,4 +1,9 @@
 # Older changes
+## 0.3.1 (2026-08-09)
+
+- Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
+- Fix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)
+
 ## 0.3.0 (2026-08-07)
 
 - Fix: set eebusConnected=true on UseCaseSupportUpdate (devices like PLENTICORE reject heartbeat subscriptions); reset heartbeat timer on any use case event to keep guard alive
