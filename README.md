@@ -178,6 +178,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: handle edge case when failsafeLimit / limit was set to 0
 - More meaningful description
 - Revised logic for distribution of limits to energy guards.
+- Fix: send limit duration to eebus energy guards
 
 ### 1.1.1 (2026-08-20)
 
