@@ -267,7 +267,7 @@ class EebusGo extends utils.Adapter {
 
             if (state.ack === false) {
                 if ((id.includes('.EnergyGuards.') || id.includes('.LPC.') || id.includes('.LPP.')) && this.hems) {
-                    this.log.info(`User command for ${id}: ${state.val}`);
+                    this.log.debug(`User command for ${id}: ${state.val}`);
                     this.hems.handleEnergyGuardStateChange(id, state);
                 } else {
                     this.log.debug(`Ignoring state change (no handler): ${id} = ${state.val}`);
