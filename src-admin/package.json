@@ -19,7 +19,7 @@
         "@iobroker/eslint-config": "^2.3.4",
         "@testing-library/jest-dom": "^7.0.1",
         "@testing-library/react": "^16.3.3",
-        "@vitejs/plugin-react": "^6.0.5",
+        "@vitejs/plugin-react": "^6.1.1",
         "fast-check": "^4.9.0",
         "globals": "^17.11.0",
         "jsdom": "^30.0.1",
