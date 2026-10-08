@@ -23,7 +23,7 @@
     "node": ">= 22"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.14.4",
+    "@grpc/grpc-js": "^1.14.5",
     "@grpc/proto-loader": "^0.8.1",
     "@iobroker/adapter-core": "^3.4.3",
     "@iobroker/plugin-docker": "^1.2.1",
