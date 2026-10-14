@@ -11,6 +11,7 @@ import {
     InputLabel,
     Select,
     MenuItem,
+    Alert,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { I18n, Logo } from '@iobroker/gui-components';
@@ -29,6 +30,8 @@ class Options extends Component {
             inAction: false,
             isInstanceAlive: false,
             dockerInstalled: false,
+            dockerApiError: '',
+            dockerTestResult: '',
             rowSelectionModel: { type: 'include', ids: new Set() },
             discoveredDevices: {},
             ski: '',
@@ -151,6 +154,100 @@ class Options extends Component {
         return `SHIP;SKI:${formattedSki};ID:i:12345_u:123abc456def;END`;
     }
 
+    /**
+     * Parse a Docker API URL (http/https) into the connection struct the plugin expects.
+     * Empty input means "auto-detect the local endpoint". Mirrors main.js parseDockerApiUrl.
+     * Returns { struct, error }.
+     */
+    parseDockerApiUrl(url) {
+        if (!url || !url.trim()) {
+            return { struct: '', error: '' };
+        }
+        const trimmed = url.trim();
+        let parsed;
+        try {
+            parsed = new URL(trimmed);
+        } catch {
+            return { struct: null, error: I18n.t('Invalid URL') };
+        }
+        const scheme = parsed.protocol.replace(/:$/, '');
+        // TODO(unix-socket): accept scheme === 'unix' once plugin-docker supports socketPath.
+        if (scheme !== 'http' && scheme !== 'https') {
+            return { struct: null, error: I18n.t('Only http:// and https:// are supported') };
+        }
+        if (!parsed.hostname) {
+            return { struct: null, error: I18n.t('Invalid URL') };
+        }
+        const port = parsed.port ? parseInt(parsed.port, 10) : scheme === 'https' ? 2376 : 2375;
+        return {
+            struct: {
+                host: parsed.hostname,
+                port,
+                protocol: scheme,
+                ca: '',
+                cert: '',
+                key: '',
+            },
+            error: '',
+        };
+    }
+
+    onDockerApiUrlChange = url => {
+        // Only persist the human-readable URL on each keystroke. The parsed struct (consumed via
+        // ${config.dockerApi}) is written on blur / successful "Test & Enable", not here — writing
+        // an object into native on every keystroke races with the string update and makes the
+        // controlled input drop characters.
+        this.setState({ dockerApiError: this.parseDockerApiUrl(url).error });
+        this.props.onChange('dockerApiUrl', url);
+    };
+
+    onDockerApiUrlBlur = () => {
+        // Keep native.dockerApi (the struct the plugin reads at startup via ${config.dockerApi})
+        // in sync with the URL once the user leaves the field. Done on blur, not per keystroke,
+        // to avoid the controlled-input race. Empty/invalid URL -> clear the struct so the plugin
+        // auto-detects the local endpoint instead of using a stale value.
+        const { struct, error } = this.parseDockerApiUrl(this.props.native.dockerApiUrl || '');
+        if (error) {
+            return;
+        }
+        this.props.onChange('dockerApi', struct || '');
+    };
+
+    handleTestAndEnable = () => {
+        const { struct, error } = this.parseDockerApiUrl(this.props.native.dockerApiUrl || '');
+        if (error) {
+            this.setState({ dockerApiError: error, dockerTestResult: '' });
+            return;
+        }
+        this.setState({ inAction: true, dockerTestResult: '' });
+        this.props.socket
+            .sendTo(`${this.props.adapterName}.${this.props.instance}`, 'testDockerApi', {
+                url: this.props.native.dockerApiUrl || '',
+            })
+            .then(result => {
+                if (result && result.success) {
+                    // Persist the parsed struct and flip the enabled flag only on a successful probe.
+                    this.props.onChange('dockerApi', struct);
+                    this.props.onChange('dockerEnabled', true);
+                    this.setState({
+                        dockerTestResult: I18n.t('Docker API reachable — enabled'),
+                        dockerApiError: '',
+                    });
+                } else {
+                    this.setState({
+                        dockerTestResult: (result && result.error) || I18n.t('Docker API not reachable'),
+                    });
+                }
+            })
+            .catch(e => this.setState({ dockerTestResult: e.message || I18n.t('Docker API not reachable') }))
+            .finally(() => this.setState({ inAction: false }));
+    };
+
+    handleDisableDocker = () => {
+        this.props.onChange('dockerEnabled', false);
+        this.setState({ dockerTestResult: '' });
+    };
+
     render() {
         const rows = this.getDiscoveredDeviceRows();
         const shipString = this.getShipConnectionString();
@@ -165,36 +262,95 @@ class Options extends Component {
                     onLoad={this.props.onLoad}
                 />
                 <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
-                    {this.state.dockerInstalled && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1, flexWrap: 'wrap' }}>
-                            <FormControlLabel
-                                sx={{ minWidth: { xs: 'auto', md: 420 } }}
-                                control={
-                                    <Checkbox
-                                        checked={!!this.props.native.dockerEnabled}
-                                        onChange={e => this.props.onChange('dockerEnabled', e.target.checked)}
-                                    />
-                                }
-                                label={I18n.t('Enable Docker Container')}
-                            />
-                            <FormControl
-                                variant="standard"
-                                sx={{ minWidth: { xs: 'auto', md: 300 } }}
+                    {/* Docker settings are always visible, even on a fresh instance that has not run yet. */}
+                    {/* Docker settings — always visible, laid out like the LPC/LPP rows. */}
+                    {!this.state.isInstanceAlive && (
+                        <Alert
+                            severity="info"
+                            sx={{ mb: 1, maxWidth: 600 }}
+                        >
+                            {I18n.t('Start the adapter instance to configure and test the Docker API.')}
+                        </Alert>
+                    )}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: { xs: 'column', md: 'row' },
+                            alignItems: { md: 'center' },
+                            gap: { xs: 0, md: 2 },
+                            mb: 1,
+                            flexWrap: 'wrap',
+                        }}
+                    >
+                        {/* Read-only status: reflects the persisted dockerEnabled flag, not an input. */}
+                        <FormControlLabel
+                            sx={{ minWidth: { md: 420 } }}
+                            control={
+                                <Checkbox
+                                    checked={!!this.props.native.dockerEnabled}
+                                    readOnly
+                                    disabled
+                                />
+                            }
+                            label={I18n.t('Docker Container enabled')}
+                        />
+                        <TextField
+                            sx={{ width: { xs: '100%', md: 300 } }}
+                            variant="standard"
+                            label={I18n.t('Docker API URL')}
+                            placeholder="http://127.0.0.1:2375"
+                            helperText={this.state.dockerApiError || I18n.t('Leave empty to auto-detect local Docker')}
+                            error={!!this.state.dockerApiError}
+                            value={this.props.native.dockerApiUrl || ''}
+                            type="text"
+                            onChange={e => this.onDockerApiUrlChange(e.target.value)}
+                            onBlur={this.onDockerApiUrlBlur}
+                            margin="normal"
+                        />
+                        <FormControl
+                            variant="standard"
+                            sx={{ width: { xs: '100%', md: 300 } }}
+                        >
+                            <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
+                            <Select
+                                value={this.props.native.dockerLogLevel || 'info'}
+                                onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
+                                disabled={!this.props.native.dockerEnabled}
                             >
-                                <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
-                                <Select
-                                    value={this.props.native.dockerLogLevel || 'info'}
-                                    onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
-                                    disabled={!this.props.native.dockerEnabled}
-                                >
-                                    <MenuItem value="trace">trace</MenuItem>
-                                    <MenuItem value="debug">debug</MenuItem>
-                                    <MenuItem value="info">info</MenuItem>
-                                    <MenuItem value="warn">warn</MenuItem>
-                                    <MenuItem value="error">error</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
+                                <MenuItem value="trace">trace</MenuItem>
+                                <MenuItem value="debug">debug</MenuItem>
+                                <MenuItem value="info">info</MenuItem>
+                                <MenuItem value="warn">warn</MenuItem>
+                                <MenuItem value="error">error</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    {/* Buttons below the enabled checkbox. */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disabled={!this.state.isInstanceAlive || this.state.inAction}
+                            onClick={this.handleTestAndEnable}
+                        >
+                            {I18n.t('Test & Enable')}
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            color="secondary"
+                            disabled={!this.props.native.dockerEnabled || this.state.inAction}
+                            onClick={this.handleDisableDocker}
+                        >
+                            {I18n.t('Disable')}
+                        </Button>
+                    </Box>
+                    {this.state.dockerTestResult && (
+                        <Alert
+                            severity={this.props.native.dockerEnabled ? 'success' : 'warning'}
+                            sx={{ mb: 1, maxWidth: 600 }}
+                        >
+                            {this.state.dockerTestResult}
+                        </Alert>
                     )}
                     <TextField
                         sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
