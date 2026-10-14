@@ -9,6 +9,9 @@
 const utils = require('@iobroker/adapter-core');
 const path = require('node:path');
 const fs = require('node:fs');
+const http = require('node:http');
+const https = require('node:https');
+const net = require('node:net');
 const { I18n } = require('@iobroker/adapter-core');
 const { DockerManager } = require('@iobroker/plugin-docker');
 const { Hems } = require('./lib/hems');
@@ -26,7 +29,7 @@ class EebusGo extends utils.Adapter {
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
         // this.on('objectChange', this.onObjectChange.bind(this));
-        // this.on('message', this.onMessage.bind(this));
+        this.on('message', this.onMessage.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
@@ -46,25 +49,188 @@ class EebusGo extends utils.Adapter {
     }
 
     /**
-     * Create a standalone DockerManager instance using the same API config as the plugin.
-     * This is needed because the plugin's own manager isn't available before instanceIsReady().
+     * Parse a Docker API URL into the connection struct expected by the `@iobroker/plugin-docker`
+     * DockerManager. Returns undefined for an empty/blank input, which tells the plugin to
+     * auto-detect the local endpoint (socket -> :2375 -> :2376 -> CLI).
      *
-     * @param {{ silent?: boolean }} [options] - Options for creating the manager
+     * Supported today: http:// and https:// (TCP). The resulting struct is
+     *   { host, port, protocol, ca, cert, key }
+     *
+     * TODO(unix-socket): A feature request is open at the plugin-docker repo to accept unix
+     * socket URLs for iobDockerApi, e.g. "unix:///run/user/1000/podman/podman.sock" (rootless
+     * Podman). The current plugin (1.1.2) ignores anything without host+port and has no
+     * socketPath field, so we deliberately do NOT emit a socketPath yet — it would silently fall
+     * back to auto-detection. Once the plugin supports it (likely a `socketPath` field on the
+     * dockerApi struct), extend this parser to map the "unix:" scheme to { socketPath: <path> }
+     * and bump the plugin-docker dependency.
+     *
+     * @param {string} url - e.g. "http://127.0.0.1:2375" or "" for auto-detect
+     * @returns {{ host: string, port: number, protocol: 'http' | 'https', ca: string, cert: string, key: string } | undefined} parsed connection struct, or undefined to auto-detect
+     */
+    static parseDockerApiUrl(url) {
+        if (!url || typeof url !== 'string' || !url.trim()) {
+            return undefined;
+        }
+        const trimmed = url.trim();
+        let parsed;
+        try {
+            parsed = new URL(trimmed);
+        } catch {
+            throw new Error(`Invalid Docker API URL: "${trimmed}"`);
+        }
+
+        const scheme = parsed.protocol.replace(/:$/, '');
+
+        // TODO(unix-socket): handle scheme === 'unix' here once plugin-docker supports socketPath.
+        if (scheme !== 'http' && scheme !== 'https') {
+            throw new Error(`Unsupported Docker API scheme "${scheme}" (only http/https are supported)`);
+        }
+
+        const host = parsed.hostname;
+        if (!host) {
+            throw new Error(`Docker API URL is missing a host: "${trimmed}"`);
+        }
+        // Default ports mirror Docker/Podman conventions: 2375 (http), 2376 (https/tls).
+        const port = parsed.port ? parseInt(parsed.port, 10) : scheme === 'https' ? 2376 : 2375;
+
+        return {
+            host,
+            port,
+            protocol: scheme,
+            ca: '',
+            cert: '',
+            key: '',
+        };
+    }
+
+    /**
+     * Resolve the Docker API connection config from the adapter's native config.
+     * Returns undefined when no API is configured (plugin auto-detects the local endpoint).
+     *
+     * @returns {{ host: string, port: number, protocol: 'http' | 'https', ca: string, cert: string, key: string } | undefined} configured connection struct, or undefined to auto-detect
+     */
+    getDockerApi() {
+        // Prefer the already-parsed struct (what the plugin consumes via ${config.dockerApi}).
+        if (this.config.dockerApi && typeof this.config.dockerApi === 'object' && this.config.dockerApi.host) {
+            return this.config.dockerApi;
+        }
+        // Fall back to parsing the human-readable URL, if present.
+        if (this.config.dockerApiUrl) {
+            try {
+                return EebusGo.parseDockerApiUrl(this.config.dockerApiUrl);
+            } catch (e) {
+                this.log.warn(`Ignoring invalid Docker API URL: ${e.message}`);
+            }
+        }
+        return undefined;
+    }
+
+    /**
+     * Fast reachability probe for a Docker/Podman HTTP API, mirroring `curl http://host:port/info`.
+     * Does a direct GET /info with a short timeout — it does NOT go through DockerManager, which
+     * also runs the local `docker` CLI (slow / hangs when only Podman over TCP is present).
+     *
+     * For an empty struct (auto-detect) it tries the local unix socket, then :2375, then :2376.
+     *
+     * @param {{ host: string, port: number, protocol: 'http' | 'https', ca?: string, cert?: string, key?: string } | undefined} dockerApi - parsed connection struct, or undefined to auto-detect
+     * @param {number} [timeoutMs] - per-request timeout, default 3000 ms
+     * @returns {Promise<{ success: boolean, serverVersion?: string, osType?: string, error?: string }>} probe result
+     */
+    static async probeDockerApi(dockerApi, timeoutMs = 3000) {
+        /**
+         * @param {object} requestOptions - options for http/https request
+         * @param {boolean} secure - whether to use https
+         */
+        const requestInfo = (requestOptions, secure) =>
+            new Promise((resolve, reject) => {
+                const lib = secure ? https : http;
+                const req = lib.request({ ...requestOptions, path: '/info', method: 'GET' }, res => {
+                    let data = '';
+                    res.on('data', chunk => (data += chunk));
+                    res.on('end', () => {
+                        if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
+                            try {
+                                const parsed = JSON.parse(data);
+                                resolve({ serverVersion: parsed.ServerVersion, osType: parsed.OSType });
+                            } catch {
+                                // Reachable but not JSON — still counts as reachable.
+                                resolve({});
+                            }
+                        } else {
+                            reject(new Error(`HTTP ${res.statusCode}`));
+                        }
+                    });
+                });
+                req.on('error', reject);
+                req.setTimeout(timeoutMs, () => req.destroy(new Error(`Timeout after ${timeoutMs} ms`)));
+                req.end();
+            });
+
+        // Explicit TCP endpoint configured.
+        if (dockerApi && dockerApi.host && dockerApi.port) {
+            const secure = dockerApi.protocol === 'https';
+            const options = { host: dockerApi.host, port: dockerApi.port, timeout: timeoutMs };
+            if (secure) {
+                if (dockerApi.ca) {
+                    options.ca = dockerApi.ca;
+                }
+                if (dockerApi.cert) {
+                    options.cert = dockerApi.cert;
+                }
+                if (dockerApi.key) {
+                    options.key = dockerApi.key;
+                }
+                options.rejectUnauthorized = !!dockerApi.ca;
+            }
+            try {
+                const info = await requestInfo(options, secure);
+                return { success: true, serverVersion: info.serverVersion, osType: info.osType };
+            } catch (e) {
+                return { success: false, error: e.message };
+            }
+        }
+
+        // Auto-detect: local unix socket first, then default TCP ports.
+        const socketPath = '/var/run/docker.sock';
+        const socketReachable = await new Promise(resolve => {
+            const sock = net.createConnection({ path: socketPath });
+            const done = ok => {
+                sock.destroy();
+                resolve(ok);
+            };
+            sock.on('connect', () => done(true));
+            sock.on('error', () => done(false));
+            sock.setTimeout(timeoutMs, () => done(false));
+        });
+        if (socketReachable) {
+            try {
+                const info = await requestInfo({ socketPath, timeout: timeoutMs }, false);
+                return { success: true, serverVersion: info.serverVersion, osType: info.osType };
+            } catch {
+                // fall through to TCP probes
+            }
+        }
+        for (const port of [2375, 2376]) {
+            try {
+                const info = await requestInfo({ host: '127.0.0.1', port, timeout: timeoutMs }, port === 2376);
+                return { success: true, serverVersion: info.serverVersion, osType: info.osType };
+            } catch {
+                // try next
+            }
+        }
+        return { success: false, error: 'No Docker/Podman API reachable (socket, :2375, :2376)' };
+    }
+
+    /**
+     * Create a standalone DockerManager instance using the same API config as the plugin.
+     * This is needed because the plugin's own manager isn't available before `instanceIsReady()`.
+     *
+     * @param {{ silent?: boolean, dockerApi?: object }} [options] - Options for creating the manager
      */
     async createDockerManager(options) {
         const silent = options && options.silent;
-        // Read the dockerApi config the same way the plugin does
-        const pluginConfig = this.getPluginConfig('docker');
-        let dockerApi;
-        if (pluginConfig && pluginConfig.iobDockerApi && typeof pluginConfig.iobDockerApi === 'string') {
-            const systemDockerObj = await this.getForeignObjectAsync('system.docker');
-            const nativeConfig = systemDockerObj?.native;
-            if (nativeConfig?.hosts?.[pluginConfig.iobDockerApi]) {
-                dockerApi = nativeConfig.hosts[pluginConfig.iobDockerApi];
-            }
-        } else if (pluginConfig && typeof pluginConfig.iobDockerApi === 'object') {
-            dockerApi = pluginConfig.iobDockerApi;
-        }
+        // Use an explicitly supplied API (e.g. for a config test), otherwise the configured one.
+        const dockerApi = options && options.dockerApi !== undefined ? options.dockerApi : this.getDockerApi();
 
         const logger = silent
             ? { silly: () => {}, debug: () => {}, info: () => {}, warn: () => {}, error: () => {} }
@@ -80,6 +246,36 @@ class EebusGo extends utils.Adapter {
     }
 
     /**
+     * Ensure the `alpine` helper image is present before any volume operation.
+     *
+     * The plugin's volumeDir()/volumeFile() run a short-lived `alpine` container to read a volume
+     * but — unlike volumeCopyTo() — do NOT pull the image first. On a host where `alpine` is not
+     * cached (notably rootless Podman, which does not implicitly pull for `dockerode.run`), this
+     * fails with "no such image: docker.io/library/alpine: image not known". Pulling it once up
+     * front makes backup and restore work out of the box on both Docker and Podman.
+     *
+     * @param {InstanceType<typeof DockerManager>} manager - the manager to pull with
+     * @returns {Promise<boolean>} true if the image is available afterwards
+     */
+    async ensureHelperImage(manager) {
+        try {
+            const images = await manager.imageList();
+            if (images && images.find(img => img.repository === 'alpine')) {
+                return true;
+            }
+            const result = await manager.imagePull('alpine');
+            if (result && result.stderr) {
+                this.log.warn(`Could not pull "alpine" helper image: ${result.stderr}`);
+                return false;
+            }
+            return true;
+        } catch (e) {
+            this.log.warn(`Could not ensure "alpine" helper image: ${e.message}`);
+            return false;
+        }
+    }
+
+    /**
      * Copy certificate files from the Docker volume to the ioBroker file storage.
      * Called when info.connection becomes true (container is running with valid certs).
      * Files are visible in admin Files tab and included in ioBroker backups.
@@ -87,6 +283,7 @@ class EebusGo extends utils.Adapter {
     async backupCertsFromVolume() {
         try {
             const manager = await this.createDockerManager();
+            await this.ensureHelperImage(manager);
 
             const entries = await manager.volumeDir(this.certsVolumeName);
             if (typeof entries === 'string' || !entries.length) {
@@ -140,6 +337,7 @@ class EebusGo extends utils.Adapter {
             }
 
             const manager = await this.createDockerManager();
+            await this.ensureHelperImage(manager);
             const result = await manager.volumeCopyTo(this.certsVolumeName, tmpDir);
             if (result.stderr) {
                 this.log.warn(`Could not restore certs to Docker volume: ${result.stderr}`);
@@ -230,6 +428,40 @@ class EebusGo extends utils.Adapter {
             this.log.error(`Error during unloading: ${error.message}`);
             callback();
         }
+    }
+
+    /**
+     * Handle messages from the admin UI.
+     * Supports "testDockerApi": probe a Docker/Podman API endpoint and report whether it answers.
+     * The admin browser usually cannot reach the Docker endpoint directly, so the running adapter
+     * does the probe on its behalf. This requires the instance to be running.
+     *
+     * @param {ioBroker.Message} obj - Incoming message
+     */
+    async onMessage(obj) {
+        if (!obj || typeof obj !== 'object' || !obj.command) {
+            return;
+        }
+
+        if (obj.command === 'testDockerApi') {
+            const url = obj.message && typeof obj.message === 'object' ? obj.message.url : obj.message;
+            let result;
+            try {
+                // An empty URL means "auto-detect the local endpoint".
+                const dockerApi = EebusGo.parseDockerApiUrl(typeof url === 'string' ? url : '');
+                // Direct, fast GET /info (like `curl`), NOT via DockerManager — the latter also
+                // shells out to the `docker` CLI, which hangs for ~10s on a Podman-over-TCP host.
+                result = await EebusGo.probeDockerApi(dockerApi);
+            } catch (e) {
+                result = { success: false, error: e.message };
+            }
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, result, obj.callback);
+            }
+            return;
+        }
+
+        this.log.debug(`Ignoring unknown message command: ${obj.command}`);
     }
 
     // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
