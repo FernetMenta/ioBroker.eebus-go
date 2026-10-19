@@ -12,8 +12,13 @@ import {
     Select,
     MenuItem,
     Alert,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    Typography,
 } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { ExpandMore } from '@mui/icons-material';
 import { I18n, Logo } from '@iobroker/gui-components';
 import { QRCodeSVG } from 'qrcode.react';
 
@@ -32,6 +37,7 @@ class Options extends Component {
             dockerInstalled: false,
             dockerApiError: '',
             dockerTestResult: '',
+            dockerExpanded: false,
             rowSelectionModel: { type: 'include', ids: new Set() },
             discoveredDevices: {},
             ski: '',
@@ -262,96 +268,122 @@ class Options extends Component {
                     onLoad={this.props.onLoad}
                 />
                 <div style={{ ...styles.column, ...styles.columnSettings, position: 'relative' }}>
-                    {/* Docker settings are always visible, even on a fresh instance that has not run yet. */}
-                    {/* Docker settings — always visible, laid out like the LPC/LPP rows. */}
-                    {!this.state.isInstanceAlive && (
-                        <Alert
-                            severity="info"
-                            sx={{ mb: 1, maxWidth: 600 }}
-                        >
-                            {I18n.t('Start the adapter instance to configure and test the Docker API.')}
-                        </Alert>
-                    )}
-                    <Box
+                    {/* Docker settings — collapsible accordion. Collapsed shows only the title and
+                        the (read-only) enabled status; expanded reveals the full Docker config. */}
+                    <Accordion
+                        expanded={this.state.dockerExpanded}
+                        onChange={(_e, expanded) => this.setState({ dockerExpanded: expanded })}
                         sx={{
-                            display: 'flex',
-                            flexDirection: { xs: 'column', md: 'row' },
-                            alignItems: { md: 'center' },
-                            gap: { xs: 0, md: 2 },
-                            mb: 1,
-                            flexWrap: 'wrap',
+                            mb: 2,
+                            // Cap the width to the right edge of the LPC "Minimum Assured Power"
+                            // field below: 420 (checkbox col) + 16 (gap) + 300 + 16 (gap) + 300.
+                            maxWidth: { md: 1052 },
                         }}
                     >
-                        {/* Read-only status: reflects the persisted dockerEnabled flag, not an input. */}
-                        <FormControlLabel
-                            sx={{ minWidth: { md: 420 } }}
-                            control={
-                                <Checkbox
-                                    checked={!!this.props.native.dockerEnabled}
-                                    readOnly
-                                    disabled
+                        <AccordionSummary expandIcon={<ExpandMore />}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                                <Typography sx={{ fontWeight: 'bold' }}>{I18n.t('Container')}</Typography>
+                                {/* Read-only status: reflects the persisted dockerEnabled flag, not an input.
+                                    Stop the click from toggling the accordion so it stays a pure status. */}
+                                <FormControlLabel
+                                    onClick={e => e.stopPropagation()}
+                                    onFocus={e => e.stopPropagation()}
+                                    control={
+                                        <Checkbox
+                                            checked={!!this.props.native.dockerEnabled}
+                                            readOnly
+                                            disabled
+                                        />
+                                    }
+                                    label={I18n.t('Container enabled')}
                                 />
-                            }
-                            label={I18n.t('Docker Container enabled')}
-                        />
-                        <TextField
-                            sx={{ width: { xs: '100%', md: 300 } }}
-                            variant="standard"
-                            label={I18n.t('Docker API URL')}
-                            placeholder="http://127.0.0.1:2375"
-                            helperText={this.state.dockerApiError || I18n.t('Leave empty to auto-detect local Docker')}
-                            error={!!this.state.dockerApiError}
-                            value={this.props.native.dockerApiUrl || ''}
-                            type="text"
-                            onChange={e => this.onDockerApiUrlChange(e.target.value)}
-                            onBlur={this.onDockerApiUrlBlur}
-                            margin="normal"
-                        />
-                        <FormControl
-                            variant="standard"
-                            sx={{ width: { xs: '100%', md: 300 } }}
-                        >
-                            <InputLabel>{I18n.t('Docker Log Level')}</InputLabel>
-                            <Select
-                                value={this.props.native.dockerLogLevel || 'info'}
-                                onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
-                                disabled={!this.props.native.dockerEnabled}
+                            </Box>
+                        </AccordionSummary>
+                        {/* Zero the horizontal padding so the fields inside line up with the
+                            LPC/LPP rows that live directly in the parent column (no extra inset). */}
+                        <AccordionDetails sx={{ px: 0 }}>
+                            {!this.state.isInstanceAlive && (
+                                <Alert
+                                    severity="info"
+                                    sx={{ mb: 1, maxWidth: 600 }}
+                                >
+                                    {I18n.t('Start the adapter instance to configure and test the Docker API.')}
+                                </Alert>
+                            )}
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: { xs: 'column', md: 'row' },
+                                    alignItems: { md: 'center' },
+                                    gap: { xs: 0, md: 2 },
+                                    mb: 1,
+                                    flexWrap: 'wrap',
+                                }}
                             >
-                                <MenuItem value="trace">trace</MenuItem>
-                                <MenuItem value="debug">debug</MenuItem>
-                                <MenuItem value="info">info</MenuItem>
-                                <MenuItem value="warn">warn</MenuItem>
-                                <MenuItem value="error">error</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    {/* Buttons below the enabled checkbox. */}
-                    <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            disabled={!this.state.isInstanceAlive || this.state.inAction}
-                            onClick={this.handleTestAndEnable}
-                        >
-                            {I18n.t('Test & Enable')}
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                            disabled={!this.props.native.dockerEnabled || this.state.inAction}
-                            onClick={this.handleDisableDocker}
-                        >
-                            {I18n.t('Disable')}
-                        </Button>
-                    </Box>
-                    {this.state.dockerTestResult && (
-                        <Alert
-                            severity={this.props.native.dockerEnabled ? 'success' : 'warning'}
-                            sx={{ mb: 1, maxWidth: 600 }}
-                        >
-                            {this.state.dockerTestResult}
-                        </Alert>
-                    )}
+                                {/* API URL occupies the 420px "checkbox column" width so the Log Level
+                                    field lines up with "Contractual Consumption Nominal Max" below. */}
+                                <TextField
+                                    sx={{ width: { xs: '100%', md: 420 } }}
+                                    variant="standard"
+                                    label={I18n.t('Docker API URL')}
+                                    placeholder="http://127.0.0.1:2375"
+                                    helperText={
+                                        this.state.dockerApiError || I18n.t('Leave empty to auto-detect local Docker')
+                                    }
+                                    error={!!this.state.dockerApiError}
+                                    value={this.props.native.dockerApiUrl || ''}
+                                    type="text"
+                                    onChange={e => this.onDockerApiUrlChange(e.target.value)}
+                                    onBlur={this.onDockerApiUrlBlur}
+                                    margin="normal"
+                                />
+                                <FormControl
+                                    variant="standard"
+                                    sx={{ width: { xs: '100%', md: 300 } }}
+                                >
+                                    <InputLabel>{I18n.t('Log Level')}</InputLabel>
+                                    <Select
+                                        value={this.props.native.dockerLogLevel || 'info'}
+                                        onChange={e => this.props.onChange('dockerLogLevel', e.target.value)}
+                                        disabled={!this.props.native.dockerEnabled}
+                                    >
+                                        <MenuItem value="trace">trace</MenuItem>
+                                        <MenuItem value="debug">debug</MenuItem>
+                                        <MenuItem value="info">info</MenuItem>
+                                        <MenuItem value="warn">warn</MenuItem>
+                                        <MenuItem value="error">error</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            {/* Buttons below the config row. */}
+                            <Box sx={{ display: 'flex', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    disabled={!this.state.isInstanceAlive || this.state.inAction}
+                                    onClick={this.handleTestAndEnable}
+                                >
+                                    {I18n.t('Test & Enable')}
+                                </Button>
+                                <Button
+                                    variant="outlined"
+                                    color="secondary"
+                                    disabled={!this.props.native.dockerEnabled || this.state.inAction}
+                                    onClick={this.handleDisableDocker}
+                                >
+                                    {I18n.t('Disable')}
+                                </Button>
+                            </Box>
+                            {this.state.dockerTestResult && (
+                                <Alert
+                                    severity={this.props.native.dockerEnabled ? 'success' : 'warning'}
+                                    sx={{ mb: 1, maxWidth: 600 }}
+                                >
+                                    {this.state.dockerTestResult}
+                                </Alert>
+                            )}
+                        </AccordionDetails>
+                    </Accordion>
                     <TextField
                         sx={{ width: { xs: '100%', md: 400 }, mr: { md: 2 }, mb: 2 }}
                         variant="standard"
