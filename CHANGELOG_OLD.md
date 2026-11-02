@@ -1,4 +1,12 @@
 # Older changes
+## 0.3.2 (2026-08-14)
+
+- Fix: reduce log spam on manual energy guards — require 2 consecutive missed heartbeats before marking disconnected, downgrade routine heartbeat logs to debug level
+- Fix: suppress error-level logs and reconnect attempts when adapter is shutting down (gRPC stream CANCELLED is expected during stop)
+- Add an example of a manual LPC guard to the doc folder.
+- Fix: translations
+- Various smaller fixes.
+
 ## 0.3.1 (2026-08-09)
 
 - Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change
