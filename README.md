@@ -171,6 +171,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 ### **WORK IN PROGRESS**
 
 - Update dependencies
+- allow to configure a Docker API. enabls use of rootless podman
 
 ### 1.2.0 (2026-08-25)
 
