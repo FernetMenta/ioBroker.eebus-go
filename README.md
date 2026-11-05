@@ -168,7 +168,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.1 (2026-11-05)
 
 - bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.3
 
@@ -204,12 +204,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles
 - Check if docker is available and make admin UI options available on this.
 - Update depencendy on eebus-grpc
-
-### 1.0.0 (2026-08-17)
-
-- Breaking: requires eebus-grpc container image version 2.0.0 (`fernetmenta/iobroker.eebus-grpc:2.0.0`). The gRPC API changed to a single-server architecture with instance-based routing — use cases no longer spawn separate gRPC servers.
-- Feature: integrate ioBroker plugin-docker to automatically manage the eebus-grpc container (pull, start, stop, update) — enable via "Enable Docker Container" checkbox on Base Config tab (requires Docker Engine >= 20.10 on the host)
-- Fix: reset info.connection state to false on adapter unload
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

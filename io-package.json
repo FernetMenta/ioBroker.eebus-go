@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eebus-go",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "news": {
+      "1.3.1": {
+        "en": "bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "de": "Paketbild auf ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "ru": "переместить изображение контейнера в ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "pt": "mude a imagem para ghcr.io/fernetmenta/eebus-grpc: v2.0.3",
+        "nl": "bump de afbeelding van de container naar ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "fr": "envoyer l'image du conteneur à ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "it": "bump container a ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "es": "cambiar la imagen del contenedor a ghcr.io/fernetmenta/eebus-grpc:v2.0.3",
+        "pl": "bump image kontenera do ghcr.io/fernetmenta/eebus-grpc:V2.0.3",
+        "uk": "перенесіть зображення контейнера до ghcr.io/fernetmenta/eebus-grpc: v2.0.3",
+        "zh-cn": "将容器镜像上传到 ghcr.io/fernetmenta/eebus-grpc: v2.0.3"
+      },
       "1.3.0": {
         "en": "Update dependencies\nallow to configure a Docker API. enabls use of rootless podman",
         "de": "Abhängigkeiten updaten\nermöglicht die Konfiguration einer Docker-API. Rootloser Podman",
@@ -80,19 +93,6 @@
         "pl": "Fix: zmniejszyć spam logowania na ręcznych osłonach energetycznych - wymagają 2 kolejnych pominiętych uderzeń serca przed oznaczeniem odłączone, obniżanie rutynowych dzienników bicia serca do poziomu debugowania\nFix: tłumić logi poziomu błędu i ponownie połączyć próby po wyłączeniu adaptera (gRPC strumień CANCELLED jest spodziewany podczas zatrzymania)\nDodaj przykład ręcznej osłony LPC do folderu doc.\nFix: tłumaczenia\nRóżne mniejsze poprawki.",
         "uk": "Виправлення: зменшення спаму журналу на ручних охоронцях енергії — вимагають 2 послідовних пропущених серцебиття, перш ніж розмітити відключені, внизу рутинні колоди серця, щоб зменшити рівень\nВиправлення: пригнічувати журнали похибки та відключення помилок, коли адаптер вимкнено (наприклад, GRPC потік CANCELLED очікується під час зупинки)\nДодати приклад ручного LPC-охоронця до папки doc.\nФіксація: переклади\nРізні менші кріплення.",
         "zh-cn": "修补:减少手动能量守卫上的日志垃圾邮件——在标记断开的,降级的常规心跳日志调试级别之前,需要连续两次丢失心跳\n修补:在适配器关闭时压制错误级别日志并重新连接尝试(预计停机时会使用gRPC流 CANCELLED)\n在 Doc 文件夹中添加一个手动LPC 守护的示例.\n修正:翻译\n各种较小的修补."
-      },
-      "0.3.1": {
-        "en": "Fix: reduce log spam from repeated failsafe/duration updates — only log and report to controlbox when values actually change\nFix: deactivate energy guard limits when limit duration expires (limitDurationExpired transition)",
-        "de": "Fix: Reduzieren Sie den Log-Spam durch wiederholte Fehlersicherheits-/Dauer-Updates – protokollieren und melden Sie sich nur dann an Controlbox, wenn sich die Werte tatsächlich ändern\nFix: Deaktivieren Sie Energieschutzgrenzen, wenn die Limitdauer abläuft (limitDurationExpired transition)",
-        "ru": "Исправление: уменьшение спама в журналах от повторных отказоустойчивых/длительных обновлений - только журнал и отчет в блок управления, когда значения фактически меняются\nИсправление: деактивация пределов энергозащиты при истечении предельной продолжительности (limitDurationExpired transition)",
-        "pt": "Corrigir: reduzir o spam log a partir de atualizações repetidas de segurança/duração — apenas registrar e reportar à caixa de controle quando os valores realmente mudarem\nCorrigir: desativar limites de proteção de energia quando expirar a duração limite (limitDurationExpired transition)",
-        "nl": "Fix: reduceer log spam van herhaalde failsafe/dure updates alleen log en rapporteer aan controlbox wanneer waarden daadwerkelijk veranderen\nFix: deactiveer de limieten van de energiebescherming wanneer de limietduur verstrijkt (limitDurationExpired transition)",
-        "fr": "Correction: réduire le log spam à partir de mises à jour fallsafe/duration répétées — seulement log et rapporter à la boîte de contrôle lorsque les valeurs changent réellement\nCorrection : désactiver les limites de garde d'énergie lorsque la durée limite expire (limitDurationExpiré la transition)",
-        "it": "Fisso: ridurre lo spam di registro da ripetuti aggiornamenti di failsafe/duration — solo log and report to controlbox quando i valori in realtà cambiano\nFisso: disattivare i limiti di protezione energetica quando la durata limite scade (limiteDurationExpired transizione)",
-        "es": "Fijación: reducir el spam log de actualizaciones repetidas de seguridad/duración — sólo inicie sesión e informe a controlbox cuando los valores realmente cambian\nFijación: desactivar los límites de la guardia de energía cuando expira la duración límite (limitDurationExpired transition)",
-        "pl": "Fix: zmniejszyć spam logowania z powtarzających się aktualizacji bezpieczeństwa / czasu trwania - tylko logować i zgłosić się do sterownika, gdy wartości rzeczywiście się zmieniają\nFix: dezaktywować wartości graniczne osłony energetycznej po wygaśnięciu limitu czasu trwania (limitaDurationExpired transformation)",
-        "uk": "Виправлення: зменшення спаму журналу від повторних небезпечних / оновлюваних оновлень — тільки журнал і звіт до контрольної скриньки при зміні значень\nВиправлення: деактивувати обмеження охоронців енергії при обмеженні тривалості (limitDurationExpired переходу)",
-        "zh-cn": "修正: 减少重复的故障安全/ 持续时间更新的日志垃圾邮件—— 只有日志和在值实际改变时报告到控制框\n固定:在期限到期时解除能量警戒限制(限期过渡)"
       }
     },
     "titleLang": {
