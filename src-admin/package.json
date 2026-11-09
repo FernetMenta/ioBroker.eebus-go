@@ -10,7 +10,7 @@
         "@iobroker/gui-components": "^10.2.1",
         "@mui/icons-material": "^9.5.0",
         "@mui/material": "^9.5.0",
-        "@mui/x-data-grid": "^9.14.0",
+        "@mui/x-data-grid": "^9.17.0",
         "qrcode.react": "^4.2.0",
         "react": "^19.3.0",
         "react-dom": "^19.3.1"
