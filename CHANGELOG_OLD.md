@@ -1,4 +1,12 @@
 # Older changes
+## 1.1.1 (2026-08-20)
+
+- Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
+- Fix: refactor subscribeCsLpcEvents and signal stream errors to caller
+- Fix: drop console.log in grpc-service.js
+- Fix: German strings / logging in grpc-service.js
+- Update README with note on docker on Windows
+
 ## 1.1.0 (2026-08-19)
 
 - Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles

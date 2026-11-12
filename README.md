@@ -168,7 +168,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.3 (2026-11-12)
 
 - bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.4 (now really)
 
@@ -199,14 +199,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: downgrade some heartbeat logs to debug level
 - Fix: do not call distributeLimit if nothing changed
 - Fix: Add minimum assured power to config, fix misinterpretation of contractual consumption nominal max.
-
-### 1.1.1 (2026-08-20)
-
-- Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
-- Fix: refactor subscribeCsLpcEvents and signal stream errors to caller
-- Fix: drop console.log in grpc-service.js
-- Fix: German strings / logging in grpc-service.js
-- Update README with note on docker on Windows
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
