@@ -168,6 +168,10 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.4 (now really)
+
 ### 1.3.2 (2026-11-12)
 
 - fix(lpc,lpp): discard out-of-order limit read responses
