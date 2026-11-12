@@ -168,8 +168,7 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 1.3.2 (2026-11-12)
 
 - fix(lpc,lpp): discard out-of-order limit read responses
 - bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.4
@@ -204,12 +203,6 @@ WEB_ADDR=192.168.171.49 ./device-tester -p 4815 -c cert.pem -k key.pem
 - Fix: drop console.log in grpc-service.js
 - Fix: German strings / logging in grpc-service.js
 - Update README with note on docker on Windows
-
-### 1.1.0 (2026-08-19)
-
-- Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles
-- Check if docker is available and make admin UI options available on this.
-- Update depencendy on eebus-grpc
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
