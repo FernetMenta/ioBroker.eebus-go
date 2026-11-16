@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "eebus-go",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "news": {
+      "1.3.4": {
+        "en": "fix(lpc,lpp): reconnect to the gRPC server when the CS-LPC/CS-LPP event streams drop (#94)\nbump @iobroker/testing to 6.3.2",
+        "de": "fix (lpc, lpp): Bei Ausfall der CS-LPC/CS-LPP-Streams wieder zum gRPC-Server (#94)\nbump @iobroker /test auf 6.3.2",
+        "ru": "fix (lpc, lpp): переподключитесь к серверу gRPC при падении потоков событий CS-LPC/CS-LPP (#94)\nперейти на версию @iobroker /testing до версии 6.3.2",
+        "pt": "fix (lpc, lpp): reconecte ao servidor gRPC quando o fluxo de eventos CS-LPC/CS-LPP cair (#94)\nmude @iobroker /testing para 6.3.2",
+        "nl": "oplossing (lpc, lpp): maak opnieuw verbinding met de gRPC-server wanneer de CS-LPC/CS-LPP-eventstreams wegvallen (#94)\nbump @iobroker /testing naar 6.3.2",
+        "fr": "fix (lpc, lpp) : reconnectez-vous au serveur gRPC en cas d'arrêt des flux CS-LPC/CS-LPP (#94)\npasser @iobroker /testing à 6.3.2",
+        "it": "fix (lpc, lpp): riconnettersi al server gRPC quando scade lo stream di eventi CS-LPC/CS-LPP (#94)\nporta @iobroker /test a 6.3.2",
+        "es": "fix (lpc, lpp): vuelva a conectarse al servidor gRPC cuando la emisión de eventos CS-LPC/CS-LPP caiga (#94)\nbump @iobroker /testing a 6.3.2",
+        "pl": "fix (lpc, lpp): ponownie połącz się z serwerem gRPC po upuszczeniu strumieni zdarzeń CS-LPC/CS-LPP (#94)\nbump @iobroker /testing do 6.3.2",
+        "uk": "виправлення (lpc, lpp): повторне підключення до сервера gRPC, коли потоки подій CS-LPC/CS-LPP випадають (#94)\nbump @iobroker /тестування до 6.3.2",
+        "zh-cn": "修复 (lpc, lpp)：当 CS-LPC/CS-LPP 事件流丢失时重新连接到 gRPC 服务器 (#94)\n将 @iobroker /testing 升级到 6.3.2"
+      },
       "1.3.3": {
         "en": "bump container image to ghcr.io/fernetmenta/eebus-grpc:v2.0.4 (now really)",
         "de": "Bump Container-Image auf ghcr.io/fernetmenta/eebus-grpc:v2.0.4 (jetzt echt)",
@@ -80,19 +93,6 @@
         "pl": "Naprawiono: interfejs administratora adaptera nie spełnia wymagań inicjatywy projektowania responsywnego ioBroker\nNaprawiono: refaktoryzacja błędów subscribeCsLpcEvents i strumienia sygnału do wywołującego\nNaprawiono: usunięcie pliku console.log w pliku grpc-service.js\nNaprawiono: Niemieckie ciągi znaków / logowanie w grpc-service.js\nZaktualizuj plik README, dodając uwagę dotyczącą dokera w systemie Windows",
         "uk": "Виправлення: інтерфейс адміністратора адаптера не відповідає вимогам ініціативи ioBroker щодо адаптивного дизайну\nВиправлення: рефакторинг subscribeCsLpcEvents та передача сигналів про помилки потоку викликаючій особі\nВиправлення: видалити console.log у grpc-service.js\nВиправлення: Німецькі рядки / логування в grpc-service.js\nОновіть README з приміткою щодо Docker у Windows",
         "zh-cn": "修复：适配器管理界面不符合 ioBroker 响应式设计倡议的要求\n修复：重构 subscribeCsLpcEvents 并将流错误信号发送给调用方\n修复：删除 grpc-service.js 中的 console.log\n修复：grpc-service.js 中的德语字符串/日志记录问题\n更新 README 文件，添加关于 Windows 系统上 Docker 的说明。"
-      },
-      "1.1.0": {
-        "en": "Feature: automatic backup and restore of Docker volume certificates — certs are saved to the adapter data directory on connection and restored to the volume on adapter start, ensuring they survive ioBroker backup/restore cycles\nCheck if docker is available and make admin UI options available on this.\nUpdate depencendy on eebus-grpc",
-        "de": "Funktion: Automatische Sicherung und Wiederherstellung von Docker-Volume-Zertifikaten – Zertifikate werden beim Verbindungsaufbau im Datenverzeichnis des Adapters gespeichert und beim Start des Adapters auf das Volume wiederhergestellt, wodurch sichergestellt wird, dass sie die Sicherungs-/Wiederherstellungszyklen von ioBroker überstehen.\nPrüfen Sie, ob Docker verfügbar ist und stellen Sie die Optionen der Administrator-Benutzeroberfläche dafür bereit.\nUpdate dependency on eebus-grpc",
-        "ru": "Функция: автоматическое резервное копирование и восстановление сертификатов томов Docker — сертификаты сохраняются в каталоге данных адаптера при подключении и восстанавливаются в том при запуске адаптера, гарантируя их сохранность в циклах резервного копирования/восстановления ioBroker.\nПроверьте, доступен ли Docker, и сделайте доступными параметры административного интерфейса для него.\nОбновить зависимость в eebus-grpc",
-        "pt": "Funcionalidade: backup e restauração automáticos de certificados de volume do Docker — os certificados são salvos no diretório de dados do adaptador na conexão e restaurados para o volume na inicialização do adaptador, garantindo que sobrevivam aos ciclos de backup/restauração do ioBroker.\nVerifique se o Docker está disponível e disponibilize as opções da interface de administração nele.\nAtualizar dependência em eebus-grpc",
-        "nl": "Functie: automatische back-up en herstel van Docker-volumecertificaten — certificaten worden bij verbinding opgeslagen in de gegevensmap van de adapter en bij het opstarten van de adapter hersteld naar het volume, zodat ze de back-up-/herstelcycli van ioBroker overleven.\nControleer of Docker beschikbaar is en maak de beheerdersinterface-opties hiervoor beschikbaar.\nUpdate de afhankelijkheid van eebus-grpc",
-        "fr": "Fonctionnalité : sauvegarde et restauration automatiques des certificats de volume Docker — les certificats sont enregistrés dans le répertoire de données de l’adaptateur lors de la connexion et restaurés sur le volume au démarrage de l’adaptateur, garantissant ainsi leur conservation après les cycles de sauvegarde/restauration d’ioBroker.\nVérifiez si Docker est disponible et rendez les options d'interface d'administration disponibles sur celui-ci.\nMise à jour de la dépendance à eebus-grpc",
-        "it": "Funzionalità: backup e ripristino automatici dei certificati del volume Docker: i certificati vengono salvati nella directory dei dati dell'adattatore al momento della connessione e ripristinati nel volume all'avvio dell'adattatore, garantendo che sopravvivano ai cicli di backup/ripristino di ioBroker.\nVerifica se Docker è disponibile e rendi disponibili le opzioni dell'interfaccia utente di amministrazione su di esso.\nAggiornare la dipendenza da eebus-grpc",
-        "es": "Característica: copia de seguridad y restauración automáticas de los certificados de volumen de Docker: los certificados se guardan en el directorio de datos del adaptador al conectarse y se restauran en el volumen al iniciar el adaptador, lo que garantiza que sobrevivan a los ciclos de copia de seguridad/restauración de ioBroker.\nComprueba si Docker está disponible y habilita las opciones de la interfaz de administración.\nActualizar la dependencia de eebus-grpc",
-        "pl": "Funkcja: automatyczne tworzenie kopii zapasowej i przywracanie certyfikatów woluminu Docker — certyfikaty są zapisywane w katalogu danych adaptera podczas połączenia i przywracane do woluminu podczas uruchamiania adaptera, co zapewnia ich przetrwanie w cyklach tworzenia kopii zapasowych/przywracania ioBroker\nSprawdź, czy docker jest dostępny i udostępnij w nim opcje interfejsu administratora.\nAktualizacja zależności na eebus-grpc",
-        "uk": "Функція: автоматичне резервне копіювання та відновлення сертифікатів тому Docker — сертифікати зберігаються в каталозі даних адаптера під час підключення та відновлюються на тому під час запуску адаптера, що гарантує їх виживання після циклів резервного копіювання/відновлення ioBroker.\nПеревірте, чи доступний Docker, і зробіть доступними параметри інтерфейсу адміністратора.\nОновлення залежності від eebus-grpc",
-        "zh-cn": "功能：Docker 卷证书的自动备份和恢复——证书在连接时保存到适配器数据目录，并在适配器启动时恢复到卷中，确保它们在 ioBroker 备份/恢复周期中仍然存在。\n检查 Docker 是否可用，并在此基础上启用管理界面选项。\n更新对 eebus-grpc 的依赖"
       }
     },
     "titleLang": {

@@ -1,4 +1,18 @@
 # Older changes
+## 1.2.0 (2026-08-25)
+
+- Update instructions with info on how to run prebuilt binaries instead of a docker container
+- Fix: clear discoverd devices on restart
+- Move container image to GHCR: ghcr.io/fernetmenta/eebus-grpc:v2.0.2
+- Fix: reported failsafe to controlbox is wrong because user set objects was not read at startup
+- Fix: handle edge case when failsafeLimit / limit was set to 0
+- More meaningful description
+- Revised logic for distribution of limits to energy guards.
+- Fix: send limit duration to eebus energy guards
+- Fix: downgrade some heartbeat logs to debug level
+- Fix: do not call distributeLimit if nothing changed
+- Fix: Add minimum assured power to config, fix misinterpretation of contractual consumption nominal max.
+
 ## 1.1.1 (2026-08-20)
 
 - Fix: adapter admin UI does not meet the ioBroker responsive design initiative requirements
